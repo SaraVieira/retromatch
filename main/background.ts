@@ -1,9 +1,12 @@
-import path from "path";
+import path, { extname } from "path";
 import { app, dialog, ipcMain } from "electron";
 import serve from "electron-serve";
 import Store from "electron-store";
 import { createWindow } from "./helpers";
 import { RomFolder, RomFolders } from "../types";
+import { readdir } from "fs/promises";
+import { consoles } from "../consoles";
+import { readdirSync } from "fs";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -25,10 +28,10 @@ if (isProd) {
   });
 
   if (isProd) {
-    await mainWindow.loadURL("app://./home");
+    await mainWindow.loadURL("app://./");
   } else {
     const port = process.argv[2];
-    await mainWindow.loadURL(`http://localhost:${port}/home`);
+    await mainWindow.loadURL(`http://localhost:${port}/`);
     mainWindow.webContents.openDevTools();
   }
 
@@ -43,6 +46,42 @@ if (isProd) {
   ipcMain.on("add_folder", async (event, folder: RomFolder) => {
     romFolders.set(folder.path, folder);
   });
+
+  ipcMain.on("sync_folder", async (event, path: string) => {
+    console.log("here");
+    const allFolders = readdirSync(path, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory() && !dirent.name.startsWith("."))
+      .filter((dir) =>
+        consoles
+          .map((a) => a.folderNames)
+          .flat()
+          .includes(dir.name)
+      )
+      .map((folder) => ({
+        path: `${path}/${folder.name}`,
+        console: consoles.find((c) =>
+          c.folderNames.includes(folder.name.toLocaleLowerCase())
+        ),
+      }))
+      .map((folder) => {
+        const files = readdirSync(folder.path).filter((file) =>
+          folder.console.extensions.includes(extname(file.toLocaleLowerCase()))
+        );
+        return {
+          ...folder,
+          files: files,
+        };
+      });
+    const currentFolder = {
+      ...(romFolders.get(path) as RomFolder),
+      folders: allFolders,
+      lastSynced: new Date(),
+    };
+
+    romFolders.set(path, currentFolder);
+    event.reply("new_current_folder", currentFolder);
+  });
+  // romFolders.clear();
 
   ipcMain.on("open-dialog-folder", (event) => {
     const path = dialog.showOpenDialogSync(mainWindow, {

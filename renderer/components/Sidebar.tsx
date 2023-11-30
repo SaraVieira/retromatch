@@ -4,7 +4,7 @@ import { IconCopy, IconEdit, IconFile, IconTrash } from "@tabler/icons-react";
 import { useFolders } from "../hooks/folder-context";
 
 const ListboxWrapper = ({ children }) => (
-  <div className=" w-[300px] border-small px-1 py-2 border-default-200 dark:border-default-100 h-screen">
+  <div className=" w-[300px] border-small px-1 py-2 border-default-200 dark:border-default-100 h-[93vh] border-b-0">
     {children}
   </div>
 );
@@ -13,7 +13,7 @@ export const Sidebar = () => {
   const iconClasses =
     "text-xl text-default-500 pointer-events-none flex-shrink-0";
   const { folders } = useFolders();
-  console.log(folders);
+
   return (
     <div className="">
       {folders.length && (

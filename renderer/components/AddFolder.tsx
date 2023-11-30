@@ -11,7 +11,7 @@ export const AddFolder = () => {
   const openFolder = () => {
     window.ipc.send("open-dialog-folder", null);
 
-    window.ipc.on("folder_path", (path: string) => setPath(path));
+    window.ipc.on("folder_path", setPath);
   };
 
   return (
