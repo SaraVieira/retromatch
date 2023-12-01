@@ -1,22 +1,25 @@
 import Link from "next/link";
-import { useFolders } from "../../hooks/folder-context";
+import { useFolders } from "../../../hooks/folder-context";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { Card, CardBody, CardHeader } from "@nextui-org/react";
-import { humanFileSize } from "../../utils/size";
+import { humanFileSize } from "../../../utils/size";
 
 export const Files = () => {
-  const { currentFolder } = useFolders();
+  const { currentFolder, folders } = useFolders();
   const { query } = useRouter();
 
   const activeFolder = useMemo(
-    () => currentFolder?.folders?.find((f) => f.console.id === query.path),
+    () =>
+      folders
+        ?.find((f) => f.name === query.folder)
+        ?.folders?.find((f) => f.console.id === query.path),
     [currentFolder]
   );
 
   return (
-    <div>
-      <Link href={"/"}>Go back</Link>
+    <div className="container mx-auto">
+      <Link href={`/${query.folder}`}>Go back</Link>
       <ul className="py-8 grid grid-cols-2 gap-4">
         {activeFolder?.files.map((f) => (
           <li>

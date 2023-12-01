@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <FolderProvider>
       <NextUIProvider>
         <div className="flex gap-2 min-h-screen">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <Component {...pageProps} />
         </div>
       </NextUIProvider>

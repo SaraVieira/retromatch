@@ -8,6 +8,7 @@ import { readdir } from "fs/promises";
 import { consoles } from "../consoles";
 import { readdirSync, statSync } from "fs";
 import { calculateMD5Hash, calculateSha1Hash } from "./helpers/hashes";
+import { getFolders } from "./helpers/folders";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -49,41 +50,8 @@ if (isProd) {
   });
 
   ipcMain.on("sync_folder", async (event, path: string) => {
-    console.log("here");
-    const allFolders = readdirSync(path, { withFileTypes: true })
-      .filter((dirent) => dirent.isDirectory() && !dirent.name.startsWith("."))
-      .filter((dir) =>
-        consoles
-          .map((a) => a.folderNames)
-          .flat()
-          .includes(dir.name)
-      )
-      .map((folder) => ({
-        path: `${path}/${folder.name}`,
-        console: consoles.find((c) =>
-          c.folderNames.includes(folder.name.toLocaleLowerCase())
-        ),
-      }))
-      .map((folder) => {
-        const files = readdirSync(folder.path)
-          .filter((file) =>
-            folder.console.extensions.includes(
-              extname(file.toLocaleLowerCase())
-            )
-          )
-          .map((file) => ({
-            name: file.split(extname(file))[0],
-            extension: extname(file),
-            fullName: file,
-            size: statSync(`${folder.path}/${file}`).size,
-            md5Hash: calculateMD5Hash(`${folder.path}/${file}`),
-            sha1Hash: calculateSha1Hash(`${folder.path}/${file}`),
-          }));
-        return {
-          ...folder,
-          files: files,
-        };
-      });
+    const allFolders = getFolders(path);
+
     const currentFolder = {
       ...(romFolders.get(path) as RomFolder),
       folders: allFolders,
@@ -93,7 +61,7 @@ if (isProd) {
     romFolders.set(path, currentFolder);
     event.reply("new_current_folder", currentFolder);
   });
-  romFolders.clear();
+  //romFolders.clear();
 
   ipcMain.on("open-dialog-folder", (event) => {
     const path = dialog.showOpenDialogSync(mainWindow, {

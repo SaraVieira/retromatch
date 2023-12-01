@@ -5,19 +5,21 @@ const FoldersContext = React.createContext({
   folders: [] as RomFolders,
   currentFolder: {} as RomFolder,
   addFolder: (_: RomFolder) => {},
+  setCurrentFolder: (path: string) => {},
 });
 
 function FolderProvider({ children }) {
   const [folders, setFolders] = React.useState([]);
-  const [currentFolder, setCurrentFolder] = React.useState(folders[0] || {});
+  const [currentFolder, setCurrentFolderA] = React.useState(folders[0] || {});
 
   const getData = () => {
-    window.ipc.on("all_data", (folders: RomFolders[]) => {
-      setFolders(folders);
-      setCurrentFolder(folders[0]);
-    });
+    window.ipc.on("all_data", (folders: RomFolders[]) => setFolders(folders));
 
     window.ipc.send("load", null);
+  };
+
+  const setCurrentFolder = (path) => {
+    setCurrentFolderA(folders[path]);
   };
 
   React.useEffect(() => {
@@ -41,6 +43,7 @@ function FolderProvider({ children }) {
         folders,
         addFolder,
         currentFolder,
+        setCurrentFolder,
       }}
     >
       {children}
