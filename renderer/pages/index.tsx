@@ -31,7 +31,9 @@ export default function HomePage() {
             <li className="w-[200px]">
               <Link href={`/${f.console.id}`}>
                 <Card>
-                  <CardHeader>{f.console.name}</CardHeader>
+                  <CardHeader>
+                    {f.console.name} ({f.files.length})
+                  </CardHeader>
                   <CardBody className="text-xs text-content4">
                     {f.path}
                   </CardBody>

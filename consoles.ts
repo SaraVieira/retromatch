@@ -1,17 +1,20 @@
 export const consoles = [
   {
+    screenscrapper_id: 29,
     name: "3DO Interactive Multiplayer",
     folderNames: ["3do", "panasonic"],
     extensions: [".bin", ".chd", ".cue", ".iso", ".7z", ".zip"],
     id: "3do",
   },
   {
+    screenscrapper_id: 78,
     name: "Adventure Game Studio Game Engine",
     folderNames: ["ags"],
     extensions: [".desktop", ".sh"],
     id: "ags",
   },
   {
+    screenscrapper_id: 64,
     name: "Commodore Amiga",
     folderNames: ["amiga"],
     extensions: [
@@ -38,6 +41,7 @@ export const consoles = [
     id: "amiga",
   },
   {
+    screenscrapper_id: 64,
     name: "Commodore Amiga 1200",
     folderNames: ["amiga1200", "amiga"],
     extensions: [
@@ -64,6 +68,7 @@ export const consoles = [
     id: "amiga1200",
   },
   {
+    screenscrapper_id: 64,
     name: "Commodore Amiga 600",
     folderNames: ["amiga600", "amiga"],
     extensions: [
@@ -90,6 +95,7 @@ export const consoles = [
     id: "amiga600",
   },
   {
+    screenscrapper_id: 130,
     name: "Commodore Amiga CD32",
     folderNames: ["amigacd32", "amigacd"],
     extensions: [
@@ -116,6 +122,7 @@ export const consoles = [
     id: "amigacd32",
   },
   {
+    screenscrapper_id: 65,
     name: "Amstrad CPC",
     folderNames: ["amstradcpc", "cpc"],
     extensions: [
@@ -133,54 +140,63 @@ export const consoles = [
     id: "amstradcpc",
   },
   {
+    screenscrapper_id: 63,
     name: "Google Android",
     folderNames: ["android"],
     extensions: ["apk", ".7z", ".zip"],
     id: "android",
   },
   {
+    screenscrapper_id: 86,
     name: "Apple II",
     folderNames: ["apple2"],
     extensions: [".do", ".dsk", ".nib", ".po"],
     id: "apple2",
   },
   {
+    screenscrapper_id: 217,
     name: "Apple IIGS",
     folderNames: ["apple2gs"],
     extensions: [".2mg"],
     id: "apple2gs",
   },
   {
+    screenscrapper_id: 75,
     name: "Arcade",
     folderNames: ["arcade"],
     extensions: [".cmd", ".desktop", ".sh", ".7z", ".zip"],
     id: "arcade",
   },
   {
+    screenscrapper_id: 94,
     name: "Emerson Arcadia 2001",
     folderNames: ["arcadia"],
     extensions: [".bin", ".7z", ".zip"],
     id: "arcadia",
   },
   {
+    screenscrapper_id: 263,
     name: "Arduboy Miniature Game System",
     folderNames: ["arduboy"],
     extensions: [".hex", ".7z", ".zip"],
     id: "arduboy",
   },
   {
+    screenscrapper_id: 44,
     name: "Bally Astrocade",
     folderNames: ["astrocde"],
-    extensions: [".7z", ".zip"],
+    extensions: [".7z", ".zip", "bin", "prg", "wav"],
     id: "astrocde",
   },
   {
+    screenscrapper_id: 26,
     name: "Atari 2600",
     folderNames: ["atari2600", "atari"],
     extensions: [".a26", ".bin", ".7z", ".zip"],
     id: "atari2600",
   },
   {
+    screenscrapper_id: 40,
     name: "Atari 5200",
     folderNames: ["atari5200", "fiftytwohundred"],
     extensions: [
@@ -200,12 +216,14 @@ export const consoles = [
     id: "atari5200",
   },
   {
+    screenscrapper_id: 41,
     name: "Atari 7800 ProSystem",
     folderNames: ["atari7800", "seventyeighthundred"],
     extensions: [".a78", ".bin", ".7z", ".zip"],
     id: "atari7800",
   },
   {
+    screenscrapper_id: 43,
     name: "Atari 800",
     folderNames: ["atari800", "eighthundred"],
     extensions: [
@@ -225,6 +243,7 @@ export const consoles = [
     id: "atari800",
   },
   {
+    screenscrapper_id: 27,
     name: "Atari Jaguar",
     folderNames: ["atarijaguar", "jaguar"],
     extensions: [
@@ -243,24 +262,28 @@ export const consoles = [
     id: "atarijaguar",
   },
   {
+    screenscrapper_id: 171,
     name: "Atari Jaguar CD",
     folderNames: ["atarijaguarcd"],
     extensions: [".7z", ".zip"],
     id: "atarijaguarcd",
   },
   {
+    screenscrapper_id: 28,
     name: "Atari Lynx",
     folderNames: ["atarilynx", "lynx"],
     extensions: [".lnx", ".o", ".7z", ".zip"],
     id: "atarilynx",
   },
   {
+    screenscrapper_id: 42,
     name: "Atari ST",
     folderNames: ["atarist"],
     extensions: [".st", ".msa", ".stx", ".dim", ".ipf", ".m3u", ".7z", ".zip"],
     id: "atarist",
   },
   {
+    screenscrapper_id: 43,
     name: "Atari XE",
     folderNames: ["atarixe"],
     extensions: [
@@ -278,6 +301,7 @@ export const consoles = [
     id: "atarixe",
   },
   {
+    screenscrapper_id: 75,
     name: "Sammy Corporation Atomiswave",
     folderNames: ["atomiswave"],
     extensions: [
@@ -296,12 +320,14 @@ export const consoles = [
     id: "atomiswave",
   },
   {
+    screenscrapper_id: 37,
     name: "Acorn Computers BBC Micro",
     folderNames: ["bbcmicro"],
     extensions: [".dsd", ".img", ".ssd", ".7z", ".zip"],
     id: "bbcmicro",
   },
   {
+    screenscrapper_id: 66,
     name: "Commodore 64",
     folderNames: ["c64", "commodore"],
     extensions: [
@@ -347,12 +373,14 @@ export const consoles = [
     id: "cavestory",
   },
   {
+    screenscrapper_id: 133,
     name: "Philips CD-i",
     folderNames: ["cdimono1"],
     extensions: [".chd", ".cue", ".iso"],
     id: "cdimono1",
   },
   {
+    screenscrapper_id: 128,
     name: "Commodore CDTV",
     folderNames: ["cdtv"],
     extensions: [
@@ -376,18 +404,21 @@ export const consoles = [
     id: "chailove",
   },
   {
+    screenscrapper_id: 80,
     name: "Fairchild Channel F",
     folderNames: ["channelf", "fairchild"],
     extensions: [".bin", ".chf", ".7z", ".zip"],
     id: "channelf",
   },
   {
+    screenscrapper_id: 144,
     name: "Tandy Color Computer",
     folderNames: ["coco"],
     extensions: [".cas", ".ccc", ".dsk", ".rom"],
     id: "coco",
   },
   {
+    screenscrapper_id: 48,
     name: "Coleco ColecoVision",
     folderNames: ["colecovision", "coleco"],
     extensions: [
@@ -409,30 +440,35 @@ export const consoles = [
     id: "colecovision",
   },
   {
+    screenscrapper_id: 75,
     name: "Capcom Play System",
     folderNames: ["cps"],
     extensions: [".7z", ".zip"],
     id: "cps",
   },
   {
+    screenscrapper_id: 75,
     name: "Capcom Play System I",
     folderNames: ["cps1"],
     extensions: [".7z", ".zip"],
     id: "cps1",
   },
   {
+    screenscrapper_id: 75,
     name: "Capcom Play System II",
     folderNames: ["cps2"],
     extensions: [".7z", ".zip"],
     id: "cps2",
   },
   {
+    screenscrapper_id: 75,
     name: "Capcom Play System III",
     folderNames: ["cps3"],
     extensions: [".7z", ".zip"],
     id: "cps3",
   },
   {
+    screenscrapper_id: 241,
     name: "VTech CreatiVision",
     folderNames: ["crvision"],
     extensions: [".bin", ".rom", ".7z", ".zip"],
@@ -445,6 +481,7 @@ export const consoles = [
     id: "flash",
   },
   {
+    screenscrapper_id: 49,
     name: "Daphne Arcade LaserDisc Emulator",
     folderNames: ["daphne", "laserdisc"],
     extensions: [".daphne", ".ogv", ".singe", ".7z", ".zip"],
@@ -457,6 +494,7 @@ export const consoles = [
     id: "doom",
   },
   {
+    screenscrapper_id: 135,
     name: "DOS (PC)",
     folderNames: ["dos"],
     extensions: [
@@ -473,12 +511,14 @@ export const consoles = [
     id: "dos",
   },
   {
+    screenscrapper_id: 91,
     name: "Dragon Data Dragon 32",
     folderNames: ["dragon32"],
     extensions: [".cas", ".ccc", ".dsk", ".rom"],
     id: "dragon32",
   },
   {
+    screenscrapper_id: 23,
     name: "Sega Dreamcast",
     folderNames: ["dreamcast"],
     extensions: [
@@ -497,18 +537,21 @@ export const consoles = [
     id: "dreamcast",
   },
   {
+    screenscrapper_id: 231,
     name: "EasyRPG Game Engine",
     folderNames: ["easyrpg"],
     extensions: [".easyrpg", ".zip"],
     id: "easyrpg",
   },
   {
+    screenscrapper_id: 3,
     name: "NES",
     folderNames: ["nes", "famicom", "fc"],
     extensions: [".3dsen", ".fds", ".nes", ".unf", ".unif", ".7z", ".zip"],
     id: "nes",
   },
   {
+    screenscrapper_id: 58,
     name: "Sony Playstation 2",
     folderNames: ["ps2"],
     extensions: [
@@ -531,30 +574,35 @@ export const consoles = [
     id: "ps2",
   },
   {
+    screenscrapper_id: 59,
     name: "Sony Playstation 3",
     folderNames: ["ps3"],
     extensions: [".desktop", ".ps3", ".ps3dir"],
     id: "ps3",
   },
   {
+    screenscrapper_id: 60,
     name: "Sony Playstation 4",
     folderNames: ["ps4"],
     extensions: [".7z", ".zip"],
     id: "ps4",
   },
   {
+    screenscrapper_id: 61,
     name: "Sony Playstation Portable",
     folderNames: ["psp"],
     extensions: [".chd", ".cso", ".elf", ".iso", ".pbp", ".prx", ".7z", ".zip"],
     id: "psp",
   },
   {
+    screenscrapper_id: 62,
     name: "Sony Playstation Vita",
     folderNames: ["psvita"],
     extensions: [".psvita"],
     id: "psvita",
   },
   {
+    screenscrapper_id: 57,
     name: "Sony Playstation",
     folderNames: ["psx", "ps"],
     extensions: [
@@ -583,6 +631,7 @@ export const consoles = [
     id: "psx",
   },
   {
+    screenscrapper_id: 22,
     name: "Sega Saturn",
     folderNames: ["saturn", "saturnjs"],
     extensions: [
@@ -600,6 +649,7 @@ export const consoles = [
     id: "saturn",
   },
   {
+    screenscrapper_id: 19,
     name: "Sega 32X",
     folderNames: ["sega32x", "sega32xjp", "sega32xna", "thirtytwox"],
     extensions: [
@@ -618,6 +668,7 @@ export const consoles = [
     id: "sega32x",
   },
   {
+    screenscrapper_id: 1,
     name: "Sega Genesis/Mega Drive",
     folderNames: ["genesis", "megadrive", "megadrivejp", "md"],
     extensions: [
@@ -643,6 +694,7 @@ export const consoles = [
     id: "genesis",
   },
   {
+    screenscrapper_id: 20,
     name: "Sega CD",
     folderNames: ["megacd", "megacdjp", "segacd"],
     extensions: [
@@ -667,6 +719,7 @@ export const consoles = [
     id: "megacd",
   },
   {
+    screenscrapper_id: 109,
     name: "Sega SG-1000",
     folderNames: ["sg-1000", "segasgone"],
     extensions: [
@@ -693,48 +746,56 @@ export const consoles = [
     id: "sg-1000",
   },
   {
+    screenscrapper_id: 75,
     name: "FinalBurn Alpha",
     folderNames: ["fba", "arcade"],
     extensions: [".iso", ".7z", ".zip"],
     id: "fba",
   },
   {
+    screenscrapper_id: 75,
     name: "FinalBurn Neo",
     folderNames: ["fbneo", "arcade"],
     extensions: [".7z", ".zip"],
     id: "fbneo",
   },
   {
+    screenscrapper_id: 106,
     name: "Nintendo Famicom Disk System",
     folderNames: ["fds"],
     extensions: [".nes", ".fds", ".unf", ".unif", ".7z", ".zip"],
     id: "fds",
   },
   {
+    screenscrapper_id: 253,
     name: "Fujitsu FM Towns",
     folderNames: ["fmtowns"],
     extensions: [".cdr", ".chd", ".cue", ".gdi", ".iso"],
     id: "fmtowns",
   },
   {
+    screenscrapper_id: 199,
     name: "Future Pinball",
     folderNames: ["fpinball"],
     extensions: [".fpt"],
     id: "fpinball",
   },
   {
+    screenscrapper_id: 52,
     name: "Nintendo Game and Watch",
     folderNames: ["gameandwatch", "gw"],
     extensions: [".mgw", ".7z", ".zip"],
     id: "gameandwatch",
   },
   {
+    screenscrapper_id: 103,
     name: "Hartung Game Master",
     folderNames: ["gmaster"],
     extensions: [".bin", ".7z", ".zip"],
     id: "gmaster",
   },
   {
+    screenscrapper_id: 87,
     name: "Amstrad GX4000",
     folderNames: ["gx4000"],
     extensions: [
@@ -760,36 +821,42 @@ export const consoles = [
     id: "lcdgames",
   },
   {
+    screenscrapper_id: 244,
     name: "LowRes NX Fantasy Console",
     folderNames: ["lowresnx"],
     extensions: [".nx"],
     id: "lowresnx",
   },
   {
+    screenscrapper_id: 206,
     name: "Lutro Game Engine",
     folderNames: ["lutro"],
     extensions: [".lua", ".lutro", ".7z", ".zip"],
     id: "lutro",
   },
   {
+    screenscrapper_id: 75,
     name: "Multiple Arcade Machine Emulator",
     folderNames: ["mame", "arcade"],
     extensions: [".cmd", ".desktop", ".sh", ".7z", ".zip"],
     id: "mame",
   },
   {
+    screenscrapper_id: 75,
     name: "AdvanceMAME",
     folderNames: ["mame-advmame", "arcade"],
     extensions: [".7z", ".zip"],
     id: "mame-advmame",
   },
   {
+    screenscrapper_id: 75,
     name: "Multi Emulator Super System",
     folderNames: ["mess"],
     extensions: [".chd", ".7z", ".zip"],
     id: "mess",
   },
   {
+    screenscrapper_id: 17,
     name: "Nintendo 3DS",
     folderNames: ["n3ds"],
     extensions: [
@@ -806,12 +873,14 @@ export const consoles = [
     id: "n3ds",
   },
   {
+    screenscrapper_id: 15,
     name: "Nintendo DS",
     folderNames: ["nds", "ds"],
     extensions: [".app", ".bin", ".nds", ".7z", ".zip"],
     id: "nds",
   },
   {
+    screenscrapper_id: 14,
     name: "Nintendo 64",
     folderNames: ["n64"],
     extensions: [
@@ -828,6 +897,7 @@ export const consoles = [
     id: "n64",
   },
   {
+    screenscrapper_id: 14,
     name: "Nintendo 64DD",
     folderNames: ["n64dd"],
     extensions: [
@@ -844,6 +914,7 @@ export const consoles = [
     id: "n64dd",
   },
   {
+    screenscrapper_id: 16,
     name: "Nintendo Wii",
     folderNames: ["wii"],
     extensions: [
@@ -867,30 +938,35 @@ export const consoles = [
     id: "wii",
   },
   {
+    screenscrapper_id: 18,
     name: "Nintendo Wii U",
     folderNames: ["wiiu"],
     extensions: [".rpx", ".wua", ".wud", ".wux"],
     id: "wiiu",
   },
   {
+    screenscrapper_id: 32,
     name: "Microsoft Xbox",
     folderNames: ["xbox"],
     extensions: [".iso"],
     id: "xbox",
   },
   {
+    screenscrapper_id: 33,
     name: "Microsoft Xbox 360",
     folderNames: ["xbox360"],
     extensions: [".", ".desktop", ".iso", ".sh", ".xex"],
     id: "xbox360",
   },
   {
+    screenscrapper_id: 77,
     name: "Sinclair ZX81",
     folderNames: ["zx81", "zxeightyone"],
     extensions: [".p", ".tzx", ".7z", ".zip"],
     id: "zx81",
   },
   {
+    screenscrapper_id: 76,
     name: "Sinclair ZX Spectrum",
     folderNames: ["zxspectrum", "zxs"],
     extensions: [
@@ -914,12 +990,14 @@ export const consoles = [
     id: "zxspectrum",
   },
   {
+    screenscrapper_id: 76,
     name: "Sinclair ZX Spectrum Next",
     folderNames: ["zxnext"],
     extensions: [".nex", ".sna"],
     id: "zxnext",
   },
   {
+    screenscrapper_id: 215,
     name: "Infocom Z-machine",
     folderNames: ["zmachine"],
     extensions: [
@@ -938,6 +1016,7 @@ export const consoles = [
     id: "zmachine",
   },
   {
+    screenscrapper_id: 79,
     name: "Sharp X68000",
     folderNames: ["x68000"],
     extensions: [
@@ -958,30 +1037,35 @@ export const consoles = [
     id: "x68000",
   },
   {
+    screenscrapper_id: 262,
     name: "WASM-4 Fantasy Console",
     folderNames: ["wasm4"],
     extensions: [".wasm"],
     id: "wasm4",
   },
   {
+    screenscrapper_id: 120,
     name: "VTech V.Smile",
     folderNames: ["vsmile"],
     extensions: [".bin", ".7z", ".zip"],
     id: "vsmile",
   },
   {
+    screenscrapper_id: 198,
     name: "Visual Pinball",
     folderNames: ["vpinball"],
     extensions: [".vpt", ".vpx"],
     id: "vpinball",
   },
   {
+    screenscrapper_id: 223,
     name: "Solarus Game Engine",
     folderNames: ["solarus"],
     extensions: [".solarus"],
     id: "solarus",
   },
   {
+    screenscrapper_id: 218,
     name: "Spectravideo",
     folderNames: ["spectravideo"],
     extensions: [
@@ -1001,18 +1085,21 @@ export const consoles = [
     id: "spectravideo",
   },
   {
+    screenscrapper_id: 108,
     name: "Bandai SuFami Turbo",
     folderNames: ["sufami"],
     extensions: [".bml", ".bs", ".fig", ".sfc", ".smc", ".st", ".7z", ".zip"],
     id: "sufami",
   },
   {
+    screenscrapper_id: 67,
     name: "Epoch Super Cassette Vision",
     folderNames: ["scv"],
     extensions: [".0", ".bin", ".7z", ".zip"],
     id: "scv",
   },
   {
+    screenscrapper_id: 123,
     name: "ScummVM Game Engine",
     folderNames: ["scummvm"],
     extensions: [".scummvm", ".svm"],
@@ -1031,12 +1118,14 @@ export const consoles = [
     id: "tanodragon",
   },
   {
+    screenscrapper_id: 213,
     name: "MGT SAM Coupé",
     folderNames: ["samcoupe"],
     extensions: [".dsk", ".mgt", ".sad", ".sbt", ".7z", ".zip"],
     id: "samcoupe",
   },
   {
+    screenscrapper_id: 74,
     name: "Casio PV-1000",
     folderNames: ["pv1000"],
     extensions: [".bin", ".7z", ".zip"],
@@ -1059,24 +1148,28 @@ export const consoles = [
     id: "pc",
   },
   {
+    screenscrapper_id: 219,
     name: "Palm OS",
     folderNames: ["palm"],
     extensions: [".img", ".pqa", ".prc", ".7z", ".zip"],
     id: "palm",
   },
   {
+    screenscrapper_id: 131,
     name: "Tangerine Computer Systems Oric",
     folderNames: ["oric"],
     extensions: [".dsk", ".ort", ".tap", ".wav"],
     id: "oric",
   },
   {
+    screenscrapper_id: 214,
     name: "OpenBOR Game Engine",
     folderNames: ["openbor"],
     extensions: [".appimage"],
     id: "openbor",
   },
   {
+    screenscrapper_id: 220,
     name: "Sharp X1",
     folderNames: ["x1", "xone"],
     extensions: [
@@ -1097,30 +1190,35 @@ export const consoles = [
     id: "x1",
   },
   {
+    screenscrapper_id: 45,
     name: "Bandai WonderSwan",
     folderNames: ["wonderswan", "ws"],
     extensions: [".pc2", ".ws", ".7z", ".zip"],
     id: "wonderswan",
   },
   {
+    screenscrapper_id: 46,
     name: "Bandai WonderSwan Color",
     folderNames: ["wonderswancolor", "ws"],
     extensions: [".pc2", ".ws", ".wsc", ".7z", ".zip"],
     id: "wonderswancolor",
   },
   {
+    screenscrapper_id: 11,
     name: "Nintendo Virtual Boy",
     folderNames: ["virtualboy", "vb"],
     extensions: [".bin", ".vb", ".vboy", ".7z", ".zip"],
     id: "virtualboy",
   },
   {
+    screenscrapper_id: 104,
     name: "Philips Videopac G7000",
     folderNames: ["videopac", "odyssey"],
     extensions: [".bin", ".7z", ".zip"],
     id: "videopac",
   },
   {
+    screenscrapper_id: 73,
     name: "Commodore VIC-20",
     folderNames: ["vic20", "commodore"],
     extensions: [
@@ -1160,48 +1258,56 @@ export const consoles = [
     id: "vic20",
   },
   {
+    screenscrapper_id: 102,
     name: "Smith Engineering Vectrex",
     folderNames: ["vectrex"],
     extensions: [".bin", ".gam", ".vc", ".vec", ".7z", ".zip"],
     id: "vectrex",
   },
   {
+    screenscrapper_id: 216,
     name: "Uzebox Open Source Console",
     folderNames: ["uzebox"],
     extensions: [".uze", ".7z", ".zip"],
     id: "uzebox",
   },
   {
+    screenscrapper_id: 144,
     name: "Tandy TRS-80",
     folderNames: ["trs-80"],
     extensions: [".cmd", ".dsk"],
     id: "trs-80",
   },
   {
+    screenscrapper_id: 141,
     name: "Thomson TO8",
     folderNames: ["to8"],
     extensions: [".fd", ".k7", ".m5", ".m7", ".rom", ".sap", ".7z", ".zip"],
     id: "to8",
   },
   {
+    screenscrapper_id: 222,
     name: "TIC-80 Game Engine",
     folderNames: ["tic80", "tic"],
     extensions: [".tic"],
     id: "tic80",
   },
   {
+    screenscrapper_id: 205,
     name: "Texas Instruments TI-99",
     folderNames: ["ti99"],
     extensions: [".rpk", ".7z", ".zip"],
     id: "ti99",
   },
   {
+    screenscrapper_id: 225,
     name: "Nintendo Switch",
     folderNames: ["switch"],
     extensions: [".nca", ".nro", ".nso", ".nsp", ".xci"],
     id: "switch",
   },
   {
+    screenscrapper_id: 4,
     name: "Super Nintendo",
     folderNames: ["snes", "snesna", "sfc"],
     extensions: [
@@ -1224,6 +1330,7 @@ export const consoles = [
     id: "snes",
   },
   {
+    screenscrapper_id: 114,
     name: "NEC TurboGrafx-CD",
     folderNames: ["tg-cd", "pcecd"],
     extensions: [
@@ -1242,24 +1349,28 @@ export const consoles = [
     id: "tg-cd",
   },
   {
+    screenscrapper_id: 207,
     name: "Watara Supervision",
     folderNames: ["supervision"],
     extensions: [".bin", ".sv", ".7z", ".zip"],
     id: "supervision",
   },
   {
+    screenscrapper_id: 105,
     name: "NEC SuperGrafx",
     folderNames: ["supergrafx", "sgfx"],
     extensions: [".ccd", ".chd", ".cue", ".pce", ".sgx", ".7z", ".zip"],
     id: "supergrafx",
   },
   {
+    screenscrapper_id: 221,
     name: "NEC PC-8800 Series",
     folderNames: ["pc88"],
     extensions: [".88d", ".cmt", ".d88", ".m3u", ".t88", ".u88"],
     id: "pc88",
   },
   {
+    screenscrapper_id: 208,
     name: "NEC PC-9800 Series",
     folderNames: ["pc98"],
     extensions: [
@@ -1287,24 +1398,28 @@ export const consoles = [
     id: "pc98",
   },
   {
+    screenscrapper_id: 234,
     name: "PICO-8 Fantasy Console",
     folderNames: ["pico8", "pico"],
     extensions: [".p8", ".png"],
     id: "pico8",
   },
   {
+    screenscrapper_id: 211,
     name: "Nintendo Pokémon Mini",
     folderNames: ["pokemini", "poke"],
     extensions: [".min", ".7z", ".zip"],
     id: "pokemini",
   },
   {
+    screenscrapper_id: 121,
     name: "Tiger Electronics Game.com",
     folderNames: ["gamecom"],
     extensions: [".tgc", ".7z", ".zip"],
     id: "gamecom",
   },
   {
+    screenscrapper_id: 21,
     name: "Sega Game Gear",
     folderNames: ["gamegear", "gg"],
     extensions: [
@@ -1331,6 +1446,7 @@ export const consoles = [
     id: "gamegear",
   },
   {
+    screenscrapper_id: 9,
     name: "Nintendo Game Boy",
     folderNames: ["gb"],
     extensions: [
@@ -1348,6 +1464,7 @@ export const consoles = [
     id: "gb",
   },
   {
+    screenscrapper_id: 12,
     name: "Nintendo Game Boy Advance",
     folderNames: ["gba"],
     extensions: [
@@ -1365,6 +1482,7 @@ export const consoles = [
     id: "gba",
   },
   {
+    screenscrapper_id: 10,
     name: "Nintendo Game Boy Color",
     folderNames: ["gbc"],
     extensions: [
@@ -1382,6 +1500,7 @@ export const consoles = [
     id: "gbc",
   },
   {
+    screenscrapper_id: 13,
     name: "Nintendo GameCube",
     folderNames: ["gc"],
     extensions: [
@@ -1405,12 +1524,14 @@ export const consoles = [
     id: "gc",
   },
   {
+    screenscrapper_id: 115,
     name: "Mattel Electronics Intellivision",
     folderNames: ["intellivision"],
     extensions: [".bin", ".int", ".rom", ".7z", ".zip"],
     id: "intellivision",
   },
   {
+    screenscrapper_id: 2,
     name: "Sega Master System",
     folderNames: ["mastersystem", "ms"],
     extensions: [
@@ -1437,24 +1558,28 @@ export const consoles = [
     id: "mastersystem",
   },
   {
+    screenscrapper_id: 75,
     name: "Sega Model 2",
     folderNames: ["model2"],
     extensions: [".7z", ".zip"],
     id: "model2",
   },
   {
+    screenscrapper_id: 75,
     name: "Sega Model 3",
     folderNames: ["model3"],
     extensions: [".7z", ".zip"],
     id: "model3",
   },
   {
+    screenscrapper_id: 141,
     name: "Thomson MO/TO Series",
     folderNames: ["moto"],
     extensions: [".fd", ".k7", ".m5", ".m7", ".rom", ".sap", ".7z", ".zip"],
     id: "moto",
   },
   {
+    screenscrapper_id: 113,
     name: "MSX",
     folderNames: ["msx"],
     extensions: [
@@ -1482,6 +1607,7 @@ export const consoles = [
     id: "msx",
   },
   {
+    screenscrapper_id: 113,
     name: "MSX1",
     folderNames: ["msx1", "msx"],
     extensions: [
@@ -1509,6 +1635,7 @@ export const consoles = [
     id: "msx1",
   },
   {
+    screenscrapper_id: 113,
     name: "MSX2",
     folderNames: ["msx2", "msx"],
     extensions: [
@@ -1536,18 +1663,21 @@ export const consoles = [
     id: "msx2",
   },
   {
+    screenscrapper_id: 90,
     name: "Creatronic Mega Duck",
     folderNames: ["megaduck"],
     extensions: [".bin", ".7z", ".zip"],
     id: "megaduck",
   },
   {
+    screenscrapper_id: 146,
     name: "Apple Macintosh",
     folderNames: ["macintosh"],
     extensions: [".dsk", ".game"],
     id: "macintosh",
   },
   {
+    screenscrapper_id: 118,
     name: "MSX Turbo R",
     folderNames: ["msxturbor"],
     extensions: [
@@ -1587,6 +1717,7 @@ export const consoles = [
     id: "multivision",
   },
   {
+    screenscrapper_id: 31,
     name: "NEC TurboGrafx-16",
     folderNames: ["tg16", "pcengine", "pce"],
     extensions: [
@@ -1605,6 +1736,7 @@ export const consoles = [
     id: "tg16",
   },
   {
+    screenscrapper_id: 114,
     name: "NEC TurboGrafx CD",
     folderNames: ["pcenginecd", "pcecd"],
     extensions: [
@@ -1623,72 +1755,84 @@ export const consoles = [
     id: "pcenginecd",
   },
   {
+    screenscrapper_id: 75,
     name: "Sega NAOMI",
     folderNames: ["naomi"],
     extensions: [".bin", ".dat", ".elf", ".lst", ".7z", ".zip"],
     id: "naomi",
   },
   {
+    screenscrapper_id: 75,
     name: "Sega NAOMI 2",
     folderNames: ["naomi2"],
     extensions: [".bin", ".dat", ".elf", ".lst", ".7z", ".zip"],
     id: "naomi2",
   },
   {
+    screenscrapper_id: 75,
     name: "Sega NAOMI CD-ROM",
     folderNames: ["naomigd"],
     extensions: [".bin", ".dat", ".elf", ".lst", ".7z", ".zip"],
     id: "naomigd",
   },
   {
+    screenscrapper_id: 142,
     name: "SNK Neo Geo",
     folderNames: ["neogeo"],
     extensions: [".7z", ".zip"],
     id: "neogeo",
   },
   {
-    name: "SNK Neo Geo",
+    screenscrapper_id: 100,
+    name: "Super A'can",
     folderNames: ["supracan"],
     extensions: [".bin", ".7z", ".zip"],
     id: "supracan",
   },
   {
-    name: "Funtech Super A'Can",
+    screenscrapper_id: 70,
+    name: "Neo-Geo CD",
     folderNames: ["neogeocd", "neogeocdjp", "neocd"],
     extensions: [".chd", ".cue"],
     id: "neogeocd",
   },
   {
+    screenscrapper_id: 25,
     name: "SNK Neo Geo Pocket",
     folderNames: ["ngp"],
     extensions: [".ngc", ".ngp", ".ngpc", ".npc", ".7z", ".zip"],
     id: "ngp",
   },
   {
+    screenscrapper_id: 82,
     name: "SNK Neo Geo Pocket Color",
     folderNames: ["ngpc", "ngp"],
     extensions: [".ngc", ".ngp", ".ngpc", ".npc", ".7z", ".zip"],
     id: "ngpc",
   },
   {
+    screenscrapper_id: 30,
     name: "Nokia NGage",
     folderNames: ["ngage"],
     extensions: [".ngage", ".zip"],
     id: "ngage",
   },
   {
+    screenscrapper_id: 104,
     name: "Magnavox Odyssey2",
     folderNames: ["odyssey2", "odyssey"],
     extensions: [".bin", ".7z", ".zip"],
     id: "odyssey2",
   },
   {
+    screenscrapper_id: 72,
     name: "NEC PC-FX",
     folderNames: ["pcfx"],
     extensions: [".ccd", ".chd", ".cue", "cue", ".m3u", ".toc", ".7z", ".zip"],
     id: "pcfx",
   },
   {
+    screenscrapper_id: 107,
     name: "Nintendo Satellaview",
     folderNames: ["satellaview"],
     extensions: [
@@ -1705,18 +1849,22 @@ export const consoles = [
     id: "satellaview",
   },
   {
+    screenscrapper_id: 127,
     name: "Nintendo Super Game Boy",
     folderNames: ["sgb"],
     extensions: [".gb", ".gbc", ".sgb", ".7z", ".zip"],
     id: "sgb",
   },
   {
+    screenscrapper_id: 75,
     name: "Taito Type X",
     folderNames: ["type-x"],
     extensions: [".appimage", ".desktop", ".exe", ".sh"],
     id: "type-x",
   },
   {
+    screenscrapper_id: 75,
+    name: "Triforce",
     folderNames: ["triforce"],
     extensions: [
       ".ciso",
@@ -1753,6 +1901,7 @@ export const consoles = [
     id: "ports",
   },
   {
+    screenscrapper_id: 99,
     name: "Commodore Plus/4",
     folderNames: ["plus4"],
     extensions: [
@@ -1798,6 +1947,7 @@ export const consoles = [
     id: "quake",
   },
   {
+    screenscrapper_id: 75,
     name: "Sega Titan Video Game System",
     folderNames: ["stv"],
     extensions: [".7z", ".zip"],
@@ -1810,12 +1960,14 @@ export const consoles = [
     id: "j2me",
   },
   {
+    screenscrapper_id: 266,
     name: "Bit Corporation Gamate",
     folderNames: ["gamate"],
     extensions: [".bin", ".7z", ".zip"],
     id: "gamate",
   },
   {
+    screenscrapper_id: 97,
     name: "Fujitsu FM-7",
     folderNames: ["fm7"],
     extensions: [
@@ -1839,6 +1991,7 @@ export const consoles = [
     id: "fm7",
   },
   {
+    screenscrapper_id: 85,
     name: "Acorn Electron",
     folderNames: ["electron"],
     extensions: [
@@ -1873,6 +2026,7 @@ export const consoles = [
     id: "electron",
   },
   {
+    screenscrapper_id: 84,
     name: "Acorn Archimedes",
     folderNames: ["archimedes"],
     extensions: [
@@ -1911,6 +2065,7 @@ export const consoles = [
     id: "archimedes",
   },
   {
+    screenscrapper_id: 89,
     name: "Coleco Adam",
     folderNames: ["adam"],
     extensions: [

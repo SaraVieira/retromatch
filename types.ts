@@ -1,7 +1,6 @@
 export type RomFolder = {
   path: string;
   name: string;
-  console: string;
   configFilePath: string;
   lastSynced?: Date;
   folders?: {
@@ -12,7 +11,13 @@ export type RomFolder = {
       extensions: string[];
       id: string;
     };
-    files: string[];
+    files: {
+      name: string;
+      extension: string;
+      full_name: string;
+      info?: any;
+      size: number;
+    }[];
   }[];
 };
 

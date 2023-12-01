@@ -4,7 +4,6 @@ import { useFolders } from "../hooks/folder-context";
 
 export const AddFolder = () => {
   const [path, setPath] = useState("");
-  const [consoleS, setConsole] = useState("");
   const [name, setName] = useState("");
   const { addFolder } = useFolders();
 
@@ -27,11 +26,6 @@ export const AddFolder = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <Input
-            label="Console"
-            value={consoleS}
-            onChange={(e) => setConsole(e.target.value)}
-          />
           <Button
             color="primary"
             isLoading={false}
@@ -39,11 +33,10 @@ export const AddFolder = () => {
               addFolder({
                 name,
                 path,
-                console: consoleS,
                 configFilePath: `${path}/retromatch.json`,
               })
             }
-            isDisabled={!consoleS || !name || !path}
+            isDisabled={!name || !path}
           >
             Add new folder and scan
           </Button>

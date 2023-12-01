@@ -1,4 +1,4 @@
-import path, { extname } from "path";
+import path, { basename, extname } from "path";
 import { app, dialog, ipcMain } from "electron";
 import serve from "electron-serve";
 import Store from "electron-store";
@@ -6,7 +6,8 @@ import { createWindow } from "./helpers";
 import { RomFolder, RomFolders } from "../types";
 import { readdir } from "fs/promises";
 import { consoles } from "../consoles";
-import { readdirSync } from "fs";
+import { readdirSync, statSync } from "fs";
+import { calculateMD5Hash, calculateSha1Hash } from "./helpers/hashes";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -64,9 +65,20 @@ if (isProd) {
         ),
       }))
       .map((folder) => {
-        const files = readdirSync(folder.path).filter((file) =>
-          folder.console.extensions.includes(extname(file.toLocaleLowerCase()))
-        );
+        const files = readdirSync(folder.path)
+          .filter((file) =>
+            folder.console.extensions.includes(
+              extname(file.toLocaleLowerCase())
+            )
+          )
+          .map((file) => ({
+            name: file.split(extname(file))[0],
+            extension: extname(file),
+            fullName: file,
+            size: statSync(`${folder.path}/${file}`).size,
+            md5Hash: calculateMD5Hash(`${folder.path}/${file}`),
+            sha1Hash: calculateSha1Hash(`${folder.path}/${file}`),
+          }));
         return {
           ...folder,
           files: files,
@@ -81,7 +93,7 @@ if (isProd) {
     romFolders.set(path, currentFolder);
     event.reply("new_current_folder", currentFolder);
   });
-  // romFolders.clear();
+  romFolders.clear();
 
   ipcMain.on("open-dialog-folder", (event) => {
     const path = dialog.showOpenDialogSync(mainWindow, {
