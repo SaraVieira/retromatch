@@ -3,23 +3,25 @@ export type RomFolder = {
   name: string;
   configFilePath: string;
   lastSynced?: Date;
-  folders?: {
-    path: string;
-    console: {
-      name: string;
-      folderNames: string[];
-      extensions: string[];
-      id: string;
-      screenscrapper_id: string;
-      image: string;
-    };
-    files: {
-      name: string;
-      extension: string;
-      full_name: string;
-      info?: any;
-      size: number;
-    }[];
+  folders?: Folder[];
+};
+
+export type Folder = {
+  path: string;
+  console: {
+    name: string;
+    folderNames: string[];
+    extensions: string[];
+    id: string;
+    screenscrapper_id: number;
+    image: string;
+  };
+  files: {
+    name: string;
+    extension: string;
+    fullName: string;
+    info?: any;
+    size: number;
   }[];
 };
 

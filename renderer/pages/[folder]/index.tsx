@@ -14,17 +14,13 @@ export default function HomePage() {
   const { folders } = useFolders();
   const { query } = useRouter();
 
-  const currentFolder = useMemo(
-    () => folders?.find((f) => f.name === query.folder),
-    [folders]
-  );
-
+  const currentFolder = folders?.find((f) => f.name === query.folder);
   return (
     <div className="container mx-auto">
       <Link href={"/"}>Go back</Link>
       <ul className="grid grid-cols-3 gap-4 py-8">
-        {currentFolder &&
-          currentFolder.folders
+        {currentFolder?.folders &&
+          currentFolder?.folders
             .filter((a) => a.files.length)
             .map((f) => (
               <li className="w-[200px]">
@@ -34,7 +30,7 @@ export default function HomePage() {
                       <div>
                         <h2>{f.console.name}</h2>
                         <span className="text-sm text-default-400">
-                          {f.files.length} {f.files.length === 1 ? "" : "s"}
+                          {f.files.length} file{f.files.length === 1 ? "" : "s"}
                         </span>
                       </div>
                     </CardHeader>

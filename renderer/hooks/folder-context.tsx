@@ -1,11 +1,12 @@
 import * as React from "react";
-import { RomFolder, RomFolders } from "../../types";
+import { Folder, RomFolder, RomFolders } from "../../types";
 
 const FoldersContext = React.createContext({
   folders: [] as RomFolders,
   currentFolder: {} as RomFolder,
   addFolder: (_: RomFolder) => {},
   setCurrentFolder: (path: string) => {},
+  scrapeFolder: (folder: Folder, path: string) => {},
 });
 
 function FolderProvider({ children }) {
@@ -37,6 +38,16 @@ function FolderProvider({ children }) {
     window.ipc.on("new_current_folder", setCurrentFolder);
   };
 
+  const scrapeFolder = (folder: Folder, path: string) => {
+    window.ipc.send("scrape_folder", {
+      folder,
+      path,
+    });
+    window.ipc.on("new_data", (d: RomFolder) =>
+      setFolders((f) => [...f.filter((a) => a.name !== d.name), d])
+    );
+  };
+
   return (
     <FoldersContext.Provider
       value={{
@@ -44,6 +55,7 @@ function FolderProvider({ children }) {
         addFolder,
         currentFolder,
         setCurrentFolder,
+        scrapeFolder,
       }}
     >
       {children}
