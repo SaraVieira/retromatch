@@ -61,7 +61,7 @@ if (isProd) {
     romFolders.set(path, currentFolder);
     event.reply("new_current_folder", currentFolder);
   });
-  //romFolders.clear();
+  romFolders.clear();
 
   ipcMain.on("open-dialog-folder", (event) => {
     const path = dialog.showOpenDialogSync(mainWindow, {

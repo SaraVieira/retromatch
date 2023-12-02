@@ -205,6 +205,7 @@ export const consoles = [
     folderNames: ["atari2600", "atari"],
     extensions: [".a26", ".bin", ".7z", ".zip"],
     id: "atari2600",
+    image: "Atari 2600.png",
   },
   {
     screenscrapper_id: 40,
@@ -225,6 +226,7 @@ export const consoles = [
       ".zip",
     ],
     id: "atari5200",
+    image: "Atari 5200.png",
   },
   {
     screenscrapper_id: 41,
@@ -232,6 +234,7 @@ export const consoles = [
     folderNames: ["atari7800", "seventyeighthundred"],
     extensions: [".a78", ".bin", ".7z", ".zip"],
     id: "atari7800",
+    image: "Atari 7800.png",
   },
   {
     screenscrapper_id: 43,
@@ -252,6 +255,7 @@ export const consoles = [
       ".zip",
     ],
     id: "atari800",
+    image: "Atari 800.png",
   },
   {
     screenscrapper_id: 27,
@@ -271,6 +275,7 @@ export const consoles = [
       ".zip",
     ],
     id: "atarijaguar",
+    image: "Atari Jaguar.png",
   },
   {
     screenscrapper_id: 171,
@@ -278,6 +283,7 @@ export const consoles = [
     folderNames: ["atarijaguarcd"],
     extensions: [".7z", ".zip"],
     id: "atarijaguarcd",
+    image: "Atari Jaguar CD.png",
   },
   {
     screenscrapper_id: 28,
@@ -285,6 +291,7 @@ export const consoles = [
     folderNames: ["atarilynx", "lynx"],
     extensions: [".lnx", ".o", ".7z", ".zip"],
     id: "atarilynx",
+    image: "Atari Lynx.png",
   },
   {
     screenscrapper_id: 42,
@@ -292,6 +299,7 @@ export const consoles = [
     folderNames: ["atarist"],
     extensions: [".st", ".msa", ".stx", ".dim", ".ipf", ".m3u", ".7z", ".zip"],
     id: "atarist",
+    image: "Atari ST.png",
   },
   {
     screenscrapper_id: 43,
@@ -310,6 +318,7 @@ export const consoles = [
       ".zip",
     ],
     id: "atarixe",
+    image: "Atari XEGS.png",
   },
   {
     screenscrapper_id: 75,
@@ -329,6 +338,7 @@ export const consoles = [
       ".zip",
     ],
     id: "atomiswave",
+    image: "Sammy Atomiswave.png",
   },
   {
     screenscrapper_id: 37,
@@ -336,6 +346,7 @@ export const consoles = [
     folderNames: ["bbcmicro"],
     extensions: [".dsd", ".img", ".ssd", ".7z", ".zip"],
     id: "bbcmicro",
+    image: "BBC Microcomputer System.png",
   },
   {
     screenscrapper_id: 66,
@@ -376,12 +387,14 @@ export const consoles = [
       ".zip",
     ],
     id: "c64",
+    image: "Commodore 64.png",
   },
   {
     name: "Cave Story",
     folderNames: ["cavestory"],
     extensions: [".exe", ".7z", ".zip"],
     id: "cavestory",
+    image: "Cave.png",
   },
   {
     screenscrapper_id: 133,
@@ -389,6 +402,7 @@ export const consoles = [
     folderNames: ["cdimono1"],
     extensions: [".chd", ".cue", ".iso"],
     id: "cdimono1",
+    image: "Philips CD-i.png",
   },
   {
     screenscrapper_id: 128,
@@ -407,6 +421,7 @@ export const consoles = [
       ".zip",
     ],
     id: "cdtv",
+    image: "Commodore CDTV.png",
   },
   {
     name: "ChaiLove Game Engine",
@@ -420,6 +435,7 @@ export const consoles = [
     folderNames: ["channelf", "fairchild"],
     extensions: [".bin", ".chf", ".7z", ".zip"],
     id: "channelf",
+    image: "Fairchild Channel F.png",
   },
   {
     screenscrapper_id: 144,
@@ -449,6 +465,7 @@ export const consoles = [
       ".zip",
     ],
     id: "colecovision",
+    image: "ColecoVision.png",
   },
   {
     screenscrapper_id: 75,
@@ -456,6 +473,7 @@ export const consoles = [
     folderNames: ["cps"],
     extensions: [".7z", ".zip"],
     id: "cps",
+    image: "Capcom Play System.png",
   },
   {
     screenscrapper_id: 75,
@@ -463,6 +481,7 @@ export const consoles = [
     folderNames: ["cps1"],
     extensions: [".7z", ".zip"],
     id: "cps1",
+    image: "Capcom Play System.png",
   },
   {
     screenscrapper_id: 75,
@@ -470,6 +489,7 @@ export const consoles = [
     folderNames: ["cps2"],
     extensions: [".7z", ".zip"],
     id: "cps2",
+    image: "Capcom Play System II.png",
   },
   {
     screenscrapper_id: 75,
@@ -477,6 +497,7 @@ export const consoles = [
     folderNames: ["cps3"],
     extensions: [".7z", ".zip"],
     id: "cps3",
+    image: "Capcom Play System III.png",
   },
   {
     screenscrapper_id: 241,
@@ -484,6 +505,7 @@ export const consoles = [
     folderNames: ["crvision"],
     extensions: [".bin", ".rom", ".7z", ".zip"],
     id: "crvision",
+    image: "VTech CreatiVision.png",
   },
   {
     name: "Adobe Flash",
@@ -497,6 +519,7 @@ export const consoles = [
     folderNames: ["daphne", "laserdisc"],
     extensions: [".daphne", ".ogv", ".singe", ".7z", ".zip"],
     id: "daphne",
+    image: "Daphne.png",
   },
   {
     name: "Doom",
@@ -520,6 +543,7 @@ export const consoles = [
       ".zip",
     ],
     id: "dos",
+    image: "MS-DOS.png",
   },
   {
     screenscrapper_id: 91,
@@ -527,6 +551,7 @@ export const consoles = [
     folderNames: ["dragon32"],
     extensions: [".cas", ".ccc", ".dsk", ".rom"],
     id: "dragon32",
+    image: "Dragon 32 64.png",
   },
   {
     screenscrapper_id: 23,
@@ -546,6 +571,7 @@ export const consoles = [
       ".zip",
     ],
     id: "dreamcast",
+    image: "Sega Dreamcast.png",
   },
   {
     screenscrapper_id: 231,
@@ -560,6 +586,7 @@ export const consoles = [
     folderNames: ["nes", "famicom", "fc"],
     extensions: [".3dsen", ".fds", ".nes", ".unf", ".unif", ".7z", ".zip"],
     id: "nes",
+    image: "Nintendo Entertainment System.png",
   },
   {
     screenscrapper_id: 58,
@@ -583,6 +610,7 @@ export const consoles = [
       ".nrg",
     ],
     id: "ps2",
+    image: "Sony Playstation 2.png",
   },
   {
     screenscrapper_id: 59,
@@ -590,6 +618,7 @@ export const consoles = [
     folderNames: ["ps3"],
     extensions: [".desktop", ".ps3", ".ps3dir"],
     id: "ps3",
+    image: "Sony Playstation 3.png",
   },
   {
     screenscrapper_id: 60,
@@ -597,6 +626,7 @@ export const consoles = [
     folderNames: ["ps4"],
     extensions: [".7z", ".zip"],
     id: "ps4",
+    image: "Sony Playstation 4.png",
   },
   {
     screenscrapper_id: 61,
@@ -604,6 +634,7 @@ export const consoles = [
     folderNames: ["psp"],
     extensions: [".chd", ".cso", ".elf", ".iso", ".pbp", ".prx", ".7z", ".zip"],
     id: "psp",
+    image: "Sony PSP.png",
   },
   {
     screenscrapper_id: 62,
@@ -611,6 +642,7 @@ export const consoles = [
     folderNames: ["psvita"],
     extensions: [".psvita"],
     id: "psvita",
+    image: "Sony PS Vita.png",
   },
   {
     screenscrapper_id: 57,
@@ -640,6 +672,7 @@ export const consoles = [
       ".zip",
     ],
     id: "psx",
+    image: "Sony Playstation.png",
   },
   {
     screenscrapper_id: 22,
@@ -658,6 +691,7 @@ export const consoles = [
       ".zip",
     ],
     id: "saturn",
+    image: "Sega Saturn.png",
   },
   {
     screenscrapper_id: 19,
@@ -677,6 +711,7 @@ export const consoles = [
       ".zip",
     ],
     id: "sega32x",
+    image: "Sega 32X.png",
   },
   {
     screenscrapper_id: 1,
@@ -703,6 +738,7 @@ export const consoles = [
       ".zip",
     ],
     id: "genesis",
+    image: "Sega Genesis.png",
   },
   {
     screenscrapper_id: 20,
@@ -728,6 +764,7 @@ export const consoles = [
       ".zip",
     ],
     id: "megacd",
+    image: "Sega CD.png",
   },
   {
     screenscrapper_id: 109,
@@ -755,6 +792,7 @@ export const consoles = [
       ".zip",
     ],
     id: "sg-1000",
+    image: "Sega SG-1000.png",
   },
   {
     screenscrapper_id: 75,
@@ -762,6 +800,7 @@ export const consoles = [
     folderNames: ["fba", "arcade"],
     extensions: [".iso", ".7z", ".zip"],
     id: "fba",
+    image: "Final Burn Alpha.png",
   },
   {
     screenscrapper_id: 75,
@@ -769,6 +808,7 @@ export const consoles = [
     folderNames: ["fbneo", "arcade"],
     extensions: [".7z", ".zip"],
     id: "fbneo",
+    image: "Final Burn Neo.png",
   },
   {
     screenscrapper_id: 106,
@@ -776,6 +816,7 @@ export const consoles = [
     folderNames: ["fds"],
     extensions: [".nes", ".fds", ".unf", ".unif", ".7z", ".zip"],
     id: "fds",
+    image: "Nintendo Famicom Disk System-02.png",
   },
   {
     screenscrapper_id: 253,
@@ -783,6 +824,7 @@ export const consoles = [
     folderNames: ["fmtowns"],
     extensions: [".cdr", ".chd", ".cue", ".gdi", ".iso"],
     id: "fmtowns",
+    image: "Fujitsu FM Towns.png",
   },
   {
     screenscrapper_id: 199,
@@ -790,6 +832,7 @@ export const consoles = [
     folderNames: ["fpinball"],
     extensions: [".fpt"],
     id: "fpinball",
+    image: "Pinball.png",
   },
   {
     screenscrapper_id: 52,
@@ -797,6 +840,7 @@ export const consoles = [
     folderNames: ["gameandwatch", "gw"],
     extensions: [".mgw", ".7z", ".zip"],
     id: "gameandwatch",
+    image: "Nintendo Game & Watch.png",
   },
   {
     screenscrapper_id: 103,
@@ -804,6 +848,7 @@ export const consoles = [
     folderNames: ["gmaster"],
     extensions: [".bin", ".7z", ".zip"],
     id: "gmaster",
+    image: "Hartung Game Master.png",
   },
   {
     screenscrapper_id: 87,
@@ -824,12 +869,14 @@ export const consoles = [
       ".zip",
     ],
     id: "gx4000",
+    image: "Amstrad GX4000.png",
   },
   {
     name: "LCD Handheld Games",
     folderNames: ["lcdgames"],
     extensions: [".mgw", ".7z", ".zip"],
     id: "lcdgames",
+    image: "Tiger LCD Handhelds.png",
   },
   {
     screenscrapper_id: 244,
@@ -851,6 +898,7 @@ export const consoles = [
     folderNames: ["mame", "arcade"],
     extensions: [".cmd", ".desktop", ".sh", ".7z", ".zip"],
     id: "mame",
+    image: "MAME.png",
   },
   {
     screenscrapper_id: 75,
@@ -858,6 +906,7 @@ export const consoles = [
     folderNames: ["mame-advmame", "arcade"],
     extensions: [".7z", ".zip"],
     id: "mame-advmame",
+    image: "MAME.png",
   },
   {
     screenscrapper_id: 75,
@@ -882,6 +931,7 @@ export const consoles = [
       ".zip",
     ],
     id: "n3ds",
+    image: "Nintendo 3DS.png",
   },
   {
     screenscrapper_id: 15,
@@ -889,6 +939,7 @@ export const consoles = [
     folderNames: ["nds", "ds"],
     extensions: [".app", ".bin", ".nds", ".7z", ".zip"],
     id: "nds",
+    image: "Nintendo DS.png",
   },
   {
     screenscrapper_id: 14,
@@ -906,6 +957,7 @@ export const consoles = [
       ".zip",
     ],
     id: "n64",
+    image: "Nintendo 64.png",
   },
   {
     screenscrapper_id: 14,
@@ -923,6 +975,7 @@ export const consoles = [
       ".zip",
     ],
     id: "n64dd",
+    image: "Nintendo 64DD.png",
   },
   {
     screenscrapper_id: 16,
@@ -947,6 +1000,7 @@ export const consoles = [
       ".zip",
     ],
     id: "wii",
+    image: "Nintendo Wii.png",
   },
   {
     screenscrapper_id: 18,
@@ -954,6 +1008,7 @@ export const consoles = [
     folderNames: ["wiiu"],
     extensions: [".rpx", ".wua", ".wud", ".wux"],
     id: "wiiu",
+    image: "Nintendo Wii U.png",
   },
   {
     screenscrapper_id: 32,
@@ -961,6 +1016,7 @@ export const consoles = [
     folderNames: ["xbox"],
     extensions: [".iso"],
     id: "xbox",
+    image: "Microsoft Xbox.png",
   },
   {
     screenscrapper_id: 33,
@@ -968,6 +1024,7 @@ export const consoles = [
     folderNames: ["xbox360"],
     extensions: [".", ".desktop", ".iso", ".sh", ".xex"],
     id: "xbox360",
+    image: "Microsoft Xbox 360.png",
   },
   {
     screenscrapper_id: 77,
@@ -975,6 +1032,7 @@ export const consoles = [
     folderNames: ["zx81", "zxeightyone"],
     extensions: [".p", ".tzx", ".7z", ".zip"],
     id: "zx81",
+    image: "Sinclair ZX81.png",
   },
   {
     screenscrapper_id: 76,
@@ -999,6 +1057,7 @@ export const consoles = [
       ".zip",
     ],
     id: "zxspectrum",
+    image: "Sinclair ZX Spectrum.png",
   },
   {
     screenscrapper_id: 76,
@@ -1006,6 +1065,7 @@ export const consoles = [
     folderNames: ["zxnext"],
     extensions: [".nex", ".sna"],
     id: "zxnext",
+    image: "Sinclair ZX Spectrum.png",
   },
   {
     screenscrapper_id: 215,
@@ -1046,6 +1106,7 @@ export const consoles = [
       ".zip",
     ],
     id: "x68000",
+    image: "Sharp X6800.png",
   },
   {
     screenscrapper_id: 262,
@@ -1067,6 +1128,7 @@ export const consoles = [
     folderNames: ["vpinball"],
     extensions: [".vpt", ".vpx"],
     id: "vpinball",
+    image: "Pinball.png",
   },
   {
     screenscrapper_id: 223,
@@ -1094,6 +1156,7 @@ export const consoles = [
       ".zip",
     ],
     id: "spectravideo",
+    image: "SpectraVideo.png",
   },
   {
     screenscrapper_id: 108,
@@ -1101,6 +1164,7 @@ export const consoles = [
     folderNames: ["sufami"],
     extensions: [".bml", ".bs", ".fig", ".sfc", ".smc", ".st", ".7z", ".zip"],
     id: "sufami",
+    image: "Nintendo Sufami Turbo.png",
   },
   {
     screenscrapper_id: 67,
@@ -1108,6 +1172,7 @@ export const consoles = [
     folderNames: ["scv"],
     extensions: [".0", ".bin", ".7z", ".zip"],
     id: "scv",
+    image: "Epoch Super Cassette Vision.png",
   },
   {
     screenscrapper_id: 123,
@@ -1115,6 +1180,7 @@ export const consoles = [
     folderNames: ["scummvm"],
     extensions: [".scummvm", ".svm"],
     id: "scummvm",
+    image: "ScummVM.png",
   },
   {
     name: "Symbian",
@@ -1134,6 +1200,7 @@ export const consoles = [
     folderNames: ["samcoupe"],
     extensions: [".dsk", ".mgt", ".sad", ".sbt", ".7z", ".zip"],
     id: "samcoupe",
+    image: "SAM Coupé.png",
   },
   {
     screenscrapper_id: 74,
@@ -1141,6 +1208,7 @@ export const consoles = [
     folderNames: ["pv1000"],
     extensions: [".bin", ".7z", ".zip"],
     id: "pv1000",
+    image: "Casio PV-1000.png",
   },
   {
     name: "IBM PC",
@@ -1171,6 +1239,7 @@ export const consoles = [
     folderNames: ["oric"],
     extensions: [".dsk", ".ort", ".tap", ".wav"],
     id: "oric",
+    image: "Oric Atmos.png",
   },
   {
     screenscrapper_id: 214,
@@ -1178,6 +1247,7 @@ export const consoles = [
     folderNames: ["openbor"],
     extensions: [".appimage"],
     id: "openbor",
+    image: "OpenBOR-01.png",
   },
   {
     screenscrapper_id: 220,
@@ -1199,6 +1269,7 @@ export const consoles = [
       ".zip",
     ],
     id: "x1",
+    image: "Sharp X1.png",
   },
   {
     screenscrapper_id: 45,
@@ -1206,6 +1277,7 @@ export const consoles = [
     folderNames: ["wonderswan", "ws"],
     extensions: [".pc2", ".ws", ".7z", ".zip"],
     id: "wonderswan",
+    image: "WonderSwan.png",
   },
   {
     screenscrapper_id: 46,
@@ -1213,6 +1285,7 @@ export const consoles = [
     folderNames: ["wonderswancolor", "ws"],
     extensions: [".pc2", ".ws", ".wsc", ".7z", ".zip"],
     id: "wonderswancolor",
+    image: "WonderSwan Color.png",
   },
   {
     screenscrapper_id: 11,
@@ -1220,6 +1293,7 @@ export const consoles = [
     folderNames: ["virtualboy", "vb"],
     extensions: [".bin", ".vb", ".vboy", ".7z", ".zip"],
     id: "virtualboy",
+    image: "Nintendo Virtual Boy.png",
   },
   {
     screenscrapper_id: 104,
@@ -1227,6 +1301,7 @@ export const consoles = [
     folderNames: ["videopac", "odyssey"],
     extensions: [".bin", ".7z", ".zip"],
     id: "videopac",
+    image: "Phillips Videopac+.png",
   },
   {
     screenscrapper_id: 73,
@@ -1267,6 +1342,7 @@ export const consoles = [
       ".zip",
     ],
     id: "vic20",
+    image: "Commodore VIC-20.png",
   },
   {
     screenscrapper_id: 102,
@@ -1274,6 +1350,7 @@ export const consoles = [
     folderNames: ["vectrex"],
     extensions: [".bin", ".gam", ".vc", ".vec", ".7z", ".zip"],
     id: "vectrex",
+    image: "GCE Vectrex.png",
   },
   {
     screenscrapper_id: 216,
@@ -1288,6 +1365,7 @@ export const consoles = [
     folderNames: ["trs-80"],
     extensions: [".cmd", ".dsk"],
     id: "trs-80",
+    image: "Tandy TRS-80.png",
   },
   {
     screenscrapper_id: 141,
@@ -1302,6 +1380,7 @@ export const consoles = [
     folderNames: ["tic80", "tic"],
     extensions: [".tic"],
     id: "tic80",
+    image: "TIC-80.png",
   },
   {
     screenscrapper_id: 205,
@@ -1309,6 +1388,7 @@ export const consoles = [
     folderNames: ["ti99"],
     extensions: [".rpk", ".7z", ".zip"],
     id: "ti99",
+    image: "Texas Instruments TI 99 4A.png",
   },
   {
     screenscrapper_id: 225,
@@ -1316,6 +1396,7 @@ export const consoles = [
     folderNames: ["switch"],
     extensions: [".nca", ".nro", ".nso", ".nsp", ".xci"],
     id: "switch",
+    image: "Nintendo Switch.png",
   },
   {
     screenscrapper_id: 4,
@@ -1339,6 +1420,7 @@ export const consoles = [
       ".zip",
     ],
     id: "snes",
+    image: "Super Nintendo Entertainment System.png",
   },
   {
     screenscrapper_id: 114,
@@ -1358,6 +1440,7 @@ export const consoles = [
       ".zip",
     ],
     id: "tg-cd",
+    image: "NEC TurboGrafx-CD.png",
   },
   {
     screenscrapper_id: 207,
@@ -1365,6 +1448,7 @@ export const consoles = [
     folderNames: ["supervision"],
     extensions: [".bin", ".sv", ".7z", ".zip"],
     id: "supervision",
+    image: "Watara Supervision.png",
   },
   {
     screenscrapper_id: 105,
@@ -1372,6 +1456,7 @@ export const consoles = [
     folderNames: ["supergrafx", "sgfx"],
     extensions: [".ccd", ".chd", ".cue", ".pce", ".sgx", ".7z", ".zip"],
     id: "supergrafx",
+    image: "NEC PC Engine SuperGrafx.png",
   },
   {
     screenscrapper_id: 221,
@@ -1379,6 +1464,7 @@ export const consoles = [
     folderNames: ["pc88"],
     extensions: [".88d", ".cmt", ".d88", ".m3u", ".t88", ".u88"],
     id: "pc88",
+    image: "NEC PC-8801.png",
   },
   {
     screenscrapper_id: 208,
@@ -1407,6 +1493,7 @@ export const consoles = [
       ".zip",
     ],
     id: "pc98",
+    image: "NEC PC-9801.png",
   },
   {
     screenscrapper_id: 234,
@@ -1414,6 +1501,7 @@ export const consoles = [
     folderNames: ["pico8", "pico"],
     extensions: [".p8", ".png"],
     id: "pico8",
+    image: "Pico-8-10.png",
   },
   {
     screenscrapper_id: 211,
@@ -1421,6 +1509,7 @@ export const consoles = [
     folderNames: ["pokemini", "poke"],
     extensions: [".min", ".7z", ".zip"],
     id: "pokemini",
+    image: "Nintendo Pokémon Mini.png",
   },
   {
     screenscrapper_id: 121,
@@ -1428,6 +1517,7 @@ export const consoles = [
     folderNames: ["gamecom"],
     extensions: [".tgc", ".7z", ".zip"],
     id: "gamecom",
+    image: "Tiger Game.com.png",
   },
   {
     screenscrapper_id: 21,
@@ -1455,6 +1545,7 @@ export const consoles = [
       ".zip",
     ],
     id: "gamegear",
+    image: "Sega Game Gear.png",
   },
   {
     screenscrapper_id: 9,
@@ -1473,6 +1564,7 @@ export const consoles = [
       ".zip",
     ],
     id: "gb",
+    image: "Nintendo Game Boy.png",
   },
   {
     screenscrapper_id: 12,
@@ -1491,6 +1583,7 @@ export const consoles = [
       ".zip",
     ],
     id: "gba",
+    image: "Nintendo Game Boy Advance.png",
   },
   {
     screenscrapper_id: 10,
@@ -1509,6 +1602,7 @@ export const consoles = [
       ".zip",
     ],
     id: "gbc",
+    image: "Nintendo Game Boy Color.png",
   },
   {
     screenscrapper_id: 13,
@@ -1533,6 +1627,7 @@ export const consoles = [
       ".zip",
     ],
     id: "gc",
+    image: "Nintendo GameCube.png",
   },
   {
     screenscrapper_id: 115,
@@ -1540,6 +1635,7 @@ export const consoles = [
     folderNames: ["intellivision"],
     extensions: [".bin", ".int", ".rom", ".7z", ".zip"],
     id: "intellivision",
+    image: "Mattel Intellivision.png",
   },
   {
     screenscrapper_id: 2,
@@ -1567,6 +1663,7 @@ export const consoles = [
       ".zip",
     ],
     id: "mastersystem",
+    image: "Sega Master System.png",
   },
   {
     screenscrapper_id: 75,
@@ -1574,6 +1671,7 @@ export const consoles = [
     folderNames: ["model2"],
     extensions: [".7z", ".zip"],
     id: "model2",
+    image: "Sega Model 2.png",
   },
   {
     screenscrapper_id: 75,
@@ -1581,6 +1679,7 @@ export const consoles = [
     folderNames: ["model3"],
     extensions: [".7z", ".zip"],
     id: "model3",
+    image: "Sega Model 3.png",
   },
   {
     screenscrapper_id: 141,
@@ -1588,6 +1687,7 @@ export const consoles = [
     folderNames: ["moto"],
     extensions: [".fd", ".k7", ".m5", ".m7", ".rom", ".sap", ".7z", ".zip"],
     id: "moto",
+    image: "Thomson MO5.png",
   },
   {
     screenscrapper_id: 113,
@@ -1616,6 +1716,7 @@ export const consoles = [
       ".zip",
     ],
     id: "msx",
+    image: "Microsoft MSX.png",
   },
   {
     screenscrapper_id: 113,
@@ -1644,6 +1745,7 @@ export const consoles = [
       ".zip",
     ],
     id: "msx1",
+    image: "Microsoft MSX.png",
   },
   {
     screenscrapper_id: 113,
@@ -1672,6 +1774,7 @@ export const consoles = [
       ".zip",
     ],
     id: "msx2",
+    image: "Microsoft MSX2.png",
   },
   {
     screenscrapper_id: 90,
@@ -1679,6 +1782,7 @@ export const consoles = [
     folderNames: ["megaduck"],
     extensions: [".bin", ".7z", ".zip"],
     id: "megaduck",
+    image: "Mega Duck.png",
   },
   {
     screenscrapper_id: 146,
@@ -1714,6 +1818,7 @@ export const consoles = [
       ".zip",
     ],
     id: "msxturbor",
+    image: "Microsoft MSX Turbo R.png",
   },
   {
     name: "M.U.G.E.N Game Engine",
@@ -1745,6 +1850,7 @@ export const consoles = [
       ".zip",
     ],
     id: "tg16",
+    image: "NEC TurboGrafx-16.png",
   },
   {
     screenscrapper_id: 114,
@@ -1764,6 +1870,7 @@ export const consoles = [
       ".zip",
     ],
     id: "pcenginecd",
+    image: "NEC TurboGrafx-CD.png",
   },
   {
     screenscrapper_id: 75,
@@ -1771,6 +1878,7 @@ export const consoles = [
     folderNames: ["naomi"],
     extensions: [".bin", ".dat", ".elf", ".lst", ".7z", ".zip"],
     id: "naomi",
+    image: "Sega Naomi.png",
   },
   {
     screenscrapper_id: 75,
@@ -1778,6 +1886,7 @@ export const consoles = [
     folderNames: ["naomi2"],
     extensions: [".bin", ".dat", ".elf", ".lst", ".7z", ".zip"],
     id: "naomi2",
+    image: "Sega Naomi 2.png",
   },
   {
     screenscrapper_id: 75,
@@ -1785,6 +1894,7 @@ export const consoles = [
     folderNames: ["naomigd"],
     extensions: [".bin", ".dat", ".elf", ".lst", ".7z", ".zip"],
     id: "naomigd",
+    image: "Sega Naomi.png",
   },
   {
     screenscrapper_id: 142,
@@ -1792,6 +1902,7 @@ export const consoles = [
     folderNames: ["neogeo"],
     extensions: [".7z", ".zip"],
     id: "neogeo",
+    image: "SNK Neo Geo.png",
   },
   {
     screenscrapper_id: 100,
@@ -1799,6 +1910,7 @@ export const consoles = [
     folderNames: ["supracan"],
     extensions: [".bin", ".7z", ".zip"],
     id: "supracan",
+    image: "Funtech Super Acan.png",
   },
   {
     screenscrapper_id: 70,
@@ -1806,6 +1918,7 @@ export const consoles = [
     folderNames: ["neogeocd", "neogeocdjp", "neocd"],
     extensions: [".chd", ".cue"],
     id: "neogeocd",
+    image: "SNK Neo Geo CD.png",
   },
   {
     screenscrapper_id: 25,
@@ -1813,6 +1926,7 @@ export const consoles = [
     folderNames: ["ngp"],
     extensions: [".ngc", ".ngp", ".ngpc", ".npc", ".7z", ".zip"],
     id: "ngp",
+    image: "SNK Neo Geo Pocket.png",
   },
   {
     screenscrapper_id: 82,
@@ -1820,6 +1934,7 @@ export const consoles = [
     folderNames: ["ngpc", "ngp"],
     extensions: [".ngc", ".ngp", ".ngpc", ".npc", ".7z", ".zip"],
     id: "ngpc",
+    image: "SNK Neo Geo Pocket Color.png",
   },
   {
     screenscrapper_id: 30,
@@ -1827,6 +1942,7 @@ export const consoles = [
     folderNames: ["ngage"],
     extensions: [".ngage", ".zip"],
     id: "ngage",
+    image: "Nokia N-Gage.png",
   },
   {
     screenscrapper_id: 104,
@@ -1834,6 +1950,7 @@ export const consoles = [
     folderNames: ["odyssey2", "odyssey"],
     extensions: [".bin", ".7z", ".zip"],
     id: "odyssey2",
+    image: "Magnavox Odyssey 2.png",
   },
   {
     screenscrapper_id: 72,
@@ -1841,6 +1958,7 @@ export const consoles = [
     folderNames: ["pcfx"],
     extensions: [".ccd", ".chd", ".cue", "cue", ".m3u", ".toc", ".7z", ".zip"],
     id: "pcfx",
+    image: "NEC PC-FX.png",
   },
   {
     screenscrapper_id: 107,
@@ -1858,6 +1976,7 @@ export const consoles = [
       ".zip",
     ],
     id: "satellaview",
+    image: "Nintendo Satellaview.png",
   },
   {
     screenscrapper_id: 127,
@@ -1865,6 +1984,7 @@ export const consoles = [
     folderNames: ["sgb"],
     extensions: [".gb", ".gbc", ".sgb", ".7z", ".zip"],
     id: "sgb",
+    image: "Nintendo Super Game Boy-02.png",
   },
   {
     screenscrapper_id: 75,
@@ -1872,10 +1992,11 @@ export const consoles = [
     folderNames: ["type-x"],
     extensions: [".appimage", ".desktop", ".exe", ".sh"],
     id: "type-x",
+    image: "Taito Type X.png",
   },
   {
     screenscrapper_id: 75,
-    name: "Triforce",
+    name: "Sega Triforce",
     folderNames: ["triforce"],
     extensions: [
       ".ciso",
@@ -1896,6 +2017,7 @@ export const consoles = [
       ".zip",
     ],
     id: "triforce",
+    image: "Sega Triforce.png",
   },
   {
     name: "Ports",
@@ -1950,6 +2072,7 @@ export const consoles = [
       ".zip",
     ],
     id: "plus4",
+    image: "Commodore Plus 4.png",
   },
   {
     name: "Quake",
@@ -1976,6 +2099,7 @@ export const consoles = [
     folderNames: ["gamate"],
     extensions: [".bin", ".7z", ".zip"],
     id: "gamate",
+    image: "Gamate.png",
   },
   {
     screenscrapper_id: 97,
@@ -2000,6 +2124,7 @@ export const consoles = [
       ".zip",
     ],
     id: "fm7",
+    image: "Fujitsu FM-7.png",
   },
   {
     screenscrapper_id: 85,
@@ -2035,6 +2160,7 @@ export const consoles = [
       ".zip",
     ],
     id: "electron",
+    image: "Acorn Electron.png",
   },
   {
     screenscrapper_id: 84,
@@ -2074,6 +2200,7 @@ export const consoles = [
       ".zip",
     ],
     id: "archimedes",
+    image: "Acorn Archimedes.png",
   },
   {
     screenscrapper_id: 89,
@@ -2101,5 +2228,6 @@ export const consoles = [
       ".zip",
     ],
     id: "adam",
+    image: "Coleco ADAM.png",
   },
 ];
