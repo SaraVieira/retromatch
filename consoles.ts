@@ -1,6 +1,7 @@
 export const consoles = [
   {
     screenscrapper_id: 29,
+    image: "3DO Interactive Multiplayer.png",
     name: "3DO Interactive Multiplayer",
     folderNames: ["3do", "panasonic"],
     extensions: [".bin", ".chd", ".cue", ".iso", ".7z", ".zip"],
@@ -16,6 +17,7 @@ export const consoles = [
   {
     screenscrapper_id: 64,
     name: "Commodore Amiga",
+    image: "Commodore Amiga.png",
     folderNames: ["amiga"],
     extensions: [
       ".adf",
@@ -43,6 +45,7 @@ export const consoles = [
   {
     screenscrapper_id: 64,
     name: "Commodore Amiga 1200",
+    image: "Commodore Amiga 1200.png",
     folderNames: ["amiga1200", "amiga"],
     extensions: [
       ".adf",
@@ -97,6 +100,7 @@ export const consoles = [
   {
     screenscrapper_id: 130,
     name: "Commodore Amiga CD32",
+    image: "Commodore Amiga CD32.png",
     folderNames: ["amigacd32", "amigacd"],
     extensions: [
       ".adf",
@@ -125,6 +129,7 @@ export const consoles = [
     screenscrapper_id: 65,
     name: "Amstrad CPC",
     folderNames: ["amstradcpc", "cpc"],
+    image: "Amstrad CPC.png",
     extensions: [
       ".cdt",
       ".cpr",
@@ -142,6 +147,7 @@ export const consoles = [
   {
     screenscrapper_id: 63,
     name: "Google Android",
+    image: "Android.png",
     folderNames: ["android"],
     extensions: ["apk", ".7z", ".zip"],
     id: "android",
@@ -152,6 +158,7 @@ export const consoles = [
     folderNames: ["apple2"],
     extensions: [".do", ".dsk", ".nib", ".po"],
     id: "apple2",
+    image: "Apple II.png",
   },
   {
     screenscrapper_id: 217,
@@ -159,6 +166,7 @@ export const consoles = [
     folderNames: ["apple2gs"],
     extensions: [".2mg"],
     id: "apple2gs",
+    image: "Apple IIGS.png",
   },
   {
     screenscrapper_id: 75,
@@ -166,6 +174,7 @@ export const consoles = [
     folderNames: ["arcade"],
     extensions: [".cmd", ".desktop", ".sh", ".7z", ".zip"],
     id: "arcade",
+    image: "Arcade Classics.png",
   },
   {
     screenscrapper_id: 94,
@@ -173,6 +182,7 @@ export const consoles = [
     folderNames: ["arcadia"],
     extensions: [".bin", ".7z", ".zip"],
     id: "arcadia",
+    image: "Emerson Arcadia 2001.png",
   },
   {
     screenscrapper_id: 263,
@@ -187,6 +197,7 @@ export const consoles = [
     folderNames: ["astrocde"],
     extensions: [".7z", ".zip", "bin", "prg", "wav"],
     id: "astrocde",
+    image: "Bally Astrocade.png",
   },
   {
     screenscrapper_id: 26,

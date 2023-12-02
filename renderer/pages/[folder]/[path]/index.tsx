@@ -25,6 +25,7 @@ export const Files = () => {
           <li>
             <Card>
               <CardHeader>{f.name}</CardHeader>
+
               <CardBody className="text-xs text-content4">
                 {humanFileSize(f.size)}
               </CardBody>

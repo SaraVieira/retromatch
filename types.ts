@@ -10,6 +10,8 @@ export type RomFolder = {
       folderNames: string[];
       extensions: string[];
       id: string;
+      screenscrapper_id: string;
+      image: string;
     };
     files: {
       name: string;

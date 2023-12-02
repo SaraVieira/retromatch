@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-import { Card, CardBody, CardHeader, Spinner } from "@nextui-org/react";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Spinner,
+} from "@nextui-org/react";
 import Link from "next/link";
 import { useFolders } from "../../hooks/folder-context";
 import { useRouter } from "next/router";
@@ -25,11 +31,24 @@ export default function HomePage() {
                 <Link href={`/${currentFolder.name}/${f.console.id}`}>
                   <Card>
                     <CardHeader>
-                      {f.console.name} ({f.files.length})
+                      <div>
+                        <h2>{f.console.name}</h2>
+                        <span className="text-sm text-default-400">
+                          {f.files.length} {f.files.length === 1 ? "" : "s"}
+                        </span>
+                      </div>
                     </CardHeader>
+
                     <CardBody className="text-xs text-content4">
-                      {f.path}
+                      <img
+                        src={`/images/consoles/${f.console.image}`}
+                        alt={f.console.name}
+                        className="max-w-full"
+                      />
                     </CardBody>
+                    <CardFooter>
+                      <span className="text-sm text-default-500">{f.path}</span>
+                    </CardFooter>
                   </Card>
                 </Link>
               </li>
