@@ -7,19 +7,19 @@
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
-    "build": "nextron build",
-    "postinstall": "electron-builder install-app-deps"
+    "build": "nextron build"
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
     "@tabler/icons-react": "^2.42.0",
     "axios": "^1.6.2",
-    "better-sqlite3": "^9.2.0",
     "dot-prop": "^8.0.2",
-    "drizzle-orm": "^0.29.1",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.1.0",
+    "fix-esm": "^1.0.1",
     "framer-motion": "^10.6.8",
+    "nanoid": "3.1.22",
+    "nanoid-dictionary": "^5.0.0-beta.1",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {

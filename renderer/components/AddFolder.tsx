@@ -1,6 +1,14 @@
 import { Button, Input } from "@nextui-org/react";
 import { useState } from "react";
 import { useFolders } from "../hooks/folder-context";
+import { customAlphabet } from "nanoid";
+import { alphanumeric } from "nanoid-dictionary";
+
+export const createID = () => {
+  const lowercaseRandomString = customAlphabet(alphanumeric, 10);
+
+  return `a${lowercaseRandomString()}`;
+};
 
 export const AddFolder = () => {
   const [path, setPath] = useState("");
@@ -31,6 +39,7 @@ export const AddFolder = () => {
             isLoading={false}
             onClick={() =>
               addFolder({
+                id: createID(),
                 name,
                 path,
                 configFilePath: `${path}/retromatch.json`,

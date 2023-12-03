@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 export default function HomePage() {
   const { folders, currentFolder, setCurrentFolder } = useFolders();
   const router = useRouter();
-  if (!folders.length) {
+  if (!Object.keys(folders).length) {
     return <AddFolder />;
   }
 
@@ -20,16 +20,16 @@ export default function HomePage() {
     );
   }
 
-  const onClick = (file: { path: string; name: string }) => {
+  const onClick = (file: { path: string; id: string }) => {
     setCurrentFolder(file.path);
-    router.push(`/${file.name}`);
+    router.push(`/${file.id}`);
   };
 
   return (
     <div className="container mx-auto">
       <ul className="flex items-stretch flex-wrap gap-4 py-8">
-        {folders.map((f) => (
-          <li className="w-[200px]" key={f.path}>
+        {Object.values(folders).map((f) => (
+          <li className="w-[200px]" key={f.id}>
             <button onClick={() => onClick(f)}>
               <Card>
                 <CardHeader>{f.name}</CardHeader>

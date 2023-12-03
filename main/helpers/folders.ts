@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from "fs";
 import { extname } from "path";
-import { calculateMD5Hash, calculateSha1Hash } from "./hashes";
 import { consoles } from "../../consoles";
+import { createID } from ".";
 
 export const getFolders = (path) => {
   const allFolders = readdirSync(path, { withFileTypes: true })
@@ -35,7 +35,24 @@ export const getFolders = (path) => {
         ...folder,
         files: files,
       };
-    });
+    })
+    .reduce((acc, curr) => {
+      let newCurr = curr.files.reduce((acc, curr) => {
+        const fileId = createID();
+        acc[fileId] = {
+          ...curr,
+          id: fileId,
+        };
+        return acc;
+      }, {});
+      const folderId = createID();
+      acc[folderId] = {
+        ...curr,
+        id: folderId,
+        files: newCurr,
+      };
+      return acc;
+    }, {});
 
   return allFolders;
 };
