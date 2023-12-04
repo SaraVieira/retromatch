@@ -1,12 +1,14 @@
 import { createHash } from "crypto";
-import { readFileSync } from "fs";
+import { readFile } from "fs/promises";
 
-export function calculateSha1Hash(file: string) {
-  var sha1sum = createHash("sha1").update(readFileSync(file)).digest("hex");
+export const calculateSha1Hash = async (file: string) => {
+  const fileRead = await readFile(file);
+  var sha1sum = createHash("sha1").update(fileRead).digest("hex");
   return sha1sum;
-}
+};
 
-export function calculateMD5Hash(file: string) {
-  var sha1sum = createHash("md5").update(readFileSync(file)).digest("hex");
+export const calculateMD5Hash = async (file: string) => {
+  const fileRead = await readFile(file);
+  var sha1sum = createHash("md5").update(fileRead).digest("hex");
   return sha1sum;
-}
+};

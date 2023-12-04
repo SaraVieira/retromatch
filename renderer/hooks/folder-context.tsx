@@ -42,9 +42,15 @@ function FolderProvider({ children }) {
       path: folder.path,
       id: folder.id,
     });
-    window.ipc.on("done_syncing", (id) => {
+    window.ipc.on("done_syncing", (newFolder: Folder) => {
       setIsSyncing(false);
-      router.push(`/${id}`);
+      setFolders((folders) => {
+        return {
+          ...folders,
+          [newFolder.id]: newFolder,
+        };
+      });
+      router.push(`/${newFolder.id}`);
     });
   };
 

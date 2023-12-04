@@ -30,7 +30,7 @@ export default function Header() {
   };
 
   const activeFolder =
-    folders[query.folder as string]?.folders[query.path as string];
+    folders[query.folder as string]?.folders?.[query.path as string];
 
   return (
     <Navbar isBordered>

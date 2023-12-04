@@ -12,14 +12,20 @@ import { useRouter } from "next/router";
 
 export default function HomePage() {
   const { folders } = useFolders();
-  const { query } = useRouter();
-  const currentFolder = folders[query.folder as string];
+  const { query, isReady } = useRouter();
+  const currentFolder = useMemo(() => {
+    if (!isReady) {
+      return null;
+    }
+
+    return folders[query.folder as string];
+  }, [folders, isReady]);
 
   return (
     <div className="container mx-auto">
       <ul className="grid grid-cols-3 gap-4 py-8">
-        {currentFolder?.folders &&
-          Object.values(currentFolder?.folders)
+        {folders[query.folder as string]?.folders &&
+          Object.values(folders[query.folder as string]?.folders)
             .filter((a) => Object.values(a.files).length)
             .map((f) => (
               <li className="w-[200px]" key={f.id}>

@@ -50,7 +50,7 @@ if (isProd) {
   ipcMain.on(
     "sync_folder",
     async (event, { path, id }: { path: string; id: string }) => {
-      const allFolders = getFolders(path);
+      const allFolders = await getFolders(path);
       const currentFolder = {
         ...(romFolders.get(id) as RomFolder),
         folders: allFolders,
@@ -58,7 +58,7 @@ if (isProd) {
       };
 
       romFolders.set(id, currentFolder);
-      event.reply("done_syncing", currentFolder.id);
+      event.reply("done_syncing", currentFolder);
     }
   );
 
@@ -97,7 +97,7 @@ if (isProd) {
       }
     }
   );
-  // romFolders.clear();
+  romFolders.clear();
 
   ipcMain.on("open-dialog-folder", (event) => {
     const path = dialog.showOpenDialogSync(mainWindow, {
