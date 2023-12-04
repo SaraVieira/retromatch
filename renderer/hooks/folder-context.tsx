@@ -1,26 +1,29 @@
 import * as React from "react";
 import { Folder, RomFolder, RomFolders } from "../../types";
+import { useRouter } from "next/router";
 
 const FoldersContext = React.createContext({
   folders: {} as RomFolders,
-  currentFolder: {} as RomFolder,
   addFolder: (_: RomFolder) => {},
-  setCurrentFolder: (path: string) => {},
   scrapeFolder: (folder: Folder, mainFolder: RomFolder) => {},
+  isSyncing: false,
+  isLoading: false,
 });
 
 function FolderProvider({ children }) {
   const [folders, setFolders] = React.useState({});
-  const [currentFolder, setCurrentFolderA] = React.useState(folders[0] || {});
+  const [isSyncing, setIsSyncing] = React.useState(false);
+  const router = useRouter();
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const getData = () => {
-    window.ipc.on("all_data", (folders: RomFolders[]) => setFolders(folders));
+    setIsLoading(true);
+    window.ipc.on("all_data", (folders: RomFolders[]) => {
+      setFolders(folders);
+      setIsLoading(false);
+    });
 
     window.ipc.send("load", null);
-  };
-
-  const setCurrentFolder = (path) => {
-    setCurrentFolderA(folders[path]);
   };
 
   React.useEffect(() => {
@@ -28,6 +31,7 @@ function FolderProvider({ children }) {
   }, []);
 
   const addFolder = (folder: RomFolder) => {
+    setIsSyncing(true);
     window.ipc.send("add_folder", folder);
     getData();
     syncFolder(folder);
@@ -38,7 +42,10 @@ function FolderProvider({ children }) {
       path: folder.path,
       id: folder.id,
     });
-    window.ipc.on("new_current_folder", setCurrentFolder);
+    window.ipc.on("done_syncing", (id) => {
+      setIsSyncing(false);
+      router.push(`/${id}`);
+    });
   };
 
   const scrapeFolder = (folder: Folder, mainFolder: RomFolder) => {
@@ -59,9 +66,9 @@ function FolderProvider({ children }) {
       value={{
         folders,
         addFolder,
-        currentFolder,
-        setCurrentFolder,
         scrapeFolder,
+        isSyncing,
+        isLoading,
       }}
     >
       {children}
