@@ -15,8 +15,6 @@ export const getGame = async ({ game }) => {
       romtype: "rom",
       romnom: game.full_name,
       romtaille: game.size,
-      ssid: "NikkitaFTW",
-      sspassword: "madinalake",
     },
   };
 

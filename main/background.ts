@@ -43,7 +43,7 @@ if (isProd) {
     event.reply("all_data", romFolders.store)
   );
 
-  ipcMain.on("add_folder", async (event, folder: RomFolder) => {
+  ipcMain.on("add_folder", async (_, folder: RomFolder) => {
     romFolders.set(folder.id, folder);
   });
 
@@ -87,7 +87,6 @@ if (isProd) {
                   `${mainFolder.id}.folders.${folder.id}.files.${file.id}.info`,
                   cleanResponse
                 );
-                console.log("here");
                 event.reply("new_data", romFolders.get(mainFolder.id));
               }
             })
