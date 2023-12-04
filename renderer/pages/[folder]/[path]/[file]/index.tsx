@@ -13,7 +13,6 @@ export const Files = () => {
 
   return (
     <div className="container mx-auto">
-      <Link href={`/${query.folder}/${query.path}`}>Go back</Link>
       <video src={activeFile?.info?.videos?.shortplay} controls />{" "}
       <pre>{JSON.stringify(activeFile, null, 2)}</pre>
     </div>

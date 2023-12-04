@@ -17,7 +17,6 @@ export default function HomePage() {
 
   return (
     <div className="container mx-auto">
-      <Link href={"/"}>Go back</Link>
       <ul className="grid grid-cols-3 gap-4 py-8">
         {currentFolder?.folders &&
           Object.values(currentFolder?.folders)

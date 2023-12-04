@@ -25,10 +25,6 @@ export const Files = () => {
 
   return (
     <div className="container mx-auto">
-      <Link href={`/${query.folder}`}>Go back</Link>
-      <div>
-        <Button onClick={scrape}>Scrape Folder</Button>
-      </div>
       <ul className="py-8 grid grid-cols-4 gap-4 items-stretch">
         {Object.values(activeFolder?.files || {}).map((f) => (
           <li key={f.id}>

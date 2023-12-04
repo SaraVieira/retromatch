@@ -16,8 +16,6 @@ const New = () => {
   }
   return (
     <>
-      {" "}
-      <Link href={"/"}>Go back</Link>
       <AddFolder />
     </>
   );
