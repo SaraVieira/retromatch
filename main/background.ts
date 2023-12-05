@@ -1,22 +1,11 @@
-import {
-  app,
-  dialog,
-  ipcMain,
-} from 'electron';
-import serve from 'electron-serve';
-import Store from 'electron-store';
-import path from 'path';
+import { app, dialog, ipcMain } from "electron";
+import serve from "electron-serve";
+import Store from "electron-store";
+import path from "path";
 
-import {
-  Folder,
-  RomFolder,
-  RomFolders,
-} from '../types';
-import {
-  createWindow,
-  scrapeGame,
-} from './helpers';
-import { getFolders } from './helpers/folders';
+import { Folder, RomFolder, RomFolders } from "../types";
+import { createWindow, scrapeGame } from "./helpers";
+import { getFolders } from "./helpers/folders";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -82,19 +71,29 @@ if (isProd) {
       try {
         await Promise.all(
           Object.values(folder.files).map(async (file) => {
-            const gameInfo = await scrapeGame(file, folder.console.id, folder.console.screenscrapper_id === 75);
-
-            if (gameInfo) {
-              romFolders.set(
-                `${mainFolder.id}.folders.${folder.id}.files.${file.id}.info`,
-                gameInfo
+            try {
+              const gameInfo = await scrapeGame(
+                file,
+                folder.console.screenscrapper_id
               );
-              event.reply("new_data", romFolders.get(mainFolder.id));
+
+              if (gameInfo) {
+                romFolders.set(
+                  `${mainFolder.id}.folders.${folder.id}.files.${file.id}.info`,
+                  gameInfo
+                );
+                event.reply("new_data", romFolders.get(mainFolder.id));
+              }
+
+              // wait because prisma cries if we don't
+              await new Promise((resolve) => setTimeout(resolve, 500));
+            } catch (e) {
+              console.log(e.message);
             }
           })
         );
       } catch (e) {
-        console.log(e);
+        console.log(e.message);
       }
     }
   );
