@@ -65,12 +65,19 @@ if (isProd) {
     "scrape_folder",
     async (
       event,
-      { folder, mainFolder }: { folder: Folder; mainFolder: RomFolder }
+      {
+        folder,
+        mainFolder,
+        all,
+      }: { folder: Folder; mainFolder: RomFolder; all: boolean }
     ) => {
-      // use arcade db
+      const filesToScrape = all
+        ? Object.values(folder.files)
+        : Object.values(folder.files).filter((f) => !f.info);
+
       try {
         await Promise.all(
-          Object.values(folder.files).map(async (file) => {
+          filesToScrape.map(async (file) => {
             try {
               const gameInfo = await scrapeGame(
                 file,

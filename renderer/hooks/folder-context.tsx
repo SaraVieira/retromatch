@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 const FoldersContext = React.createContext({
   folders: {} as RomFolders,
   addFolder: (_: RomFolder) => {},
-  scrapeFolder: (folder: Folder, mainFolder: RomFolder) => {},
+  scrapeFolder: (folder: Folder, mainFolder: RomFolder, all: boolean) => {},
   isSyncing: false,
   isLoading: false,
 });
@@ -54,10 +54,15 @@ function FolderProvider({ children }) {
     });
   };
 
-  const scrapeFolder = (folder: Folder, mainFolder: RomFolder) => {
+  const scrapeFolder = (
+    folder: Folder,
+    mainFolder: RomFolder,
+    all: boolean
+  ) => {
     window.ipc.send("scrape_folder", {
       folder,
       mainFolder,
+      all,
     });
     window.ipc.on("new_data", (d: RomFolder) => {
       setFolders((f) => ({

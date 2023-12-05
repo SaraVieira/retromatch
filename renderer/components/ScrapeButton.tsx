@@ -16,11 +16,17 @@ export const ScrapeButton = () => {
   const { query } = useRouter();
   const { folders, scrapeFolder } = useFolders();
 
+  const selectedOptionValue = Array.from(selectedOption)[0];
+
   const activeFolder =
     folders[query.folder as string]?.folders[query.path as string];
 
   const scrape = () => {
-    scrapeFolder(activeFolder, folders[query.folder as string]);
+    scrapeFolder(
+      activeFolder,
+      folders[query.folder as string],
+      selectedOptionValue === "all"
+    );
   };
 
   const descriptionsMap = {
@@ -32,8 +38,6 @@ export const ScrapeButton = () => {
     all: "Scrape all",
     missing: "Only missing",
   };
-
-  const selectedOptionValue = Array.from(selectedOption)[0];
 
   return (
     <ButtonGroup variant="flat">
