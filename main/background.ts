@@ -98,7 +98,7 @@ if (isProd) {
       }
     }
   );
-  romFolders.clear();
+  // romFolders.clear();
 
   ipcMain.on("open-dialog-folder", (event) => {
     const path = dialog.showOpenDialogSync(mainWindow, {
