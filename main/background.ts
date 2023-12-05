@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   app,
   dialog,
@@ -15,8 +14,7 @@ import {
 } from '../types';
 import {
   createWindow,
-  transformConsoleResponse,
-  transformResponse,
+  scrapeGame,
 } from './helpers';
 import { getFolders } from './helpers/folders';
 
@@ -82,49 +80,19 @@ if (isProd) {
     ) => {
       // use arcade db
       try {
-        if (folder.console.screenscrapper_id === 75) {
-          await Promise.all(
-            Object.values(folder.files).map(async (file) => {
-              const response = await axios(
-                `http://adb.arcadeitalia.net/service_scraper.php?ajax=query_mame&lang=en&use_parent=1&game_name=${file.name}`
-              ).then((rsp) => rsp.data);
+        await Promise.all(
+          Object.values(folder.files).map(async (file) => {
+            const gameInfo = scrapeGame(file, folder.console.id, folder.console.screenscrapper_id === 75);
 
-              if (response.result[0]) {
-                const cleanResponse = transformResponse(
-                  response.result[0],
-                  "arcadeDB"
-                );
-
-                romFolders.set(
-                  `${mainFolder.id}.folders.${folder.id}.files.${file.id}.info`,
-                  cleanResponse
-                );
-                event.reply("new_data", romFolders.get(mainFolder.id));
-              }
-            })
-          );
-        }
-        else {
-          await Promise.all(
-            Object.values(folder.files).map(async (file) => {
-              const normalizedName = file.name.replaceAll(/\s*\(.*?\)/ig, "")
-              const response = await axios(
-                `https://letsplayretro.games/api/scrape?query=${encodeURI(normalizedName)}&console=${folder.console.id}`
-              ).then((rsp) => rsp.data);
-              if (response) {
-                const cleanResponse = transformConsoleResponse(
-                  response
-                );
-
-                romFolders.set(
-                  `${mainFolder.id}.folders.${folder.id}.files.${file.id}.info`,
-                  cleanResponse
-                );
-                event.reply("new_data", romFolders.get(mainFolder.id));
-              }
-            })
-         )
-        }
+            if (gameInfo) {
+              romFolders.set(
+                `${mainFolder.id}.folders.${folder.id}.files.${file.id}.info`,
+                gameInfo
+              );
+              event.reply("new_data", romFolders.get(mainFolder.id));
+            }
+          })
+        );
       } catch (e) {
         console.log(e);
       }

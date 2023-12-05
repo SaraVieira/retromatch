@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { customAlphabet } from 'nanoid';
 import { alphanumeric } from 'nanoid-dictionary';
 
@@ -28,35 +29,35 @@ const allowedInLetsPlay = {
   lynx: 28,
 };
 
-export const transformConsoleResponse = (data: any) => {
-    return {
-      url: data.url,
-      title: data.name,
-      developer: {
-        name: '',
-      },
-      images: {
-        screenshot: data.screenshots.length > 0 ? data.screenshots[0] : undefined,
-        title: data.screenshots.length > 0 ? data.screenshots[0] : undefined,
-        cover: data.cover.url,
-      },
-      genre: '',
-      players: '',
-      released: data.first_release_date,
-      videos: {
-        youtube: data.youtube_video_id,
-        shortplay: data.url_video_shortplay,
-      },
-      languages:
-        typeof data.languages === "string"
-          ? [data.languages]
-          : [...(data.languages || [])],
-      rating: data.total_rating,
-      series: data.franchise?.name,
-    };
-}
+const transformConsoleResponse = (data: any) => {
+  return {
+    url: data.url,
+    title: data.name,
+    developer: {
+      name: "",
+    },
+    images: {
+      screenshot: data.screenshots.length > 0 ? data.screenshots[0] : undefined,
+      title: data.screenshots.length > 0 ? data.screenshots[0] : undefined,
+      cover: data.cover.url,
+    },
+    genre: "",
+    players: "",
+    released: data.first_release_date,
+    videos: {
+      youtube: data.youtube_video_id,
+      shortplay: data.url_video_shortplay,
+    },
+    languages:
+      typeof data.languages === "string"
+        ? [data.languages]
+        : [...(data.languages || [])],
+    rating: data.total_rating,
+    series: data.franchise?.name,
+  };
+};
 
-export const transformResponse = (data: any, type: string) => {
+const transformResponse = (data: any, type: string) => {
   if (!data) return null;
   if (type === "arcadeDB") {
     return {
@@ -91,4 +92,25 @@ export const createID = () => {
   const lowercaseRandomString = customAlphabet(alphanumeric, 10);
 
   return `a${lowercaseRandomString()}`;
+};
+
+export const scrapeGame = async (file: any, consoleId: string, isArcade: bool) => {
+  if (isArcade) {
+    const response = await axios(
+      `http://adb.arcadeitalia.net/service_scraper.php?ajax=query_mame&lang=en&use_parent=1&game_name=${file.name}`
+    ).then((rsp) => rsp.data);
+    if (response.result[0]) {
+      return transformResponse(response.result[0], "arcadeDB");
+    }
+  } else {
+    const normalizedName = file.name.replaceAll(/\s*\(.*?\)/gi, "");
+    const response = await axios(
+      `https://letsplayretro.games/api/scrape?query=${encodeURI(
+        normalizedName
+      )}&console=${consoleId}`
+    ).then((rsp) => rsp.data);
+    if (response) {
+      return transformConsoleResponse(response);
+    }
+  }
 };
