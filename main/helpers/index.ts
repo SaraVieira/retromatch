@@ -94,20 +94,22 @@ export const createID = () => {
   return `a${lowercaseRandomString()}`;
 };
 
-export const scrapeGame = async (file: any, consoleId: string, isArcade: bool) => {
+export const scrapeGame = async (
+  file: any,
+  consoleId: string,
+  isArcade: bool
+) => {
+  const normalizedName = encodeURI(file.name.replaceAll(/\s*\(.*?\)/gi, ""));
   if (isArcade) {
     const response = await axios(
-      `http://adb.arcadeitalia.net/service_scraper.php?ajax=query_mame&lang=en&use_parent=1&game_name=${file.name}`
+      `http://adb.arcadeitalia.net/service_scraper.php?ajax=query_mame&lang=en&use_parent=1&game_name=${normalizedName}`
     ).then((rsp) => rsp.data);
     if (response.result[0]) {
       return transformResponse(response.result[0], "arcadeDB");
     }
   } else {
-    const normalizedName = file.name.replaceAll(/\s*\(.*?\)/gi, "");
     const response = await axios(
-      `https://letsplayretro.games/api/scrape?query=${encodeURI(
-        normalizedName
-      )}&console=${consoleId}`
+      `https://letsplayretro.games/api/scrape?query=${normalizedName}&console=${consoleId}`
     ).then((rsp) => rsp.data);
     if (response) {
       return transformConsoleResponse(response);
