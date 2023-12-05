@@ -2,7 +2,6 @@ import { readdir, stat } from "fs/promises";
 import { extname } from "path";
 import { consoles } from "../../consoles";
 import { createID } from ".";
-import { calculateMD5Hash } from "./hashes";
 
 export const getFolders = async (path) => {
   const pathRead = await readdir(path, { withFileTypes: true });
