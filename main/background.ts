@@ -1,12 +1,24 @@
-import path from "path";
-import { app, dialog, ipcMain } from "electron";
+import axios from 'axios';
+import {
+  app,
+  dialog,
+  ipcMain,
+} from 'electron';
+import serve from 'electron-serve';
+import Store from 'electron-store';
+import path from 'path';
 
-import serve from "electron-serve";
-import Store from "electron-store";
-import { createWindow, transformResponse } from "./helpers";
-import { Folder, RomFolder, RomFolders } from "../types";
-import { getFolders } from "./helpers/folders";
-import axios from "axios";
+import {
+  Folder,
+  RomFolder,
+  RomFolders,
+} from '../types';
+import {
+  createWindow,
+  transformConsoleResponse,
+  transformResponse,
+} from './helpers';
+import { getFolders } from './helpers/folders';
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -91,6 +103,27 @@ if (isProd) {
               }
             })
           );
+        }
+        else {
+          await Promise.all(
+            Object.values(folder.files).map(async (file) => {
+              const normalizedName = file.name.replaceAll(/\s*\(.*?\)/ig, "")
+              const response = await axios(
+                `https://letsplayretro.games/api/scrape?query=${encodeURI(normalizedName)}&console=${folder.console.id}`
+              ).then((rsp) => rsp.data);
+              if (response) {
+                const cleanResponse = transformConsoleResponse(
+                  response
+                );
+
+                romFolders.set(
+                  `${mainFolder.id}.folders.${folder.id}.files.${file.id}.info`,
+                  cleanResponse
+                );
+                event.reply("new_data", romFolders.get(mainFolder.id));
+              }
+            })
+         )
         }
       } catch (e) {
         console.log(e);

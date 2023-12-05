@@ -1,7 +1,7 @@
-export * from "./create-window";
+import { customAlphabet } from 'nanoid';
+import { alphanumeric } from 'nanoid-dictionary';
 
-import { customAlphabet } from "nanoid";
-import { alphanumeric } from "nanoid-dictionary";
+export * from "./create-window";
 
 const allowedInLetsPlay = {
   nes: 3,
@@ -27,6 +27,34 @@ const allowedInLetsPlay = {
   ngp: 25,
   lynx: 28,
 };
+
+export const transformConsoleResponse = (data: any) => {
+    return {
+      url: data.url,
+      title: data.name,
+      developer: {
+        name: '',
+      },
+      images: {
+        screenshot: data.screenshots.length > 0 ? data.screenshots[0] : undefined,
+        title: data.screenshots.length > 0 ? data.screenshots[0] : undefined,
+        cover: data.cover.url,
+      },
+      genre: '',
+      players: '',
+      released: data.first_release_date,
+      videos: {
+        youtube: data.youtube_video_id,
+        shortplay: data.url_video_shortplay,
+      },
+      languages:
+        typeof data.languages === "string"
+          ? [data.languages]
+          : [...(data.languages || [])],
+      rating: data.total_rating,
+      series: data.franchise?.name,
+    };
+}
 
 export const transformResponse = (data: any, type: string) => {
   if (!data) return null;
