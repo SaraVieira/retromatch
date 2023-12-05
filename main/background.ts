@@ -82,7 +82,7 @@ if (isProd) {
       try {
         await Promise.all(
           Object.values(folder.files).map(async (file) => {
-            const gameInfo = scrapeGame(file, folder.console.id, folder.console.screenscrapper_id === 75);
+            const gameInfo = await scrapeGame(file, folder.console.id, folder.console.screenscrapper_id === 75);
 
             if (gameInfo) {
               romFolders.set(
