@@ -13,7 +13,7 @@ export const getFolders = async (path) => {
         consoles
           .map((a) => a.folderNames)
           .flat()
-          .includes(dir.name)
+          .includes(dir.name.toLocaleLowerCase())
       )
       .map((folder) => ({
         path: `${path}/${folder.name}`,
