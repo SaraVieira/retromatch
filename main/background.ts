@@ -1,12 +1,22 @@
-import path from "path";
-import { app, dialog, ipcMain } from "electron";
+import {
+  app,
+  dialog,
+  ipcMain,
+} from 'electron';
+import serve from 'electron-serve';
+import Store from 'electron-store';
+import path from 'path';
 
-import serve from "electron-serve";
-import Store from "electron-store";
-import { createWindow, transformResponse } from "./helpers";
-import { Folder, RomFolder, RomFolders } from "../types";
-import { getFolders } from "./helpers/folders";
-import axios from "axios";
+import {
+  Folder,
+  RomFolder,
+  RomFolders,
+} from '../types';
+import {
+  createWindow,
+  scrapeGame,
+} from './helpers';
+import { getFolders } from './helpers/folders';
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -70,34 +80,25 @@ if (isProd) {
     ) => {
       // use arcade db
       try {
-        if (folder.console.screenscrapper_id === 75) {
-          await Promise.all(
-            Object.values(folder.files).map(async (file) => {
-              const response = await axios(
-                `http://adb.arcadeitalia.net/service_scraper.php?ajax=query_mame&lang=en&use_parent=1&game_name=${file.name}`
-              ).then((rsp) => rsp.data);
+        await Promise.all(
+          Object.values(folder.files).map(async (file) => {
+            const gameInfo = await scrapeGame(file, folder.console.id, folder.console.screenscrapper_id === 75);
 
-              if (response.result[0]) {
-                const cleanResponse = transformResponse(
-                  response.result[0],
-                  "arcadeDB"
-                );
-
-                romFolders.set(
-                  `${mainFolder.id}.folders.${folder.id}.files.${file.id}.info`,
-                  cleanResponse
-                );
-                event.reply("new_data", romFolders.get(mainFolder.id));
-              }
-            })
-          );
-        }
+            if (gameInfo) {
+              romFolders.set(
+                `${mainFolder.id}.folders.${folder.id}.files.${file.id}.info`,
+                gameInfo
+              );
+              event.reply("new_data", romFolders.get(mainFolder.id));
+            }
+          })
+        );
       } catch (e) {
         console.log(e);
       }
     }
   );
-  romFolders.clear();
+  // romFolders.clear();
 
   ipcMain.on("open-dialog-folder", (event) => {
     const path = dialog.showOpenDialogSync(mainWindow, {
