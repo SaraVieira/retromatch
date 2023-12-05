@@ -13,6 +13,7 @@ export const consoles = [
     folderNames: ["ags"],
     extensions: [".desktop", ".sh"],
     id: "ags",
+    image: "ags.png",
   },
   {
     screenscrapper_id: 64,
@@ -96,6 +97,7 @@ export const consoles = [
       ".zip",
     ],
     id: "amiga600",
+    image: "amiga600.png",
   },
   {
     screenscrapper_id: 130,
@@ -190,6 +192,7 @@ export const consoles = [
     folderNames: ["arduboy"],
     extensions: [".hex", ".7z", ".zip"],
     id: "arduboy",
+    image: "arduboy.png",
   },
   {
     screenscrapper_id: 44,
@@ -443,6 +446,7 @@ export const consoles = [
     folderNames: ["coco"],
     extensions: [".cas", ".ccc", ".dsk", ".rom"],
     id: "coco",
+    image: "Tandy TRS-80.png",
   },
   {
     screenscrapper_id: 48,
@@ -512,6 +516,7 @@ export const consoles = [
     folderNames: ["flash"],
     extensions: [".swf"],
     id: "flash",
+    image: "flash.png",
   },
   {
     screenscrapper_id: 49,
@@ -526,6 +531,7 @@ export const consoles = [
     folderNames: ["doom"],
     extensions: [".desktop", ".iwad", ".pk4", ".pwad", ".sh", ".wad"],
     id: "doom",
+    image: "doom.png",
   },
   {
     screenscrapper_id: 135,
@@ -579,6 +585,7 @@ export const consoles = [
     folderNames: ["easyrpg"],
     extensions: [".easyrpg", ".zip"],
     id: "easyrpg",
+    image: "easyrpg.png",
   },
   {
     screenscrapper_id: 3,
@@ -884,6 +891,7 @@ export const consoles = [
     folderNames: ["lowresnx"],
     extensions: [".nx"],
     id: "lowresnx",
+    image: "lowresnx.png",
   },
   {
     screenscrapper_id: 206,
@@ -891,6 +899,7 @@ export const consoles = [
     folderNames: ["lutro"],
     extensions: [".lua", ".lutro", ".7z", ".zip"],
     id: "lutro",
+    image: "lutro.png",
   },
   {
     screenscrapper_id: 75,
@@ -1225,6 +1234,7 @@ export const consoles = [
       ".zip",
     ],
     id: "pc",
+    image: "ibm.png",
   },
   {
     screenscrapper_id: 219,
@@ -1232,6 +1242,7 @@ export const consoles = [
     folderNames: ["palm"],
     extensions: [".img", ".pqa", ".prc", ".7z", ".zip"],
     id: "palm",
+    image: "palm.png",
   },
   {
     screenscrapper_id: 131,
@@ -1358,6 +1369,7 @@ export const consoles = [
     folderNames: ["uzebox"],
     extensions: [".uze", ".7z", ".zip"],
     id: "uzebox",
+    image: "uzebox.png",
   },
   {
     screenscrapper_id: 144,
@@ -1825,6 +1837,7 @@ export const consoles = [
     folderNames: ["mugen"],
     extensions: [".mugen"],
     id: "mugen",
+    image: "mugen.png",
   },
   {
     name: "Othello Multivision",
@@ -2079,6 +2092,7 @@ export const consoles = [
     folderNames: ["quake"],
     extensions: [".desktop", ".pak", ".pk3", ".sh"],
     id: "quake",
+    image: "quake.png",
   },
   {
     screenscrapper_id: 75,
