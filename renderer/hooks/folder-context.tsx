@@ -1,11 +1,14 @@
 import * as React from "react";
-import { Folder, RomFolder, RomFolders } from "../../types";
+
 import { useRouter } from "next/router";
+
+import { Folder, RomFolder, RomFolders } from "../../types";
 
 const FoldersContext = React.createContext({
   folders: {} as RomFolders,
   addFolder: (_: RomFolder) => {},
   scrapeFolder: (folder: Folder, mainFolder: RomFolder, all: boolean) => {},
+  syncFolder: (folder: RomFolder) => {},
   isSyncing: false,
   isLoading: false,
 });
@@ -78,6 +81,7 @@ function FolderProvider({ children }) {
         folders,
         addFolder,
         scrapeFolder,
+        syncFolder,
         isSyncing,
         isLoading,
       }}
