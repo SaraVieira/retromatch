@@ -13,7 +13,9 @@ export const Files = () => {
 
   return (
     <div className="container mx-auto">
-      <video src={activeFile?.info?.videos?.shortplay} controls />{" "}
+      {activeFile?.info?.videos?.shortplay ? (
+        <video src={activeFile?.info?.videos?.shortplay} controls />
+      ) : null}
       <pre>{JSON.stringify(activeFile, null, 2)}</pre>
     </div>
   );

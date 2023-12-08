@@ -22,6 +22,7 @@ if (isProd) {
     width: 1000,
     height: 600,
     webPreferences: {
+      nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
     },
   });
@@ -49,7 +50,7 @@ if (isProd) {
   ipcMain.on(
     "sync_folder",
     async (event, { path, id }: { path: string; id: string }) => {
-      const allFolders = await getFolders(path);
+      const allFolders = await getFolders(path, mainWindow);
       const currentFolder = {
         ...(romFolders.get(id) as RomFolder),
         folders: allFolders,
