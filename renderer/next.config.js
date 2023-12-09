@@ -2,9 +2,9 @@
 module.exports = {
   trailingSlash: true,
   images: {
-    unoptimized: true,
+    unoptimized: true
   },
   webpack: (config) => {
-    return config
-  },
-}
+    return config;
+  }
+};

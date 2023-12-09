@@ -7,7 +7,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger,
+  DropdownTrigger
 } from "@nextui-org/react";
 import { IconChevronDown } from "@tabler/icons-react";
 
@@ -27,12 +27,12 @@ export const ScrapeButton = () => {
 
   const descriptionsMap = {
     all: "Scrape all roms in this folder",
-    missing: "Only roms with no info will be scraped",
+    missing: "Only roms with no info will be scraped"
   };
 
   const labelsMap = {
     all: "Scrape all",
-    missing: "Only missing",
+    missing: "Only missing"
   };
 
   return (

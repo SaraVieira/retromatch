@@ -6,7 +6,7 @@ import { foldersStore, romsStore } from "./stores";
 
 export const getRoms = async ({
   allFolders,
-  id,
+  id
 }: {
   allFolders: {
     [id: string]: Folder;
@@ -17,9 +17,7 @@ export const getRoms = async ({
     await Promise.all(
       Object.values(allFolders).map(async (folder) => {
         return await Promise.all(
-          (
-            await readdir(folder.path, { withFileTypes: true })
-          )
+          (await readdir(folder.path, { withFileTypes: true }))
             .filter((dirent) => dirent.isFile() && !dirent.name.startsWith("."))
             .filter((file) =>
               folder.console.extensions.includes(
@@ -33,7 +31,7 @@ export const getRoms = async ({
                 name: file.name.split(extname(file.name))[0],
                 extension: extname(file.name),
                 fullName: file.name,
-                size,
+                size
               };
               const fileId = uuidv5(
                 `${newFile.fullName}${newFile.size}`,
@@ -42,12 +40,12 @@ export const getRoms = async ({
               foldersStore.set(`${id}.folders.${folder.id}.files`, [
                 ...((foldersStore.get(`${id}.folders.${folder.id}.files`) ||
                   []) as any[]),
-                fileId,
+                fileId
               ]);
               if (!romsStore.get(fileId)) {
                 romsStore.set(fileId, {
                   ...newFile,
-                  id: fileId,
+                  id: fileId
                 });
               }
             })

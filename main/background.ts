@@ -24,8 +24,8 @@ if (isProd) {
     width: 1000,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-    },
+      preload: path.join(__dirname, "preload.js")
+    }
   });
 
   if (isProd) {
@@ -52,14 +52,14 @@ if (isProd) {
       const currentFolder = {
         ...(foldersStore.get(id) as RomFolder),
         folders: allFolders,
-        lastSynced: new Date(),
+        lastSynced: new Date()
       };
 
       foldersStore.set(id, currentFolder);
       await getRoms({ allFolders, id });
       event.reply("done_syncing", {
         newFolder: foldersStore.get(id),
-        roms: romsStore.store,
+        roms: romsStore.store
       });
     }
   );
@@ -94,7 +94,7 @@ if (isProd) {
 
   ipcMain.on("open-dialog-folder", (event) => {
     const path = dialog.showOpenDialogSync(mainWindow, {
-      properties: ["openDirectory"],
+      properties: ["openDirectory"]
     });
 
     if (path) {

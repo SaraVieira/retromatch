@@ -10,7 +10,7 @@ const FoldersContext = React.createContext({
   scrapeFolder: (_folder: Folder, _all: boolean) => {},
   syncFolder: (_folder: RomFolder) => {},
   isSyncing: false,
-  isLoading: false,
+  isLoading: false
 });
 
 function FolderProvider({ children }) {
@@ -44,7 +44,7 @@ function FolderProvider({ children }) {
   const syncFolder = (folder: RomFolder) => {
     window.ipc.send("sync_folder", {
       path: folder.path,
-      id: folder.id,
+      id: folder.id
     });
     window.ipc.on(
       "done_syncing",
@@ -53,7 +53,7 @@ function FolderProvider({ children }) {
         setFolders((folders) => {
           return {
             ...folders,
-            [newFolder.id]: newFolder,
+            [newFolder.id]: newFolder
           };
         });
         setRoms(roms);
@@ -65,12 +65,12 @@ function FolderProvider({ children }) {
   const scrapeFolder = (folder: Folder, all: boolean) => {
     window.ipc.send("scrape_folder", {
       folder,
-      all,
+      all
     });
     window.ipc.on("new_data", (d: Roms["id"]) => {
       setRoms((r) => ({
         ...r,
-        [d.id]: d,
+        [d.id]: d
       }));
     });
   };
@@ -83,7 +83,7 @@ function FolderProvider({ children }) {
         scrapeFolder,
         syncFolder,
         isSyncing,
-        isLoading,
+        isLoading
       }}
     >
       {children}

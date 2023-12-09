@@ -16,14 +16,14 @@ export const transformResponse = (data: any, type: string) => {
       url: data.url,
       title: data.name,
       developer: {
-        name: findDev(),
+        name: findDev()
       },
       images: {
         screenshots: data.screenshots.length
           ? data.screenshots.map((s) => imageUrl(s.url))
           : undefined,
         title: undefined,
-        cover: imageUrl(data.cover.url),
+        cover: imageUrl(data.cover.url)
       },
       genre: data.genres.map((g) => g.name).join(" / "),
       players: "",
@@ -32,16 +32,16 @@ export const transformResponse = (data: any, type: string) => {
         {
           year: "numeric",
           month: "numeric",
-          day: "numeric",
+          day: "numeric"
         }
       ),
       videos: {
         youtube: data.videos.length ? data.videos.length[0]?.video_id : null,
-        shortplay: null,
+        shortplay: null
       },
       summary: data.summary,
       rating: data.total_rating,
-      series: data.franchise?.name,
+      series: data.franchise?.name
     };
   }
   if (type === "arcadeDB") {
@@ -50,22 +50,22 @@ export const transformResponse = (data: any, type: string) => {
       title: data.short_title || data.title,
       summary: data.history,
       developer: {
-        name: data.manufacturer,
+        name: data.manufacturer
       },
       images: {
         screenshots: [data.url_image_ingame],
         title: data.url_image_title,
-        cover: data.url_image_flyer,
+        cover: data.url_image_flyer
       },
       genre: data.genre,
       players: data.players,
       released: data.year,
       videos: {
         youtube: data.youtube_video_id,
-        shortplay: data.url_video_shortplay,
+        shortplay: data.url_video_shortplay
       },
       rating: data.rate,
-      series: data.series,
+      series: data.series
     };
   }
 };

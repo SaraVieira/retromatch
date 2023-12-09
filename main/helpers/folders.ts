@@ -19,7 +19,7 @@ export const getFolders = async (path): Promise<RomFolder["folders"]> => {
         console: consoles.find((c) =>
           c.folderNames.includes(folder.name.toLocaleLowerCase())
         ),
-        files: [],
+        files: []
       }))
   );
 
@@ -27,7 +27,7 @@ export const getFolders = async (path): Promise<RomFolder["folders"]> => {
     const folderId = createID();
     acc[folderId] = {
       ...curr,
-      id: folderId,
+      id: folderId
     };
     return acc;
   }, {});

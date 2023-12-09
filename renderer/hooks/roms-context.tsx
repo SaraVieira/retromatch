@@ -3,7 +3,7 @@ import { Roms } from "../../types";
 
 const RomsContext = React.createContext({
   roms: {},
-  setRoms: (_a: any) => ({} as any),
+  setRoms: (_a: any) => ({}) as any
 });
 
 function RomProvider({ children }) {
@@ -23,7 +23,7 @@ function RomProvider({ children }) {
     <RomsContext.Provider
       value={{
         roms,
-        setRoms,
+        setRoms
       }}
     >
       {children}

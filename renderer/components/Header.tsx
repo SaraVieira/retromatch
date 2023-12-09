@@ -5,7 +5,7 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
-  Button,
+  Button
 } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import { IconChevronLeft } from "@tabler/icons-react";
