@@ -31,4 +31,3 @@ contextBridge.exposeInMainWorld("ipc", handler);
 contextBridge.exposeInMainWorld("ipcRenderer", ipcRenderer);
 
 export type IpcHandler = typeof handler;
-s;
