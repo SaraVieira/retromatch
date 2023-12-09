@@ -2,12 +2,13 @@ import * as React from "react";
 
 import { useRouter } from "next/router";
 
-import { Folder, RomFolder, RomFolders } from "../../types";
+import { Folder, RomFolder, RomFolders, Roms } from "../../types";
+import { useRoms } from "./roms-context";
 
 const FoldersContext = React.createContext({
   folders: {} as RomFolders,
   addFolder: (_: RomFolder) => {},
-  scrapeFolder: (folder: Folder, mainFolder: RomFolder, all: boolean) => {},
+  scrapeFolder: (folder: Folder, all: boolean) => {},
   syncFolder: (folder: RomFolder) => {},
   isSyncing: false,
   isLoading: false,
@@ -18,6 +19,7 @@ function FolderProvider({ children }) {
   const [isSyncing, setIsSyncing] = React.useState(false);
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(true);
+  const { setRoms } = useRoms();
 
   const getData = () => {
     setIsLoading(true);
@@ -57,19 +59,14 @@ function FolderProvider({ children }) {
     });
   };
 
-  const scrapeFolder = (
-    folder: Folder,
-    mainFolder: RomFolder,
-    all: boolean
-  ) => {
+  const scrapeFolder = (folder: Folder, all: boolean) => {
     window.ipc.send("scrape_folder", {
       folder,
-      mainFolder,
       all,
     });
-    window.ipc.on("new_data", (d: RomFolder) => {
-      setFolders((f) => ({
-        ...f,
+    window.ipc.on("new_data", (d: Roms["id"]) => {
+      setRoms((r) => ({
+        ...r,
         [d.id]: d,
       }));
     });

@@ -22,11 +22,7 @@ export const ScrapeButton = () => {
     folders[query.folder as string]?.folders[query.path as string];
 
   const scrape = () => {
-    scrapeFolder(
-      activeFolder,
-      folders[query.folder as string],
-      selectedOptionValue === "all"
-    );
+    scrapeFolder(activeFolder, selectedOptionValue === "all");
   };
 
   const descriptionsMap = {

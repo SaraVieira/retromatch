@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,15 +10,7 @@ import { useFolders } from "../../hooks/folder-context";
 
 export default function HomePage() {
   const { folders, syncFolder } = useFolders();
-  const { query, isReady } = useRouter();
-  const currentFolder = useMemo(() => {
-    if (!isReady) {
-      return null;
-    }
-
-    return folders[query.folder as string];
-  }, [folders, isReady]);
-
+  const { query } = useRouter();
   const subFolders = folders[query.folder as string]?.folders;
   const gameFolders = subFolders
     ? Object.values(subFolders).filter((a) => Object.values(a.files).length)
