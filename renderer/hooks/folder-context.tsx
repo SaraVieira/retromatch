@@ -1,11 +1,11 @@
-import * as React from "react";
 import { useRouter } from "next/router";
 
 import { Folder, RomFolder, RomFolders, Roms } from "../../types";
 import { useRoms } from "./roms-context";
 import { consoles } from "../../consoles";
+import { createContext, useContext, useEffect, useState } from "react";
 
-const FoldersContext = React.createContext({
+const FoldersContext = createContext({
   folders: {} as RomFolders,
   addFolder: (_: RomFolder) => {},
   scrapeFolder: (_folder: Folder, _all: boolean) => {},
@@ -18,13 +18,13 @@ const FoldersContext = React.createContext({
 });
 
 function FolderProvider({ children }) {
-  const [folders, setFolders] = React.useState({});
-  const [isSyncing, setIsSyncing] = React.useState(false);
+  const [folders, setFolders] = useState({});
+  const [isSyncing, setIsSyncing] = useState(false);
   const router = useRouter();
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [folderMatches, setFolderMatches] = React.useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [folderMatches, setFolderMatches] = useState([]);
   const { setRoms } = useRoms();
-  const [selectedFolder, setSelectedFolder] = React.useState({});
+  const [selectedFolder, setSelectedFolder] = useState({});
 
   const getData = () => {
     setIsLoading(true);
@@ -36,7 +36,7 @@ function FolderProvider({ children }) {
     window.ipc.send("load", null);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getData();
   }, []);
 
@@ -114,7 +114,7 @@ function FolderProvider({ children }) {
 }
 
 function useFolders() {
-  const context = React.useContext(FoldersContext);
+  const context = useContext(FoldersContext);
   if (context === undefined) {
     throw new Error("useFolders must be used within a FolderProvider");
   }
