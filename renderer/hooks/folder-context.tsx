@@ -3,14 +3,18 @@ import { useRouter } from "next/router";
 
 import { Folder, RomFolder, RomFolders, Roms } from "../../types";
 import { useRoms } from "./roms-context";
+import { consoles } from "../../consoles";
 
 const FoldersContext = React.createContext({
   folders: {} as RomFolders,
   addFolder: (_: RomFolder) => {},
   scrapeFolder: (_folder: Folder, _all: boolean) => {},
-  syncFolder: (_folder: RomFolder) => {},
+  syncFolders: () => {},
   isSyncing: false,
-  isLoading: false
+  isLoading: false,
+  folderMatches: [],
+  // eslint-disable-next-line
+  setFolderMatch: ({ id, name }: { id: string; name: string }) => {}
 });
 
 function FolderProvider({ children }) {
@@ -18,7 +22,9 @@ function FolderProvider({ children }) {
   const [isSyncing, setIsSyncing] = React.useState(false);
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(true);
+  const [folderMatches, setFolderMatches] = React.useState([]);
   const { setRoms } = useRoms();
+  const [selectedFolder, setSelectedFolder] = React.useState({});
 
   const getData = () => {
     setIsLoading(true);
@@ -35,16 +41,20 @@ function FolderProvider({ children }) {
   }, []);
 
   const addFolder = (folder: RomFolder) => {
-    setIsSyncing(true);
     window.ipc.send("add_folder", folder);
-    getData();
-    syncFolder(folder);
+    setSelectedFolder(folder);
+
+    window.ipc.on("folders_found", setFolderMatches);
+    router.push("/new/matches");
   };
 
-  const syncFolder = (folder: RomFolder) => {
+  const syncFolders = () => {
+    setIsSyncing(true);
+    getData();
+
     window.ipc.send("sync_folder", {
-      path: folder.path,
-      id: folder.id
+      folders: folderMatches,
+      mainFolder: selectedFolder
     });
     window.ipc.on(
       "done_syncing",
@@ -75,15 +85,27 @@ function FolderProvider({ children }) {
     });
   };
 
+  const setFolderMatch = ({ id, name }) => {
+    setFolderMatches([
+      ...folderMatches.filter((a) => a.name !== name),
+      {
+        ...folderMatches.find((a) => a.name === name),
+        console: consoles.find((c) => c.id === id)
+      }
+    ]);
+  };
+
   return (
     <FoldersContext.Provider
       value={{
         folders,
         addFolder,
         scrapeFolder,
-        syncFolder,
+        syncFolders,
         isSyncing,
-        isLoading
+        folderMatches,
+        isLoading,
+        setFolderMatch
       }}
     >
       {children}

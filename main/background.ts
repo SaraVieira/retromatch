@@ -8,6 +8,8 @@ import { createWindow, scrapeGame } from "./helpers";
 import { getFolders } from "./helpers/folders";
 import { getRoms } from "./helpers/roms";
 import { foldersStore, romsStore } from "./helpers/stores";
+import { readdir } from "fs/promises";
+import { consoles } from "../consoles";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -41,24 +43,35 @@ if (isProd) {
     event.reply("all_roms", romsStore.store);
   });
 
-  ipcMain.on("add_folder", async (_, folder: RomFolder) => {
-    foldersStore.set(folder.id, folder);
+  ipcMain.on("add_folder", async (event, folder: RomFolder) => {
+    const pathRead = (await readdir(folder.path, { withFileTypes: true })).map(
+      (dir) => ({
+        ...dir,
+        console: consoles.find((c) =>
+          c.folderNames.includes(dir.name.toLocaleLowerCase())
+        )
+      })
+    );
+    event.reply("folders_found", pathRead);
   });
 
   ipcMain.on(
     "sync_folder",
-    async (event, { path, id }: { path: string; id: string }) => {
-      const allFolders = await getFolders(path);
+    async (
+      event,
+      { folders, mainFolder }: { folders: any[]; mainFolder: RomFolder }
+    ) => {
+      const allFolders = await getFolders(folders);
       const currentFolder = {
-        ...(foldersStore.get(id) as RomFolder),
+        ...mainFolder,
         folders: allFolders,
         lastSynced: new Date()
       };
 
-      foldersStore.set(id, currentFolder);
-      await getRoms({ allFolders, id });
+      foldersStore.set(mainFolder.id, currentFolder);
+      await getRoms({ allFolders, id: mainFolder.id });
       event.reply("done_syncing", {
-        newFolder: foldersStore.get(id),
+        newFolder: foldersStore.get(mainFolder.id),
         roms: romsStore.store
       });
     }
