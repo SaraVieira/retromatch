@@ -57,7 +57,10 @@ if (isProd) {
 
       foldersStore.set(id, currentFolder);
       await getRoms({ allFolders, id });
-      event.reply("done_syncing", foldersStore.get(id));
+      event.reply("done_syncing", {
+        newFolder: foldersStore.get(id),
+        roms: romsStore.store,
+      });
     }
   );
 

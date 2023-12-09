@@ -9,7 +9,7 @@ export const Files = () => {
   const { folders } = useFolders();
   const { roms } = useRoms();
   const { query } = useRouter();
-
+  console.log(roms);
   const activeFolder =
     folders[query.folder as string]?.folders[query.path as string];
   if (!activeFolder) return null;

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { useRouter } from "next/router";
 
 import { Folder, RomFolder, RomFolders, Roms } from "../../types";
@@ -47,16 +46,20 @@ function FolderProvider({ children }) {
       path: folder.path,
       id: folder.id,
     });
-    window.ipc.on("done_syncing", (newFolder: Folder) => {
-      setIsSyncing(false);
-      setFolders((folders) => {
-        return {
-          ...folders,
-          [newFolder.id]: newFolder,
-        };
-      });
-      router.push(`/${newFolder.id}`);
-    });
+    window.ipc.on(
+      "done_syncing",
+      ({ newFolder, roms }: { newFolder: Folder; roms: Roms }) => {
+        setIsSyncing(false);
+        setFolders((folders) => {
+          return {
+            ...folders,
+            [newFolder.id]: newFolder,
+          };
+        });
+        setRoms(roms);
+        router.push(`/${newFolder.id}`);
+      }
+    );
   };
 
   const scrapeFolder = (folder: Folder, all: boolean) => {

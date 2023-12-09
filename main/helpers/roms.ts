@@ -44,7 +44,7 @@ export const getRoms = async ({
                   []) as any[]),
                 fileId,
               ]);
-              if (romsStore.get(fileId)) {
+              if (!romsStore.get(fileId)) {
                 romsStore.set(fileId, {
                   ...newFile,
                   id: fileId,
