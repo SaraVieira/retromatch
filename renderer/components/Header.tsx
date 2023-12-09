@@ -54,12 +54,9 @@ export default function Header() {
       </NavbarBrand>
 
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
         <NavbarItem className="flex gap-4">
           {isConsolePage && <ScrapeButton />}
-          <Button as={Link} color="primary" href="#" variant="flat">
+          <Button as={Link} color="primary" href="/settings" variant="flat">
             Settings
           </Button>
         </NavbarItem>

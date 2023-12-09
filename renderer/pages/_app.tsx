@@ -6,17 +6,20 @@ import { FolderProvider } from "../hooks/folder-context";
 import Header from "../components/Header";
 import { RomProvider } from "../hooks/roms-context";
 import { Toaster } from "react-hot-toast";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RomProvider>
       <FolderProvider>
         <NextUIProvider>
-          <Header />
-          <Toaster position="top-right" />
-          <div className="flex gap-2 min-h-screen">
-            <Component {...pageProps} />
-          </div>
+          <NextThemesProvider attribute="class" defaultTheme="dark">
+            <Header />
+            <Toaster position="top-right" />
+            <div className="flex flex-col gap-2 min-h-screen">
+              <Component {...pageProps} />
+            </div>
+          </NextThemesProvider>
         </NextUIProvider>
       </FolderProvider>
     </RomProvider>
