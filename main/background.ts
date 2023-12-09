@@ -1,13 +1,13 @@
 import { app, dialog, ipcMain } from "electron";
 import serve from "electron-serve";
-import Store from "electron-store";
-import path, { extname } from "path";
-import { readdir, stat } from "fs/promises";
-import { v5 as uuidv5 } from "uuid";
 
-import { RomFolder, RomFolders, Roms } from "../types";
-import { createID, createWindow, scrapeGame } from "./helpers";
+import path from "path";
+
+import { RomFolder } from "../types";
+import { createWindow, scrapeGame } from "./helpers";
 import { getFolders } from "./helpers/folders";
+import { getRoms } from "./helpers/roms";
+import { foldersStore, romsStore } from "./helpers/stores";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -36,14 +36,6 @@ if (isProd) {
     mainWindow.webContents.openDevTools();
   }
 
-  const foldersStore = new Store<RomFolders[]>({
-    name: "foldersStore",
-  });
-
-  const romsStore = new Store<Roms[]>({
-    name: "roms",
-  });
-
   ipcMain.on("load", async (event) => {
     event.reply("all_data", foldersStore.store);
     event.reply("all_roms", romsStore.store);
@@ -64,53 +56,8 @@ if (isProd) {
       };
 
       foldersStore.set(id, currentFolder);
-      try {
-        await Promise.all(
-          Object.values(allFolders).map(async (folder) => {
-            return await Promise.all(
-              (
-                await readdir(folder.path, { withFileTypes: true })
-              )
-                .filter(
-                  (dirent) => dirent.isFile() && !dirent.name.startsWith(".")
-                )
-                .filter((file) =>
-                  folder.console.extensions.includes(
-                    extname(file.name.toLocaleLowerCase())
-                  )
-                )
-                .map(async (file) => {
-                  const size = (await stat(`${folder.path}/${file.name}`)).size;
-
-                  const newFile = {
-                    name: file.name.split(extname(file.name))[0],
-                    extension: extname(file.name),
-                    fullName: file.name,
-                    size,
-                  };
-                  const fileId = uuidv5(
-                    `${newFile.fullName}${newFile.size}`,
-                    uuidv5.URL
-                  );
-                  foldersStore.set(`${id}.folders.${folder.id}.files`, [
-                    ...((foldersStore.get(`${id}.folders.${folder.id}.files`) ||
-                      []) as any[]),
-                    fileId,
-                  ]);
-                  if (romsStore.get(fileId)) {
-                    romsStore.set(fileId, {
-                      ...newFile,
-                      id: fileId,
-                    });
-                  }
-                })
-            );
-          })
-        );
-        event.reply("done_syncing", foldersStore.get(id));
-      } catch (e) {
-        console.log(e);
-      }
+      await getRoms({ allFolders, id });
+      event.reply("done_syncing", foldersStore.get(id));
     }
   );
 

@@ -1,6 +1,6 @@
 import React from "react";
 import type { AppProps } from "next/app";
-import { NextUIProvider, cn } from "@nextui-org/react";
+import { NextUIProvider } from "@nextui-org/react";
 import "../styles/globals.css";
 import { FolderProvider } from "../hooks/folder-context";
 import Header from "../components/Header";

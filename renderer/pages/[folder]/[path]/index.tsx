@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import { humanFileSize } from "../../../utils/size";
 import { useRoms } from "../../../hooks/roms-context";
-import toast from "react-hot-toast";
 
 export const Files = () => {
   const { folders } = useFolders();

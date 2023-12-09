@@ -1,7 +1,6 @@
 import { Spinner } from "@nextui-org/react";
 import { AddFolder } from "../components/AddFolder";
 import { useFolders } from "../hooks/folder-context";
-import Link from "next/link";
 
 const New = () => {
   const { isSyncing } = useFolders();

@@ -49,7 +49,7 @@ export const ScrapeButton = () => {
           aria-label="Merge options"
           selectedKeys={selectedOption}
           selectionMode="single"
-          //@ts-ignore
+          //@ts-expect-error
           onSelectionChange={setSelectedOption}
           className="max-w-[300px]"
         >

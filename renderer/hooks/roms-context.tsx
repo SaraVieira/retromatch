@@ -1,12 +1,9 @@
 import * as React from "react";
-
-import { useRouter } from "next/router";
-
 import { Roms } from "../../types";
 
 const RomsContext = React.createContext({
   roms: {},
-  setRoms: (a: any) => ({} as any),
+  setRoms: (_a: any) => ({} as any),
 });
 
 function RomProvider({ children }) {
@@ -26,7 +23,6 @@ function RomProvider({ children }) {
     <RomsContext.Provider
       value={{
         roms,
-        // @ts-ignore
         setRoms,
       }}
     >

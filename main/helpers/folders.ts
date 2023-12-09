@@ -1,7 +1,7 @@
-import { readdir, stat } from "fs/promises";
+import { readdir } from "fs/promises";
 import { consoles } from "../../consoles";
 import { createID } from ".";
-import { RomFolder, RomFolders } from "../../types";
+import { RomFolder } from "../../types";
 
 export const getFolders = async (path): Promise<RomFolder["folders"]> => {
   const pathRead = await readdir(path, { withFileTypes: true });

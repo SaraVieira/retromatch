@@ -1,4 +1,4 @@
-import axios, { all } from "axios";
+import axios from "axios";
 import { customAlphabet } from "nanoid";
 import { alphanumeric } from "nanoid-dictionary";
 import { transformResponse } from "./response-transform";

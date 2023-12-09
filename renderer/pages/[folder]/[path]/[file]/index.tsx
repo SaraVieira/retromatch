@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { useFolders } from "../../../../hooks/folder-context";
 import { useRouter } from "next/router";
 import { useRoms } from "../../../../hooks/roms-context";
 
@@ -11,7 +9,7 @@ export const Files = () => {
 
   return (
     <div className="container mx-auto">
-      <video src={activeFile?.info?.videos?.shortplay} controls />{" "}
+      <video src={activeFile?.info?.videos?.shortplay} controls />
       <pre>{JSON.stringify(activeFile, null, 2)}</pre>
     </div>
   );

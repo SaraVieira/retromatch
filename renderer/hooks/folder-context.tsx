@@ -8,8 +8,8 @@ import { useRoms } from "./roms-context";
 const FoldersContext = React.createContext({
   folders: {} as RomFolders,
   addFolder: (_: RomFolder) => {},
-  scrapeFolder: (folder: Folder, all: boolean) => {},
-  syncFolder: (folder: RomFolder) => {},
+  scrapeFolder: (_folder: Folder, _all: boolean) => {},
+  syncFolder: (_folder: RomFolder) => {},
   isSyncing: false,
   isLoading: false,
 });
