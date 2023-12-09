@@ -1,9 +1,8 @@
 {
   "private": true,
-  "name": "my-nextron-app",
-  "description": "My application description",
+  "name": "RetroMatch",
+  "description": "Helps you keep your retro collection in check",
   "version": "1.0.0",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
