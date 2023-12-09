@@ -26,6 +26,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^14.0.4",
     "@types/node": "^20.10.4",
     "@types/react": "^18.2.43",
     "@types/uuid": "^9.0.7",

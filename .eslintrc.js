@@ -9,7 +9,8 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@next/next/recommended"
   ],
   overrides: [
     {
@@ -33,6 +34,7 @@ module.exports = {
     "react/prop-types": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/ban-ts-comment": 0,
+    "@next/next/no-img-element": 0,
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
