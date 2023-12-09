@@ -1,16 +1,16 @@
 import * as React from "react";
-
 import { useRouter } from "next/router";
 
-import { Folder, RomFolder, RomFolders } from "../../types";
+import { Folder, RomFolder, RomFolders, Roms } from "../../types";
+import { useRoms } from "./roms-context";
 
 const FoldersContext = React.createContext({
   folders: {} as RomFolders,
   addFolder: (_: RomFolder) => {},
-  scrapeFolder: (folder: Folder, mainFolder: RomFolder, all: boolean) => {},
-  syncFolder: (folder: RomFolder) => {},
+  scrapeFolder: (_folder: Folder, _all: boolean) => {},
+  syncFolder: (_folder: RomFolder) => {},
   isSyncing: false,
-  isLoading: false,
+  isLoading: false
 });
 
 function FolderProvider({ children }) {
@@ -18,6 +18,7 @@ function FolderProvider({ children }) {
   const [isSyncing, setIsSyncing] = React.useState(false);
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(true);
+  const { setRoms } = useRoms();
 
   const getData = () => {
     setIsLoading(true);
@@ -43,34 +44,33 @@ function FolderProvider({ children }) {
   const syncFolder = (folder: RomFolder) => {
     window.ipc.send("sync_folder", {
       path: folder.path,
-      id: folder.id,
+      id: folder.id
     });
-    window.ipc.on("done_syncing", (newFolder: Folder) => {
-      setIsSyncing(false);
-      setFolders((folders) => {
-        return {
-          ...folders,
-          [newFolder.id]: newFolder,
-        };
-      });
-      router.push(`/${newFolder.id}`);
-    });
+    window.ipc.on(
+      "done_syncing",
+      ({ newFolder, roms }: { newFolder: Folder; roms: Roms }) => {
+        setIsSyncing(false);
+        setFolders((folders) => {
+          return {
+            ...folders,
+            [newFolder.id]: newFolder
+          };
+        });
+        setRoms(roms);
+        router.push(`/${newFolder.id}`);
+      }
+    );
   };
 
-  const scrapeFolder = (
-    folder: Folder,
-    mainFolder: RomFolder,
-    all: boolean
-  ) => {
+  const scrapeFolder = (folder: Folder, all: boolean) => {
     window.ipc.send("scrape_folder", {
       folder,
-      mainFolder,
-      all,
+      all
     });
-    window.ipc.on("new_data", (d: RomFolder) => {
-      setFolders((f) => ({
-        ...f,
-        [d.id]: d,
+    window.ipc.on("new_data", (d: Roms["id"]) => {
+      setRoms((r) => ({
+        ...r,
+        [d.id]: d
       }));
     });
   };
@@ -83,7 +83,7 @@ function FolderProvider({ children }) {
         scrapeFolder,
         syncFolder,
         isSyncing,
-        isLoading,
+        isLoading
       }}
     >
       {children}

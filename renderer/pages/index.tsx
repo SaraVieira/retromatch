@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useFolders } from "../hooks/folder-context";
 
-import { Card, CardBody, CardHeader, Spinner } from "@nextui-org/react";
+import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import { IconPlus } from "@tabler/icons-react";
 import Link from "next/link";

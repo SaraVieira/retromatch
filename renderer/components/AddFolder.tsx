@@ -42,7 +42,7 @@ export const AddFolder = () => {
                 id: createID(),
                 name,
                 path,
-                configFilePath: `${path}/retromatch.json`,
+                configFilePath: `${path}/retromatch.json`
               })
             }
             isDisabled={!name || !path}

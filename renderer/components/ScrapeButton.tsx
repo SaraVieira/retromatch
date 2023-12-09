@@ -7,7 +7,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger,
+  DropdownTrigger
 } from "@nextui-org/react";
 import { IconChevronDown } from "@tabler/icons-react";
 
@@ -22,21 +22,17 @@ export const ScrapeButton = () => {
     folders[query.folder as string]?.folders[query.path as string];
 
   const scrape = () => {
-    scrapeFolder(
-      activeFolder,
-      folders[query.folder as string],
-      selectedOptionValue === "all"
-    );
+    scrapeFolder(activeFolder, selectedOptionValue === "all");
   };
 
   const descriptionsMap = {
     all: "Scrape all roms in this folder",
-    missing: "Only roms with no info will be scraped",
+    missing: "Only roms with no info will be scraped"
   };
 
   const labelsMap = {
     all: "Scrape all",
-    missing: "Only missing",
+    missing: "Only missing"
   };
 
   return (
@@ -53,7 +49,7 @@ export const ScrapeButton = () => {
           aria-label="Merge options"
           selectedKeys={selectedOption}
           selectionMode="single"
-          //@ts-ignore
+          //@ts-expect-error
           onSelectionChange={setSelectedOption}
           className="max-w-[300px]"
         >

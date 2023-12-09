@@ -1,11 +1,13 @@
 import { app, dialog, ipcMain } from "electron";
 import serve from "electron-serve";
-import Store from "electron-store";
+
 import path from "path";
 
-import { Folder, RomFolder, RomFolders } from "../types";
+import { RomFolder } from "../types";
 import { createWindow, scrapeGame } from "./helpers";
 import { getFolders } from "./helpers/folders";
+import { getRoms } from "./helpers/roms";
+import { foldersStore, romsStore } from "./helpers/stores";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -22,8 +24,8 @@ if (isProd) {
     width: 1000,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-    },
+      preload: path.join(__dirname, "preload.js")
+    }
   });
 
   if (isProd) {
@@ -34,16 +36,13 @@ if (isProd) {
     mainWindow.webContents.openDevTools();
   }
 
-  const romFolders = new Store<RomFolders[]>({
-    name: "romFolders",
+  ipcMain.on("load", async (event) => {
+    event.reply("all_data", foldersStore.store);
+    event.reply("all_roms", romsStore.store);
   });
 
-  ipcMain.on("load", async (event) =>
-    event.reply("all_data", romFolders.store)
-  );
-
   ipcMain.on("add_folder", async (_, folder: RomFolder) => {
-    romFolders.set(folder.id, folder);
+    foldersStore.set(folder.id, folder);
   });
 
   ipcMain.on(
@@ -51,64 +50,51 @@ if (isProd) {
     async (event, { path, id }: { path: string; id: string }) => {
       const allFolders = await getFolders(path);
       const currentFolder = {
-        ...(romFolders.get(id) as RomFolder),
+        ...(foldersStore.get(id) as RomFolder),
         folders: allFolders,
-        lastSynced: new Date(),
+        lastSynced: new Date()
       };
 
-      romFolders.set(id, currentFolder);
-      event.reply("done_syncing", currentFolder);
+      foldersStore.set(id, currentFolder);
+      await getRoms({ allFolders, id });
+      event.reply("done_syncing", {
+        newFolder: foldersStore.get(id),
+        roms: romsStore.store
+      });
     }
   );
 
-  ipcMain.on(
-    "scrape_folder",
-    async (
-      event,
-      {
-        folder,
-        mainFolder,
-        all,
-      }: { folder: Folder; mainFolder: RomFolder; all: boolean }
-    ) => {
-      const filesToScrape = all
-        ? Object.values(folder.files)
-        : Object.values(folder.files).filter((f) => !f.info);
+  ipcMain.on("scrape_folder", async (event, { folder, all }) => {
+    const filesToScrape = folder.files;
 
-      try {
-        await Promise.all(
-          filesToScrape.map(async (file) => {
-            try {
-              const gameInfo = await scrapeGame(
-                file,
-                folder.console.screenscrapper_id
-              );
-
-              if (gameInfo) {
-                romFolders.set(
-                  `${mainFolder.id}.folders.${folder.id}.files.${file.id}.info`,
-                  gameInfo
-                );
-                event.reply("new_data", romFolders.get(mainFolder.id));
-              }
-
-              // wait because prisma cries if we don't
-              await new Promise((resolve) => setTimeout(resolve, 500));
-            } catch (e) {
-              console.log(e.message);
+    try {
+      await Promise.all(
+        filesToScrape.map(async (file) => {
+          if (!all && romsStore.get(file).info) return;
+          try {
+            const gameInfo = await scrapeGame(
+              romsStore.get(file),
+              folder.console.screenscrapper_id
+            );
+            if (gameInfo) {
+              romsStore.set(`${file}.info`, gameInfo);
+              event.reply("new_data", romsStore.get(file));
             }
-          })
-        );
-      } catch (e) {
-        console.log(e.message);
-      }
+          } catch (e) {
+            console.log(e.message);
+          }
+        })
+      );
+    } catch (e) {
+      console.log(e.message);
     }
-  );
-  // romFolders.clear();
+  });
+  // foldersStore.clear();
+  // romsStore.clear();
 
   ipcMain.on("open-dialog-folder", (event) => {
     const path = dialog.showOpenDialogSync(mainWindow, {
-      properties: ["openDirectory"],
+      properties: ["openDirectory"]
     });
 
     if (path) {
