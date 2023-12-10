@@ -1,18 +1,44 @@
 import Link from "next/link";
-import { useFolders } from "../../../hooks/folder-context";
 import { useRouter } from "next/router";
+
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
-import { humanFileSize } from "../../../utils/size";
+import { IconReload } from "@tabler/icons-react";
+
+import { useFolders } from "../../../hooks/folder-context";
 import { useRoms } from "../../../hooks/roms-context";
+import { humanFileSize } from "../../../utils/size";
 
 export const Files = () => {
-  const { folders } = useFolders();
+  const { folders, scrapeFolder } = useFolders();
   const { roms } = useRoms();
   const { query } = useRouter();
 
   const activeFolder =
     folders[query.folder as string]?.folders[query.path as string];
-  if (!activeFolder) return null;
+
+  const scrape = () => {
+    scrapeFolder(activeFolder, true);
+  };
+
+  const files = Object.values(activeFolder?.files || {});
+  if (files.length === 0) {
+    return (
+      <div className="container mx-auto flex justify-center">
+        <button onClick={() => scrape()}>
+          <Card>
+            <CardHeader>
+              <h2>No ROMs found</h2>
+            </CardHeader>
+
+            <CardBody className="text-xs text-center">
+              <IconReload className="mx-auto mb-4" />
+              Scan again?
+            </CardBody>
+          </Card>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto">
