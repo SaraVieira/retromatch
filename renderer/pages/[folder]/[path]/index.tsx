@@ -2,12 +2,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
-import { humanFileSize } from "../../../utils/size";
-import { useRoms } from "../../../hooks/roms-context";
 import { IconReload } from "@tabler/icons-react";
 
+import { useFolders } from "../../../hooks/folder-context";
+import { useRoms } from "../../../hooks/roms-context";
+import { humanFileSize } from "../../../utils/size";
+
 export const Files = () => {
-  const { folders } = useFolders();
+  const { folders, scrapeFolder } = useFolders();
   const { roms } = useRoms();
   const { query } = useRouter();
 
@@ -15,7 +17,7 @@ export const Files = () => {
     folders[query.folder as string]?.folders[query.path as string];
 
   const scrape = () => {
-    scrapeFolder(activeFolder, folders[query.folder as string], true);
+    scrapeFolder(activeFolder, true);
   };
 
   const files = Object.values(activeFolder?.files || {});
