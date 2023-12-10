@@ -4,7 +4,7 @@ import { useFolders } from "../../hooks/folder-context";
 import { Folder } from "../../../types";
 
 export const NoRoms = ({ activeFolder }: { activeFolder: Folder }) => {
-  const { folders, scrapeFolder } = useFolders();
+  const { scrapeFolder } = useFolders();
   return (
     <div className="container mx-auto flex justify-center">
       <button onClick={() => scrapeFolder(activeFolder, true)}>
