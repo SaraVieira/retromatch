@@ -46,7 +46,7 @@ export const Files = () => {
     const rom = roms[file];
     if (rom?.info?.title && !rom.info.isDuplicate) {
       const duplicates = Object.values(roms).filter(
-        (otherRom) =>
+        (otherRom: { info }) =>
           rom !== otherRom && rom.info.title === otherRom?.info?.title
       );
       if (duplicates.length > 0) {
