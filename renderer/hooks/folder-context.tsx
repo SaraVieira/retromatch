@@ -1,24 +1,30 @@
-import * as React from "react";
 import { useRouter } from "next/router";
 
 import { Folder, RomFolder, RomFolders, Roms } from "../../types";
 import { useRoms } from "./roms-context";
+import { consoles } from "../../consoles";
+import { createContext, useContext, useEffect, useState } from "react";
 
-const FoldersContext = React.createContext({
+const FoldersContext = createContext({
   folders: {} as RomFolders,
   addFolder: (_: RomFolder) => {},
   scrapeFolder: (_folder: Folder, _all: boolean) => {},
-  syncFolder: (_folder: RomFolder) => {},
+  syncFolders: () => {},
   isSyncing: false,
-  isLoading: false
+  isLoading: false,
+  folderMatches: [],
+  // eslint-disable-next-line
+  setFolderMatch: ({ id, name }: { id: string; name: string }) => {}
 });
 
 function FolderProvider({ children }) {
-  const [folders, setFolders] = React.useState({});
-  const [isSyncing, setIsSyncing] = React.useState(false);
+  const [folders, setFolders] = useState({});
+  const [isSyncing, setIsSyncing] = useState(false);
   const router = useRouter();
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [folderMatches, setFolderMatches] = useState([]);
   const { setRoms } = useRoms();
+  const [selectedFolder, setSelectedFolder] = useState({});
 
   const getData = () => {
     setIsLoading(true);
@@ -30,21 +36,25 @@ function FolderProvider({ children }) {
     window.ipc.send("load", null);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getData();
   }, []);
 
   const addFolder = (folder: RomFolder) => {
-    setIsSyncing(true);
     window.ipc.send("add_folder", folder);
-    getData();
-    syncFolder(folder);
+    setSelectedFolder(folder);
+
+    window.ipc.on("folders_found", setFolderMatches);
+    router.push("/new/matches");
   };
 
-  const syncFolder = (folder: RomFolder) => {
+  const syncFolders = () => {
+    setIsSyncing(true);
+    getData();
+
     window.ipc.send("sync_folder", {
-      path: folder.path,
-      id: folder.id
+      folders: folderMatches,
+      mainFolder: selectedFolder
     });
     window.ipc.on(
       "done_syncing",
@@ -75,15 +85,27 @@ function FolderProvider({ children }) {
     });
   };
 
+  const setFolderMatch = ({ id, name }) => {
+    setFolderMatches([
+      ...folderMatches.filter((a) => a.name !== name),
+      {
+        ...folderMatches.find((a) => a.name === name),
+        console: consoles.find((c) => c.id === id)
+      }
+    ]);
+  };
+
   return (
     <FoldersContext.Provider
       value={{
         folders,
         addFolder,
         scrapeFolder,
-        syncFolder,
+        syncFolders,
         isSyncing,
-        isLoading
+        folderMatches,
+        isLoading,
+        setFolderMatch
       }}
     >
       {children}
@@ -92,7 +114,7 @@ function FolderProvider({ children }) {
 }
 
 function useFolders() {
-  const context = React.useContext(FoldersContext);
+  const context = useContext(FoldersContext);
   if (context === undefined) {
     throw new Error("useFolders must be used within a FolderProvider");
   }

@@ -1,24 +1,13 @@
-import { readdir } from "fs/promises";
-import { consoles } from "../../consoles";
 import { createID } from ".";
 import { RomFolder } from "../../types";
 
-export const getFolders = async (path): Promise<RomFolder["folders"]> => {
-  const pathRead = await readdir(path, { withFileTypes: true });
+export const getFolders = async (folders): Promise<RomFolder["folders"]> => {
   const allFolders = await Promise.all(
-    pathRead
-      .filter((dirent) => dirent.isDirectory() && !dirent.name.startsWith("."))
-      .filter((dir) =>
-        consoles
-          .map((a) => a.folderNames)
-          .flat()
-          .includes(dir.name.toLocaleLowerCase())
-      )
+    folders
+      .filter((dir) => dir.console)
       .map((folder) => ({
-        path: `${path}/${folder.name}`,
-        console: consoles.find((c) =>
-          c.folderNames.includes(folder.name.toLocaleLowerCase())
-        ),
+        path: `${folder.path}/${folder.name}`,
+        console: folder.console,
         files: []
       }))
   );

@@ -1,13 +1,13 @@
-import * as React from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Roms } from "../../types";
 
-const RomsContext = React.createContext({
+const RomsContext = createContext({
   roms: {},
-  setRoms: (_a: any) => ({}) as any
+  setRoms: (_a: any) => ({} as any)
 });
 
 function RomProvider({ children }) {
-  const [roms, setRoms] = React.useState({});
+  const [roms, setRoms] = useState({});
 
   const getData = () => {
     window.ipc.on("all_roms", (roms: Roms) => {
@@ -15,7 +15,7 @@ function RomProvider({ children }) {
     });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getData();
   }, []);
 
@@ -32,7 +32,7 @@ function RomProvider({ children }) {
 }
 
 function useRoms() {
-  const context = React.useContext(RomsContext);
+  const context = useContext(RomsContext);
   if (context === undefined) {
     throw new Error("useRoms must be used within a RomProvider");
   }

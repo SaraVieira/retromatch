@@ -17,7 +17,9 @@ export const getRoms = async ({
     await Promise.all(
       Object.values(allFolders).map(async (folder) => {
         return await Promise.all(
-          (await readdir(folder.path, { withFileTypes: true }))
+          (
+            await readdir(folder.path, { withFileTypes: true })
+          )
             .filter((dirent) => dirent.isFile() && !dirent.name.startsWith("."))
             .filter((file) =>
               folder.console.extensions.includes(
@@ -34,7 +36,7 @@ export const getRoms = async ({
                 size
               };
               const fileId = uuidv5(
-                `${newFile.fullName}${newFile.size}`,
+                `${newFile.fullName}${newFile.size}${folder.console.id}`,
                 uuidv5.URL
               );
               foldersStore.set(`${id}.folders.${folder.id}.files`, [

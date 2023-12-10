@@ -9,7 +9,7 @@ import { IconReload } from "@tabler/icons-react";
 import { useFolders } from "../../hooks/folder-context";
 
 export default function HomePage() {
-  const { folders, syncFolder } = useFolders();
+  const { folders, addFolder } = useFolders();
   const { query } = useRouter();
   const subFolders = folders[query.folder as string]?.folders;
   const gameFolders = subFolders
@@ -19,7 +19,7 @@ export default function HomePage() {
   if (!gameFolders || gameFolders.length === 0) {
     return (
       <div className="container mx-auto flex justify-center">
-        <button onClick={() => syncFolder(folders[query.folder as string])}>
+        <button onClick={() => addFolder(folders[query.folder as string])}>
           <Card>
             <CardHeader>
               <h2>No ROM folders found</h2>
