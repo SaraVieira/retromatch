@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,16 +9,8 @@ import { IconReload } from "@tabler/icons-react";
 import { useFolders } from "../../hooks/folder-context";
 
 export default function HomePage() {
-  const { folders, syncFolder } = useFolders();
-  const { query, isReady } = useRouter();
-  const currentFolder = useMemo(() => {
-    if (!isReady) {
-      return null;
-    }
-
-    return folders[query.folder as string];
-  }, [folders, isReady]);
-
+  const { folders, addFolder } = useFolders();
+  const { query } = useRouter();
   const subFolders = folders[query.folder as string]?.folders;
   const gameFolders = subFolders
     ? Object.values(subFolders).filter((a) => Object.values(a.files).length)
@@ -27,7 +19,7 @@ export default function HomePage() {
   if (!gameFolders || gameFolders.length === 0) {
     return (
       <div className="container mx-auto flex justify-center">
-        <button onClick={() => syncFolder(folders[query.folder as string])}>
+        <button onClick={() => addFolder(folders[query.folder as string])}>
           <Card>
             <CardHeader>
               <h2>No ROM folders found</h2>
@@ -47,9 +39,9 @@ export default function HomePage() {
       <ul className="grid grid-cols-3 gap-4 py-8">
         {folders[query.folder as string]?.folders &&
           gameFolders.map((f) => (
-            <li className="w-[200px]" key={f.id}>
-              <Link href={`/${query.folder}/${f.id}`}>
-                <Card>
+            <li className="w-[200px] h-full" key={f.id}>
+              <Link href={`/${query.folder}/${f.id}`} className="h-full">
+                <Card className="h-full">
                   <CardHeader>
                     <div>
                       <h2>{f.console.name}</h2>
@@ -60,7 +52,7 @@ export default function HomePage() {
                     </div>
                   </CardHeader>
 
-                  <CardBody className="text-xs text-content4">
+                  <CardBody className="text-xs text-content4 justify-end">
                     {f.console.image ? (
                       <img
                         src={`/images/consoles/${f.console.image}`}
@@ -70,7 +62,9 @@ export default function HomePage() {
                     ) : null}
                   </CardBody>
                   <CardFooter>
-                    <span className="text-sm text-default-500">{f.path}</span>
+                    <span className="text-sm text-default-500 truncate">
+                      {f.path}
+                    </span>
                   </CardFooter>
                 </Card>
               </Link>

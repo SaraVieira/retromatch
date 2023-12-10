@@ -43,18 +43,20 @@ export type Folder = {
     screenscrapper_id: number;
     image: string;
   };
-  files: {
-    [id: string]: {
-      id?: string;
-      name: string;
-      extension: string;
-      fullName: string;
-      info?: any;
-      size: number;
-    };
-  };
+  files: string[];
 };
 
 export type RomFolders = {
   [id: string]: RomFolder;
+};
+
+export type Roms = {
+  [id: string]: {
+    id?: string;
+    name: string;
+    extension: string;
+    fullName: string;
+    info?: FileInfo;
+    size: number;
+  };
 };

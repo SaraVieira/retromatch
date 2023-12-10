@@ -1,4 +1,4 @@
-import axios, { all } from "axios";
+import axios from "axios";
 import { customAlphabet } from "nanoid";
 import { alphanumeric } from "nanoid-dictionary";
 import { transformResponse } from "./response-transform";
@@ -30,6 +30,9 @@ export const scrapeGame = async (file: any, scraping_id: number) => {
       )}&console=${allowedInLetsPlay.find((c) => c.id === scraping_id).name}`
     ).then((rsp) => rsp.data);
     if (response) {
+      // wait because prisma cries if we don't
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       return transformResponse(response, "letsplay");
     }
   }

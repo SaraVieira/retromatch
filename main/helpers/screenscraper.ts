@@ -14,8 +14,8 @@ export const getGame = async ({ game }) => {
       systemeid: game.screenscrapper_id,
       romtype: "rom",
       romnom: game.full_name,
-      romtaille: game.size,
-    },
+      romtaille: game.size
+    }
   };
 
   try {
