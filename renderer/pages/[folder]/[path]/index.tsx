@@ -1,45 +1,25 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 import {
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Input,
   Select,
-  SelectItem,
-  Tooltip
+  SelectItem
 } from "@nextui-org/react";
 import {
   IconReload,
   IconSortAscending,
-  IconSortDescending,
-  IconStarFilled,
-  IconStarHalfFilled,
-  IconStar
+  IconSortDescending
 } from "@tabler/icons-react";
 
 import { useFolders } from "../../../hooks/folder-context";
 import { useRoms } from "../../../hooks/roms-context";
-import { humanFileSize } from "../../../utils/size";
 import { Roms } from "../../../../types";
 import { useState } from "react";
-import Image from "next/image";
-
-function sortFunc(results: any[], sortType: string, sortByField: string) {
-  const getField = (a: any) =>
-    !sortByField.includes(".")
-      ? a[sortByField]
-      : a.info[sortByField.split(".")[1]];
-
-  if (sortType === "ascending") {
-    results.sort((a, b) => (getField(a) < getField(b) ? -1 : 1));
-  } else if (sortType === "descending") {
-    results.sort((a, b) => (getField(b) > getField(a) ? 1 : -1));
-  }
-  return results;
-}
+import { Rom } from "../../../components/Rom";
+import { sortFunc } from "../../../utils/arrays";
 
 const sortOptions = [
   {
@@ -161,80 +141,7 @@ export const Files = () => {
       <ul className="pb-8 flex justify-between flex-wrap gap-2 items-stretch">
         {romsInConsole.map((rom: Roms[0]) => (
           <li key={rom.id}>
-            <Link
-              className="text-sm"
-              href={`/${query.folder}/${query.path}/${rom.id}`}
-            >
-              <Card
-                isPressable
-                isHoverable
-                shadow="sm"
-                className="h-full flex flex-col justify-between rounded-lg"
-              >
-                <CardHeader className="flex flex-col items-start gap-1">
-                  <Link
-                    className="text-sm"
-                    href={`/${query.folder}/${query.path}/${rom.id}`}
-                  >
-                    {rom.info?.title || rom.name}
-                  </Link>
-                  <div className="flex justify-between items-center w-full">
-                    {rom?.info?.rating ? (
-                      <Tooltip
-                        showArrow={true}
-                        content={`${rom?.info.rating / 20} / 5`}
-                      >
-                        <div className="flex gap-1">
-                          {rom?.info?.rating / 20 >= 1 ? (
-                            <IconStarFilled className="text-yellow-400 w-3 h-3" />
-                          ) : (
-                            <IconStar className="text-yellow-400 w-3 h-3" />
-                          )}
-                          {rom?.info?.rating / 20 >= 2 ? (
-                            <IconStarFilled className="text-yellow-400 w-3 h-3" />
-                          ) : (
-                            <IconStar className="text-yellow-400 w-3 h-3" />
-                          )}
-                          {rom?.info?.rating / 20 >= 3 ? (
-                            <IconStarFilled className="text-yellow-400 w-3 h-3" />
-                          ) : (
-                            <IconStar className="text-yellow-400 w-3 h-3" />
-                          )}
-                          {rom?.info?.rating / 20 > 4 ? (
-                            rom?.info?.rating / 20 >= 4.5 ? (
-                              <IconStarFilled className="text-yellow-400 w-3 h-3" />
-                            ) : (
-                              <IconStarHalfFilled className="text-yellow-400 w-3 h-3" />
-                            )
-                          ) : (
-                            <IconStar className="text-yellow-400 text-xs h-3 w-3" />
-                          )}
-                        </div>
-                      </Tooltip>
-                    ) : null}
-                    <span className="text-sm text-content4">
-                      {rom?.info?.released}
-                    </span>
-                  </div>
-                </CardHeader>
-
-                <CardBody>
-                  {rom.info?.images ? (
-                    <Image
-                      src={rom.info?.images?.cover || rom.info?.images?.title}
-                      alt={rom.name}
-                      placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4OB6CgABOwEBTU8F5gAAAABJRU5ErkJggg=="
-                      width={250}
-                      height={330}
-                      className=" max-w-full mx-auto"
-                    />
-                  ) : null}
-                </CardBody>
-                <CardFooter className="text-xs text-content4">
-                  {humanFileSize(rom.size)}
-                </CardFooter>
-              </Card>
-            </Link>
+            <Rom rom={rom} />
           </li>
         ))}
       </ul>
