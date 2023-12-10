@@ -22,7 +22,7 @@ type FileInfo = {
   };
   genre: string;
   players: number;
-  releases: string;
+  released: string;
   videos: {
     youtube: string;
     shortplay: string;

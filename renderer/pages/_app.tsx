@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <NextThemesProvider attribute="class" defaultTheme="dark">
             <Header />
             <Toaster position="top-right" />
-            <div className="flex flex-col gap-2 min-h-screen">
+            <div className="flex flex-col gap-2 min-h-screen max-w-[1280px] m-auto px-6">
               <Component {...pageProps} />
             </div>
           </NextThemesProvider>
