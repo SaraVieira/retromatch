@@ -9,7 +9,7 @@ export type RomFolder = {
   };
 };
 
-type FileInfo = {
+export type FileInfo = {
   url: string;
   title: string;
   developer: {
@@ -53,6 +53,7 @@ export type RomFolders = {
 export type Roms = {
   [id: string]: {
     id?: string;
+    isDuplicate?: Boolean;
     name: string;
     extension: string;
     fullName: string;

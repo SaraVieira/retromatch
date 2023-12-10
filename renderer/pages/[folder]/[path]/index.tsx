@@ -42,19 +42,7 @@ export const Files = () => {
 
   const filenames = Object.values(activeFolder.files || {});
 
-  const games = filenames.map((file) => {
-    const rom = roms[file];
-    if (rom?.info?.title && !rom.info.isDuplicate) {
-      const duplicates = Object.values(roms).filter(
-        (otherRom: { info }) =>
-          rom !== otherRom && rom.info.title === otherRom?.info?.title
-      );
-      if (duplicates.length > 0) {
-        rom.isDuplicate = true;
-      }
-    }
-    return rom;
-  });
+  const games = filenames.map((file) => roms[file]);
 
   return (
     <div className="container mx-auto">
@@ -64,9 +52,8 @@ export const Files = () => {
             rom && (
               <li key={rom.id}>
                 <Card
-                  className={`h-full flex flex-col justify-between${
-                    rom.isDuplicate ? " border-2 border-rose-600" : ""
-                  }`}
+                  className={`h-full flex flex-col justify-between${rom.isDuplicate ? " border-2 border-rose-600" : ""
+                    }`}
                 >
                   <CardHeader>
                     <Link href={`/${query.folder}/${query.path}/${rom.id}`}>
