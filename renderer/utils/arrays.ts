@@ -6,7 +6,7 @@ export const sortFunc = (
   const getField = (a: any) =>
     !sortByField.includes(".")
       ? a[sortByField]
-      : a.info[sortByField.split(".")[1]];
+      : a.info?.[sortByField.split(".")[1]];
 
   if (sortType === "ascending") {
     results.sort((a, b) => (getField(a) < getField(b) ? -1 : 1));

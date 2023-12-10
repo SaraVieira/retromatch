@@ -1,25 +1,15 @@
 import { useRouter } from "next/router";
 
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Input,
-  Select,
-  SelectItem
-} from "@nextui-org/react";
-import {
-  IconReload,
-  IconSortAscending,
-  IconSortDescending
-} from "@tabler/icons-react";
+import { Input, Select, SelectItem } from "@nextui-org/react";
+import { IconSortAscending, IconSortDescending } from "@tabler/icons-react";
 
 import { useFolders } from "../../../hooks/folder-context";
 import { useRoms } from "../../../hooks/roms-context";
 import { Roms } from "../../../../types";
 import { useState } from "react";
-import { Rom } from "../../../components/Rom";
 import { sortFunc } from "../../../utils/arrays";
+import { NoRoms } from "../../../components/Rom/Empty";
+import { Rom } from "../../../components/Rom";
 
 const sortOptions = [
   {
@@ -47,8 +37,9 @@ const sortOptions = [
     key: "info.rating-descending"
   }
 ];
+
 export const Files = () => {
-  const { folders, scrapeFolder } = useFolders();
+  const { folders } = useFolders();
   const { roms } = useRoms();
   const { query } = useRouter();
   const activeFolder =
@@ -71,24 +62,17 @@ export const Files = () => {
     sortByField
   );
 
-  if (romsInConsole.length === 0) {
-    return (
-      <div className="container mx-auto flex justify-center">
-        <button onClick={() => scrapeFolder(activeFolder, true)}>
-          <Card>
-            <CardHeader>
-              <h2>No ROMs found</h2>
-            </CardHeader>
-
-            <CardBody className="text-xs text-center">
-              <IconReload className="mx-auto mb-4" />
-              Scan again?
-            </CardBody>
-          </Card>
-        </button>
-      </div>
-    );
+  if (Object.keys(roms).length && !romsInConsole.length) {
+    return <NoRoms activeFolder={activeFolder} />;
   }
+
+  const onSelectionChange = (value) => {
+    if (!Array.from(value)[0]) return;
+    const [sortByField, sortType] = (Array.from(value)[0] as string).split("-");
+
+    setSortByField(sortByField);
+    setSortType(sortType);
+  };
 
   return (
     <div className="container mx-auto">
@@ -110,15 +94,7 @@ export const Files = () => {
           placeholder="Sort Games"
           selectedKeys={[`${sortByField}-${sortType}`]}
           className="max-w-[200px]"
-          onSelectionChange={(value) => {
-            if (!Array.from(value)[0]) return;
-            const [sortByField, sortType] = (
-              Array.from(value)[0] as string
-            ).split("-");
-
-            setSortByField(sortByField);
-            setSortType(sortType);
-          }}
+          onSelectionChange={onSelectionChange}
         >
           {sortOptions.map((option) => (
             <SelectItem
@@ -138,7 +114,7 @@ export const Files = () => {
           ))}
         </Select>
       </div>
-      <ul className="pb-8 flex justify-between flex-wrap gap-2 items-stretch">
+      <ul className="pb-8 flex justify-between flex-wrap gap-8 items-stretch">
         {romsInConsole.map((rom: Roms[0]) => (
           <li key={rom.id}>
             <Rom rom={rom} />

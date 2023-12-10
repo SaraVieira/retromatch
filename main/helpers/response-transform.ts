@@ -11,7 +11,8 @@ export const transformResponse = (data: any, type: string) => {
       return company?.company?.name;
     };
 
-    const imageUrl = (url) => "https:" + url.replace("t_thumb", "t_720p");
+    const imageUrl = (url) =>
+      url ? "https:" + url.replace("t_thumb", "t_720p") : "";
     return {
       url: data.url,
       title: data.name,
