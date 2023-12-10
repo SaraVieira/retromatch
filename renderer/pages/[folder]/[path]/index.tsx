@@ -40,34 +40,51 @@ export const Files = () => {
     );
   }
 
+  const filenames = Object.values(activeFolder.files || {});
+
+  const games = filenames.map((file) => {
+    const rom = roms[file];
+    if (rom?.info?.title && !rom.info.isDuplicate) {
+      const duplicates = Object.values(roms).filter(
+        (otherRom) =>
+          rom !== otherRom && rom.info.title === otherRom?.info?.title
+      );
+      if (duplicates.length > 0) {
+        rom.isDuplicate = true;
+      }
+    }
+    return rom;
+  });
+
   return (
     <div className="container mx-auto">
       <ul className="py-8 grid grid-cols-4 gap-4 items-stretch">
-        {Object.values(activeFolder?.files || {}).map(
-          (f) =>
-            roms[f] && (
-              <li key={roms[f].id}>
-                <Card className="h-full flex flex-col justify-between">
+        {games.map(
+          (rom) =>
+            rom && (
+              <li key={rom.id}>
+                <Card
+                  className={`h-full flex flex-col justify-between${
+                    rom.isDuplicate ? " border-2 border-rose-600" : ""
+                  }`}
+                >
                   <CardHeader>
-                    <Link href={`/${query.folder}/${query.path}/${roms[f].id}`}>
-                      {roms[f].info?.title || roms[f].name}
+                    <Link href={`/${query.folder}/${query.path}/${rom.id}`}>
+                      {rom.info?.title || rom.name}
                     </Link>
                   </CardHeader>
 
                   <CardBody>
-                    {roms[f].info?.images ? (
+                    {rom.info?.images ? (
                       <img
-                        src={
-                          roms[f].info?.images?.cover ||
-                          roms[f].info?.images?.title
-                        }
-                        alt={roms[f].name}
+                        src={rom.info?.images?.cover || rom.info?.images?.title}
+                        alt={rom.name}
                         className=" max-w-full mx-auto"
                       />
                     ) : null}
                   </CardBody>
                   <CardFooter className="text-xs text-content4">
-                    {humanFileSize(roms[f].size)}
+                    {humanFileSize(rom.size)}
                   </CardFooter>
                 </Card>
               </li>
