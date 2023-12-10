@@ -1,4 +1,4 @@
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, CardHeader, cn } from "@nextui-org/react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -14,9 +14,10 @@ export const Rom = ({ rom }) => {
         isPressable
         isHoverable
         shadow="sm"
-        className={`h-full flex flex-col justify-between rounded-lg w-[280px] ${
-          rom.isDuplicate ? " border-2 border-rose-600" : ""
-        }`}
+        className={cn(
+          `h-full flex flex-col justify-between rounded-lg w-[280px]`,
+          rom.isDuplicate ? "border-2 border-rose-600" : ""
+        )}
       >
         <CardHeader className="flex flex-col items-start gap-1">
           <Link
