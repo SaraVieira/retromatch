@@ -31,7 +31,7 @@ export const scrapeGame = async (file: any, scraping_id: number) => {
     ).then((rsp) => rsp.data);
     if (response) {
       // wait because prisma cries if we don't
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 5000));
 
       return transformResponse(response, "letsplay");
     }
