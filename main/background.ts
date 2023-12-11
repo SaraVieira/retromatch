@@ -111,8 +111,13 @@ if (isProd) {
       console.log(e.message);
     }
   });
-  // foldersStore.clear();
-  // romsStore.clear();
+
+  ipcMain.on("clear-cache", (event) => {
+    foldersStore.clear();
+    romsStore.clear();
+
+    event.reply("done-cache-clear");
+  });
 
   ipcMain.on("open-dialog-folder", (event) => {
     const path = dialog.showOpenDialogSync(mainWindow, {
