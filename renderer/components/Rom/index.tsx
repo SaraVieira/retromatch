@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { humanFileSize } from "../../utils/size";
 import { Rating } from "./Rating";
+import { Roms } from "../../../types";
 
-export const Rom = ({ rom }) => {
+export const Rom = ({ rom }: { rom: Roms[0] }) => {
   const { query } = useRouter();
   return (
     <Link className="text-sm" href={`/${query.folder}/${query.path}/${rom.id}`}>

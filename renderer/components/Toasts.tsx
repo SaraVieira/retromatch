@@ -1,5 +1,5 @@
 import { Button } from "@nextui-org/react";
-import { IconLoader, IconX } from "@tabler/icons-react";
+import { IconX } from "@tabler/icons-react";
 import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
