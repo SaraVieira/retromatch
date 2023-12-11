@@ -44,14 +44,14 @@ if (isProd) {
   });
 
   ipcMain.on("add_folder", async (event, folder: RomFolder) => {
-    const pathRead = (await readdir(folder.path, { withFileTypes: true })).map(
-      (dir) => ({
+    const pathRead = (await readdir(folder.path, { withFileTypes: true }))
+      .filter((f) => f.isDirectory() && !f.name.startsWith("."))
+      .map((dir) => ({
         ...dir,
         console: consoles.find((c) =>
           c.folderNames.includes(dir.name.toLocaleLowerCase())
         )
-      })
-    );
+      }));
     event.reply("folders_found", pathRead);
   });
 
