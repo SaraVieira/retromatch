@@ -33,7 +33,7 @@ export const Rom = ({ rom }) => {
         </CardHeader>
 
         <CardBody>
-          {rom.info?.images ? (
+          {rom.info?.images?.cover || rom.info?.images?.title ? (
             <Image
               src={rom.info?.images?.cover || rom.info?.images?.title}
               alt={rom.name}

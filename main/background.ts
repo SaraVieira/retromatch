@@ -78,23 +78,32 @@ if (isProd) {
   );
 
   ipcMain.on("scrape_folder", async (event, { folder, all }) => {
-    const filesToScrape = folder.files;
-
+    const filesToScrape = all
+      ? folder.files
+      : folder.files.filter((file) => !romsStore.get(file).info);
+    let scrapped = 0;
+    console.log(filesToScrape);
     try {
       await Promise.all(
         filesToScrape.map(async (file) => {
-          if (!all && romsStore.get(file).info) return;
           try {
             const gameInfo = await scrapeGame(
               romsStore.get(file),
               folder.console.screenscrapper_id
             );
+
             if (gameInfo) {
               romsStore.set(`${file}.info`, gameInfo);
               event.reply("new_data", romsStore.get(file));
             }
           } catch (e) {
             console.log(e.message);
+          } finally {
+            scrapped = scrapped + 1;
+            event.reply("scrapping", {
+              current: scrapped,
+              total: filesToScrape.length
+            });
           }
         })
       );
