@@ -12,6 +12,7 @@ import {
 } from "@nextui-org/react";
 import { IconChevronLeft } from "@tabler/icons-react";
 
+import { Roms } from "../../types";
 import { useFolders } from "../hooks/folder-context";
 import { useRoms } from "../hooks/roms-context";
 import RemoveDuplicatesModal from "./RemoveDuplicatesModal";
@@ -23,9 +24,6 @@ export default function Header() {
   const { roms } = useRoms();
   const isConsolePage = query.folder && query.path && !query.file;
   const isVolumePage = query.folder && !query.path && !query.file;
-  const duplicates = Object.values(roms || {}).filter(
-    (rom: { isDuplicate }) => rom.isDuplicate
-  );
 
   const createBackLink = () => {
     if (query.folder && query.path && query.file) {
@@ -40,6 +38,11 @@ export default function Header() {
 
   const activeFolder =
     folders[query.folder as string]?.folders?.[query.path as string];
+  const duplicates = Object.values(roms || {})
+    .filter((r: Roms[0]) =>
+      Object.values(activeFolder?.files || {}).includes(r.id)
+    )
+    .filter((rom: { isDuplicate }) => rom.isDuplicate);
 
   return (
     <Navbar isBordered maxWidth="xl" className="min-h-[66px]">
