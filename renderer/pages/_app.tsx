@@ -9,6 +9,7 @@ import { RomProvider } from "../hooks/roms-context";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 import dynamic from "next/dynamic";
+import Sidebar from "../components/Sidebar";
 
 const Toasts = dynamic(
   () => import("../components/Toasts").then((a) => a.Toasts),
@@ -37,9 +38,18 @@ function MyApp({ Component, pageProps }: AppProps) {
                 className: "!bg-background !text-content4"
               }}
             />
-            <div className="flex flex-col gap-2 min-h-screen max-w-[1280px] m-auto px-6">
-              <Toasts />
-              <Component {...pageProps} />
+
+            <Toasts />
+            <div
+              className="flex h-full items-stretch"
+              style={{
+                minHeight: "calc(100vh - 66px)"
+              }}
+            >
+              <Sidebar />
+              <div className="p-6 h-full max-w-[1280px]">
+                <Component {...pageProps} />
+              </div>
             </div>
           </NextThemesProvider>
         </NextUIProvider>
