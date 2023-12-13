@@ -34,7 +34,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Toaster
               position="top-right"
               toastOptions={{
-                className: "!bg-background !text-content4"
+                className:
+                  "!bg-background min-w-[150px] justify-start !text-zinc-400"
               }}
             />
             <div className="flex flex-col gap-2 min-h-screen max-w-[1280px] m-auto px-6">

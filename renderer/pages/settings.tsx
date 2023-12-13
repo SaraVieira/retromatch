@@ -10,7 +10,8 @@ import {
   useDisclosure
 } from "@nextui-org/react";
 import { useTheme } from "next-themes";
-import { useRouter } from "next/router";
+import { useSettings } from "../hooks/useSettings";
+import toast from "react-hot-toast";
 
 const listItemStyles =
   "w-full bg-content1 hover:bg-content2 items-center max-w-lg flex justify-between p-4 rounded-lg  border-2 border-transparent";
@@ -18,20 +19,14 @@ const listItemStyles =
 const Settings = () => {
   const { theme, setTheme } = useTheme();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const router = useRouter();
+  const { onClearCache, onImportData, onExportData } = useSettings();
 
-  const onClearCache = () => {
-    window.ipc.send("clear-cache", null);
+  toast.success("sup", { duration: Infinity });
 
-    window.ipc.once("done-cache-clear", () => {
-      window.ipc.send("load", null);
-      router.push("/");
-    });
-  };
   return (
     <div className="py-12 flex flex-col items-center gap-4">
       <Switch
-        isSelected={theme === "dark"}
+        isSelected={theme === "dark" || !theme}
         onValueChange={() =>
           theme === "dark" ? setTheme("light") : setTheme("dark")
         }
@@ -74,6 +69,14 @@ const Settings = () => {
             )}
           </ModalContent>
         </Modal>
+      </div>
+      <div className={listItemStyles}>
+        Export local data
+        <Button onPress={onExportData}>Export</Button>
+      </div>
+      <div className={listItemStyles}>
+        Import data from json
+        <Button onPress={onImportData}>Import</Button>
       </div>
     </div>
   );
