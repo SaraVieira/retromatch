@@ -1,8 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Roms, FileInfo } from "../../types";
+
+import { FileInfo, Roms } from "../../types";
 
 const RomsContext = createContext({
   roms: {},
+  keepRom: (_rom: Roms[0], _duplicates: Roms[0][], _callback: () => void) =>
+    ({} as any),
   setRoms: (_a: any) => ({} as any)
 });
 
@@ -23,7 +26,19 @@ function RomProvider({ children }) {
         }
       }
       setRoms(roms);
-    })
+    });
+  };
+
+  const keepRom = (
+    rom: Roms[0],
+    duplicates: Roms[0][],
+    callback: () => void
+  ) => {
+    window.ipc.send("keep_roms", { rom, duplicates });
+    window.ipc.on("roms_kept", (roms: Roms) => {
+      setRoms(roms);
+      callback;
+    });
   };
 
   useEffect(() => {
@@ -34,6 +49,7 @@ function RomProvider({ children }) {
     <RomsContext.Provider
       value={{
         roms,
+        keepRom,
         setRoms
       }}
     >
