@@ -3,7 +3,7 @@ import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
 import { HLTGame } from "../../../types";
 
-export default function AutocompleteGames() {
+export const AutocompleteGames = () => {
   let list = useAsyncList({
     async load({ signal, filterText }) {
       console.log(filterText);
@@ -42,4 +42,4 @@ export default function AutocompleteGames() {
       )}
     </Autocomplete>
   );
-}
+};

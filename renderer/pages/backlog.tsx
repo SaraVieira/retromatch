@@ -1,4 +1,4 @@
-import AutocompleteGames from "../components/Backlog/AutocompleteGames";
+import { AutocompleteGames } from "../components/Backlog/AutocompleteGames";
 
 const Backlog = () => {
   return <AutocompleteGames />;
