@@ -4,14 +4,14 @@ import { useAsyncList } from "@react-stately/data";
 import { HLTGame } from "../../../types";
 
 export const AutocompleteGames = () => {
-  let list = useAsyncList({
+  const list = useAsyncList({
     async load({ signal, filterText }) {
       console.log(filterText);
-      let res = await fetch(`/api/hltb?game=${filterText}`, { signal });
-      let json = await res.json();
-      console.log(json);
+      const res = await fetch(`/api/hltb?game=${filterText}`, { signal });
+      const items = await res.json();
+
       return {
-        items: json
+        items
       };
     }
   });
