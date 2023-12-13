@@ -22,6 +22,7 @@ export const RomDuplicate = ({
     >
       <CardHeader className="flex flex-col items-start gap-1 text-sm text-left">
         {rom.name}
+        {rom.extension}
       </CardHeader>
 
       <CardBody>
@@ -36,8 +37,9 @@ export const RomDuplicate = ({
           />
         ) : null}
       </CardBody>
-      <CardFooter className="text-xs text-content4">
-        {humanFileSize(rom.size)}
+      <CardFooter className="text-xs text-content4 flex justify-between">
+        <span>{humanFileSize(rom.size)}</span>
+        <span>Extension: {rom.extension}</span>
       </CardFooter>
     </Card>
   );
