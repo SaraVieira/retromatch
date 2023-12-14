@@ -40,6 +40,7 @@ function RomProvider({ children }) {
     callback: () => void
   ) => {
     window.ipc.send("keep_rom", { rom, duplicates, folder });
+    rom.isDuplicate = false;
     window.ipc.on("rom_kept", () => {
       callback();
     });
