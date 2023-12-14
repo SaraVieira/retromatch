@@ -162,6 +162,9 @@ if (isProd) {
       if (!fileContents.roms || !fileContents.folders) return;
       romsStore.store = fileContents.roms;
       foldersStore.store = fileContents.folders;
+      if (fileContents.backlog) {
+        backlogStore.store = fileContents.backlog;
+      }
 
       event.reply("imported");
     }
@@ -183,7 +186,8 @@ if (isProd) {
         path.filePath,
         JSON.stringify({
           roms: romsStore.store,
-          folders: foldersStore.store
+          folders: foldersStore.store,
+          backlog: backlogStore.store
         })
       );
       event.reply("exported");
