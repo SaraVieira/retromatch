@@ -9,6 +9,8 @@ import { RomProvider } from "../hooks/roms-context";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 import dynamic from "next/dynamic";
+import Sidebar from "../components/Sidebar";
+import { BacklogProvider } from "../hooks/backlog-context";
 
 const Toasts = dynamic(
   () => import("../components/Toasts").then((a) => a.Toasts),
@@ -26,26 +28,36 @@ const Toaster = dynamic(
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <RomProvider>
-      <FolderProvider>
-        <NextUIProvider>
-          <NextThemesProvider attribute="class" defaultTheme="dark">
-            <Header />
-            <Toaster
-              position="top-right"
-              toastOptions={{
-                className:
-                  "!bg-background min-w-[150px] justify-start !text-zinc-400"
-              }}
-            />
-            <div className="flex flex-col gap-2 min-h-screen max-w-[1280px] m-auto px-6">
+    <BacklogProvider>
+      <RomProvider>
+        <FolderProvider>
+          <NextUIProvider>
+            <NextThemesProvider attribute="class" defaultTheme="dark">
+              <Header />
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  className: "!bg-background !text-content4"
+                }}
+              />
+
               <Toasts />
-              <Component {...pageProps} />
-            </div>
-          </NextThemesProvider>
-        </NextUIProvider>
-      </FolderProvider>
-    </RomProvider>
+              <div
+                className="flex h-full items-stretch"
+                style={{
+                  minHeight: "calc(100vh - 66px)"
+                }}
+              >
+                <Sidebar />
+                <div className="p-6 h-full max-w-[1280px] w-full mx-auto">
+                  <Component {...pageProps} />
+                </div>
+              </div>
+            </NextThemesProvider>
+          </NextUIProvider>
+        </FolderProvider>
+      </RomProvider>
+    </BacklogProvider>
   );
 }
 

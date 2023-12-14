@@ -56,9 +56,6 @@ export default function Header() {
       <NavbarContent justify="end">
         <NavbarItem className="flex gap-4">
           {isConsolePage && <ScrapeButton />}
-          <Button as={Link} color="primary" href="/settings" variant="flat">
-            Settings
-          </Button>
         </NavbarItem>
       </NavbarContent>
     </Navbar>
