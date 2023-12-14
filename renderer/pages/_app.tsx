@@ -10,6 +10,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 import dynamic from "next/dynamic";
 import Sidebar from "../components/Sidebar";
+import { BacklogProvider } from "../hooks/backlog-context";
 
 const Toasts = dynamic(
   () => import("../components/Toasts").then((a) => a.Toasts),
@@ -27,34 +28,36 @@ const Toaster = dynamic(
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <RomProvider>
-      <FolderProvider>
-        <NextUIProvider>
-          <NextThemesProvider attribute="class" defaultTheme="dark">
-            <Header />
-            <Toaster
-              position="top-right"
-              toastOptions={{
-                className: "!bg-background !text-content4"
-              }}
-            />
+    <BacklogProvider>
+      <RomProvider>
+        <FolderProvider>
+          <NextUIProvider>
+            <NextThemesProvider attribute="class" defaultTheme="dark">
+              <Header />
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  className: "!bg-background !text-content4"
+                }}
+              />
 
-            <Toasts />
-            <div
-              className="flex h-full items-stretch"
-              style={{
-                minHeight: "calc(100vh - 66px)"
-              }}
-            >
-              <Sidebar />
-              <div className="p-6 h-full max-w-[1280px]">
-                <Component {...pageProps} />
+              <Toasts />
+              <div
+                className="flex h-full items-stretch"
+                style={{
+                  minHeight: "calc(100vh - 66px)"
+                }}
+              >
+                <Sidebar />
+                <div className="p-6 h-full max-w-[1280px] w-full mx-auto">
+                  <Component {...pageProps} />
+                </div>
               </div>
-            </div>
-          </NextThemesProvider>
-        </NextUIProvider>
-      </FolderProvider>
-    </RomProvider>
+            </NextThemesProvider>
+          </NextUIProvider>
+        </FolderProvider>
+      </RomProvider>
+    </BacklogProvider>
   );
 }
 

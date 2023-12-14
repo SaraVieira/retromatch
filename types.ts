@@ -105,3 +105,8 @@ export interface HLTGame {
   image: string;
   value: string;
 }
+
+export type Backlog = {
+  state: "backlog" | "in_progress" | "done";
+  game: HLTGame;
+};

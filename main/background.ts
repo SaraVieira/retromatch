@@ -7,7 +7,7 @@ import { RomFolder } from "../types";
 import { createWindow, scrapeGame } from "./helpers";
 import { getFolders } from "./helpers/folders";
 import { getRoms } from "./helpers/roms";
-import { foldersStore, romsStore } from "./helpers/stores";
+import { backlogStore, foldersStore, romsStore } from "./helpers/stores";
 import { readdir } from "fs/promises";
 import { consoles } from "../consoles";
 
@@ -41,6 +41,8 @@ if (isProd) {
   ipcMain.on("load", async (event) => {
     event.reply("all_data", foldersStore.store);
     event.reply("all_roms", romsStore.store);
+    console.log(backlogStore.store);
+    event.reply("all_backlog", backlogStore.store);
   });
 
   ipcMain.on("add_folder", async (event, folder: RomFolder) => {

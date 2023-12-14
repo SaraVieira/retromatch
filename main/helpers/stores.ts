@@ -1,5 +1,5 @@
 import Store from "electron-store";
-import { RomFolders, Roms } from "../../types";
+import { Backlog, RomFolders, Roms } from "../../types";
 
 export const foldersStore = new Store<RomFolders[]>({
   name: "foldersStore"
@@ -7,4 +7,8 @@ export const foldersStore = new Store<RomFolders[]>({
 
 export const romsStore = new Store<Roms[]>({
   name: "roms"
+});
+
+export const backlogStore = new Store<Backlog[]>({
+  name: "backlog"
 });
