@@ -9,6 +9,8 @@ export const romsStore = new Store<Roms[]>({
   name: "roms"
 });
 
-export const backlogStore = new Store<Backlog[]>({
+export const backlogStore = new Store<{
+  [id: string]: Backlog;
+}>({
   name: "backlog"
 });

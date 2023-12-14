@@ -3,7 +3,7 @@ import serve from "electron-serve";
 
 import path from "path";
 
-import { RomFolder } from "../types";
+import { Backlog, RomFolder } from "../types";
 import { createWindow, scrapeGame } from "./helpers";
 import { getFolders } from "./helpers/folders";
 import { getRoms } from "./helpers/roms";
@@ -42,8 +42,7 @@ if (isProd) {
   ipcMain.on("load", async (event) => {
     event.reply("all_data", foldersStore.store);
     event.reply("all_roms", romsStore.store);
-    console.log(backlogStore.store);
-    event.reply("all_backlog", backlogStore.store);
+    event.reply("all_backlog", Object.values(backlogStore.store));
   });
 
   ipcMain.on("add_folder", async (event, folder: RomFolder) => {
@@ -57,6 +56,24 @@ if (isProd) {
       }));
     event.reply("folders_found", pathRead);
   });
+
+  ipcMain.on("add_to_backlog", async (_, game: Backlog) => {
+    backlogStore.set(game.id, game);
+  });
+
+  ipcMain.on("remove_from_backlog", async (_, id: string) => {
+    backlogStore.delete(id);
+  });
+
+  ipcMain.on(
+    "change_backlog_state",
+    async (_, { id, newState }: { id: string; newState: Backlog["state"] }) => {
+      backlogStore.set(id, {
+        ...backlogStore.get(id),
+        state: newState
+      });
+    }
+  );
 
   ipcMain.on(
     "sync_folder",
