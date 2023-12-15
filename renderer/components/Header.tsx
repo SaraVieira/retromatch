@@ -33,7 +33,7 @@ export default function Header() {
     folders[query.folder as string]?.folders?.[query.path as string];
 
   return (
-    <Navbar isBordered maxWidth="xl">
+    <Navbar isBordered maxWidth="xl" className="min-h-[66px]">
       <NavbarBrand>
         {pathname !== "/" ? (
           <Button

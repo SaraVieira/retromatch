@@ -23,7 +23,7 @@ export default function HomePage() {
     <div className="container mx-auto">
       <ul className="flex items-stretch flex-wrap gap-4 py-8">
         {Object.values(folders).map((f) => (
-          <li className="w-[200px]" key={f.id}>
+          <li className="w-[200px] h-full" key={f.id}>
             <button className="w-full" onClick={() => onClick(f)}>
               <Card>
                 <CardHeader>{f.name}</CardHeader>
@@ -32,7 +32,7 @@ export default function HomePage() {
             </button>
           </li>
         ))}
-        <li className="w-[200px]">
+        <li className="w-[200px] h-full">
           <Link href={"/new"}>
             <Card>
               <CardBody className="flex flex-col gap-4 items-center justify-center">
