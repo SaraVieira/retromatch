@@ -8,7 +8,7 @@ import {
 
 export const ListboxWrapper = ({ children }) => (
   <div
-    className="px-1 py-2  backdrop-saturate-150 bg-background/70 h-full border-r border-divider relative z-50 -mt-[1px] flex flex-col justify-between"
+    className="px-1 py-2  backdrop-saturate-150 bg-background/70 h-full border-r border-divider  flex flex-col justify-between sticky top-[64px] z-[99]"
     style={{
       minHeight: "calc(100vh - 66px)"
     }}
