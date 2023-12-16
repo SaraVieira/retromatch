@@ -21,8 +21,6 @@ const Settings = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { onClearCache, onImportData, onExportData } = useSettings();
 
-  toast.success("sup", { duration: Infinity });
-
   return (
     <div className="py-12 flex flex-col items-center gap-4">
       <Switch

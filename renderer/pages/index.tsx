@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useFolders } from "../hooks/folder-context";
 
-import { Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Tooltip } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import { IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
+import { humanFileSize } from "../utils/size";
 
 export default function HomePage() {
   const { folders, isLoading } = useFolders();
@@ -27,7 +28,13 @@ export default function HomePage() {
             <button className="w-full" onClick={() => onClick(f)}>
               <Card>
                 <CardHeader>{f.name}</CardHeader>
-                <CardBody className="text-xs text-content4">{f.path}</CardBody>
+                <CardBody className="text-xs text-content4 flex items-center justify-between flex-row">
+                  <Tooltip content={f.path}>
+                    <span className="max-w-[50%] truncate">{f.path}</span>
+                  </Tooltip>
+
+                  {humanFileSize(f.space)}
+                </CardBody>
               </Card>
             </button>
           </li>

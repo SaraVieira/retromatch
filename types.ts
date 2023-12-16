@@ -2,6 +2,7 @@ export type RomFolder = {
   id: string;
   path: string;
   name: string;
+  space: number;
   configFilePath: string;
   lastSynced?: Date;
   folders?: {
@@ -35,6 +36,7 @@ export type FileInfo = {
 export type Folder = {
   id?: string;
   path: string;
+
   console: {
     name: string;
     folderNames: string[];

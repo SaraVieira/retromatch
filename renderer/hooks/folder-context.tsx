@@ -86,13 +86,17 @@ function FolderProvider({ children }) {
   };
 
   const setFolderMatch = ({ id, name }) => {
-    setFolderMatches([
-      ...folderMatches.filter((a) => a.name !== name),
-      {
-        ...folderMatches.find((a) => a.name === name),
-        console: consoles.find((c) => c.id === id)
-      }
-    ]);
+    setFolderMatches(
+      folderMatches.map((f) => {
+        if (f.name === name) {
+          return {
+            ...f,
+            console: consoles.find((c) => c.id === id)
+          };
+        }
+        return f;
+      })
+    );
   };
 
   return (
