@@ -9,9 +9,35 @@ import {
   Spinner
 } from "@nextui-org/react";
 
+const SingleItem = ({ folder }) => {
+  const { setFolderMatch } = useFolders();
+  return (
+    <div className="flex items-center justify-between mb-4" key={folder.name}>
+      <div className="flex flex-col gap-1">
+        <span>{folder.name}</span>
+        <span className="text-sm text-default-500 truncate">{folder.path}</span>
+      </div>
+      <Autocomplete
+        key={folder.name}
+        label="Select a console"
+        className="max-w-xs"
+        selectedKey={folder.console?.id}
+        onSelectionChange={(c: string) =>
+          setFolderMatch({ id: c, name: folder.name })
+        }
+      >
+        {consoles.map((console) => (
+          <AutocompleteItem key={console.id} value={console.id}>
+            {console.name}
+          </AutocompleteItem>
+        ))}
+      </Autocomplete>
+    </div>
+  );
+};
+
 const Matches = () => {
-  const { folderMatches, isSyncing, syncFolders, setFolderMatch } =
-    useFolders();
+  const { folderMatches, isSyncing, syncFolders } = useFolders();
 
   if (!folderMatches?.length) return null;
 
@@ -40,32 +66,7 @@ const Matches = () => {
             {folderMatches
               .filter((f) => !f.console)
               .map((folder) => (
-                <div
-                  className="flex items-center justify-between mb-4"
-                  key={folder.name}
-                >
-                  <div className="flex flex-col gap-1">
-                    <span>{folder.name}</span>
-                    <span className="text-sm text-default-500 truncate">
-                      {folder.path}
-                    </span>
-                  </div>
-                  <Autocomplete
-                    key={folder.name}
-                    label="Select a console"
-                    className="max-w-xs"
-                    selectedKey={folder.console?.id}
-                    onSelectionChange={(c: string) =>
-                      setFolderMatch({ id: c, name: folder.name })
-                    }
-                  >
-                    {consoles.map((console) => (
-                      <AutocompleteItem key={console.id} value={console.id}>
-                        {console.name}
-                      </AutocompleteItem>
-                    ))}
-                  </Autocomplete>
-                </div>
+                <SingleItem folder={folder} />
               ))}
           </AccordionItem>
           <AccordionItem
@@ -76,41 +77,11 @@ const Matches = () => {
             {folderMatches
               .filter((f) => f.console)
               .map((folder) => (
-                <div
-                  className="flex items-center justify-between"
-                  key={folder.name}
-                >
-                  <div className="flex flex-col gap-1">
-                    <span>{folder.name}</span>
-                    <span className="text-sm text-default-500 truncate">
-                      {folder.path}
-                    </span>
-                  </div>
-                  <Autocomplete
-                    key={folder.name}
-                    label="Select a console"
-                    className="max-w-xs"
-                    selectedKey={folder.console?.id}
-                    onSelectionChange={(c: string) =>
-                      setFolderMatch({ id: c, name: folder.name })
-                    }
-                  >
-                    {consoles.map((console) => (
-                      <AutocompleteItem key={console.id} value={console.id}>
-                        {console.name}
-                      </AutocompleteItem>
-                    ))}
-                  </Autocomplete>
-                </div>
+                <SingleItem folder={folder} />
               ))}
           </AccordionItem>
         </Accordion>
-        <Button
-          onClick={syncFolders}
-          color="primary"
-          className="mt-8"
-          isLoading={false}
-        >
+        <Button onClick={syncFolders} color="primary" className="mt-8">
           Continue
         </Button>
       </div>
