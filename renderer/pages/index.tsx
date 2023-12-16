@@ -3,9 +3,10 @@ import { useFolders } from "../hooks/folder-context";
 
 import { Card, CardBody, CardHeader, Tooltip } from "@nextui-org/react";
 import { useRouter } from "next/router";
-import { IconPlus } from "@tabler/icons-react";
+import { IconFolder, IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
 import { humanFileSize } from "../utils/size";
+import { Folder } from "../components/Folders/Folder";
 
 export default function HomePage() {
   const { folders, isLoading } = useFolders();
@@ -17,27 +18,11 @@ export default function HomePage() {
     }
   }, [router.isReady, folders, isLoading]);
 
-  const onClick = (file: { path: string; id: string }) =>
-    router.push(`/${file.id}`);
-
   return (
     <div className="container mx-auto">
       <ul className="flex items-stretch flex-wrap gap-4 py-8">
         {Object.values(folders).map((f) => (
-          <li className="w-[200px] h-full" key={f.id}>
-            <button className="w-full" onClick={() => onClick(f)}>
-              <Card>
-                <CardHeader>{f.name}</CardHeader>
-                <CardBody className="text-xs text-content4 flex items-center justify-between flex-row">
-                  <Tooltip content={f.path}>
-                    <span className="max-w-[50%] truncate">{f.path}</span>
-                  </Tooltip>
-
-                  {humanFileSize(f.space)}
-                </CardBody>
-              </Card>
-            </button>
-          </li>
+          <Folder key={f.id} folder={f} />
         ))}
         <li className="w-[200px] h-full">
           <Link href={"/new"}>

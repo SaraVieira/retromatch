@@ -2,7 +2,9 @@ export type RomFolder = {
   id: string;
   path: string;
   name: string;
-  space: number;
+  space?: number;
+  sdCard: boolean;
+  sdCardStyle: string;
   configFilePath: string;
   lastSynced?: Date;
   folders?: {
