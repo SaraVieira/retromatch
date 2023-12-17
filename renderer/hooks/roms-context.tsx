@@ -4,8 +4,12 @@ import { FileInfo, Roms } from "../../types";
 
 const RomsContext = createContext({
   roms: {},
-  keepRom: (_rom: Roms[0], _duplicates: Roms[0][], _callback: () => void) =>
-    ({} as any),
+  keepRom: (
+    _rom: Roms[0],
+    _duplicates: Roms[0][],
+    _folder: any,
+    _callback: () => void
+  ) => ({} as any),
   setRoms: (_a: any) => ({} as any)
 });
 
@@ -32,12 +36,12 @@ function RomProvider({ children }) {
   const keepRom = (
     rom: Roms[0],
     duplicates: Roms[0][],
+    folder: any,
     callback: () => void
   ) => {
-    window.ipc.send("keep_roms", { rom, duplicates });
-    window.ipc.on("roms_kept", (roms: Roms) => {
-      setRoms(roms);
-      callback;
+    window.ipc.send("keep_rom", { rom, duplicates, folder });
+    window.ipc.on("rom_kept", () => {
+      callback();
     });
   };
 

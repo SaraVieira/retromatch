@@ -68,7 +68,10 @@ export default function Header() {
       <NavbarContent justify="end">
         <NavbarItem className="flex gap-4">
           {isConsolePage && duplicates.length > 0 && (
-            <RemoveDuplicatesModal duplicateRoms={duplicates} />
+            <RemoveDuplicatesModal
+              folder={activeFolder}
+              duplicateRoms={duplicates}
+            />
           )}
           {isConsolePage && <ScrapeButton />}
         </NavbarItem>

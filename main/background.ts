@@ -1,16 +1,16 @@
+import checkDiskSpace from "check-disk-space";
 import { app, dialog, ipcMain } from "electron";
 import serve from "electron-serve";
-import checkDiskSpace from "check-disk-space";
+import { readFileSync, unlinkSync, writeFileSync } from "fs";
+import { readdir } from "fs/promises";
 import path from "path";
 
-import { Backlog, RomFolder } from "../types";
+import { consoles } from "../consoles";
+import { Backlog, RomFolder, Roms } from "../types";
 import { createWindow, scrapeGame } from "./helpers";
 import { getFolders } from "./helpers/folders";
 import { getRoms } from "./helpers/roms";
 import { backlogStore, foldersStore, romsStore } from "./helpers/stores";
-import { readdir } from "fs/promises";
-import { consoles } from "../consoles";
-import { readFileSync, writeFileSync } from "fs";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -96,6 +96,39 @@ if (isProd) {
         newFolder: foldersStore.get(mainFolder.id),
         roms: romsStore.store
       });
+    }
+  );
+
+  ipcMain.on(
+    "keep_rom",
+    async (
+      event,
+      {
+        rom,
+        duplicates,
+        folder
+      }: {
+        rom: Roms[0];
+        duplicates: Roms[0][];
+        folder: any;
+      }
+    ) => {
+      try {
+        const toDelete = duplicates
+          .filter(
+            (otherRom) =>
+              otherRom !== rom && rom.info.title === otherRom.info.title
+          )
+          .map((r) => path.join(folder.path, [r.name, r.extension].join("")));
+        console.log(toDelete);
+        for (const romPath of toDelete) {
+          unlinkSync(romPath);
+        }
+
+        event.reply("rom_kept");
+      } catch (e) {
+        console.log(e.message);
+      }
     }
   );
 
