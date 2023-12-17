@@ -36,10 +36,15 @@ export default function HomePage() {
   }
   return (
     <div className="container mx-auto">
-      <ul className="grid grid-cols-3 gap-4 py-8">
+      <ul
+        className="grid gap-4 py-8"
+        style={{
+          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))"
+        }}
+      >
         {folders[query.folder as string]?.folders &&
           gameFolders.map((f) => (
-            <li className="w-[200px] h-full" key={f.id}>
+            <li className="min-w-[200px] h-full" key={f.id}>
               <Link href={`/${query.folder}/${f.id}`} className="h-full">
                 <Card className="h-full">
                   <CardHeader>

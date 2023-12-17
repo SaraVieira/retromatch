@@ -5,7 +5,11 @@ export const consoles = [
     name: "3DO Interactive Multiplayer",
     folderNames: ["3do", "panasonic"],
     extensions: [".bin", ".chd", ".cue", ".iso", ".7z", ".zip"],
-    id: "3do"
+    id: "3do",
+    lifespan: {
+      start: 1993,
+      end: 1997
+    }
   },
   {
     screenscrapper_id: 78,
@@ -13,7 +17,10 @@ export const consoles = [
     folderNames: ["ags"],
     extensions: [".desktop", ".sh"],
     id: "ags",
-    image: "ags.png"
+    image: "ags.png",
+    lifespan: {
+      start: 1997
+    }
   },
   {
     screenscrapper_id: 64,
@@ -41,7 +48,11 @@ export const consoles = [
       ".7z",
       ".zip"
     ],
-    id: "amiga"
+    id: "amiga",
+    lifespan: {
+      start: 1985,
+      end: 1996
+    }
   },
   {
     screenscrapper_id: 64,
@@ -69,7 +80,11 @@ export const consoles = [
       ".7z",
       ".zip"
     ],
-    id: "amiga1200"
+    id: "amiga1200",
+    lifespan: {
+      start: 1992,
+      end: 1996
+    }
   },
   {
     screenscrapper_id: 64,
@@ -97,7 +112,11 @@ export const consoles = [
       ".zip"
     ],
     id: "amiga600",
-    image: "amiga600.png"
+    image: "amiga600.png",
+    lifespan: {
+      start: 1992,
+      end: 1993
+    }
   },
   {
     screenscrapper_id: 130,
@@ -125,7 +144,11 @@ export const consoles = [
       ".7z",
       ".zip"
     ],
-    id: "amigacd32"
+    id: "amigacd32",
+    lifespan: {
+      start: 1993,
+      end: 1994
+    }
   },
   {
     screenscrapper_id: 65,
@@ -144,7 +167,11 @@ export const consoles = [
       ".7z",
       ".zip"
     ],
-    id: "amstradcpc"
+    id: "amstradcpc",
+    lifespan: {
+      start: 1984,
+      end: 1990
+    }
   },
   {
     screenscrapper_id: 63,
@@ -152,7 +179,10 @@ export const consoles = [
     image: "Android.png",
     folderNames: ["android"],
     extensions: ["apk", ".7z", ".zip"],
-    id: "android"
+    id: "android",
+    lifespan: {
+      start: 2008
+    }
   },
   {
     screenscrapper_id: 86,
@@ -160,7 +190,11 @@ export const consoles = [
     folderNames: ["apple2"],
     extensions: [".do", ".dsk", ".nib", ".po"],
     id: "apple2",
-    image: "Apple II.png"
+    image: "Apple II.png",
+    lifespan: {
+      start: 1977,
+      end: 1979
+    }
   },
   {
     screenscrapper_id: 217,
@@ -168,7 +202,11 @@ export const consoles = [
     folderNames: ["apple2gs"],
     extensions: [".2mg"],
     id: "apple2gs",
-    image: "Apple IIGS.png"
+    image: "Apple IIGS.png",
+    lifespan: {
+      start: 1986,
+      end: 1992
+    }
   },
   {
     screenscrapper_id: 75,
@@ -176,7 +214,10 @@ export const consoles = [
     folderNames: ["arcade"],
     extensions: [".cmd", ".desktop", ".sh", ".7z", ".zip"],
     id: "arcade",
-    image: "Arcade Classics.png"
+    image: "Arcade Classics.png",
+    lifespan: {
+      start: 1971
+    }
   },
   {
     screenscrapper_id: 94,
@@ -184,7 +225,11 @@ export const consoles = [
     folderNames: ["arcadia"],
     extensions: [".bin", ".7z", ".zip"],
     id: "arcadia",
-    image: "Emerson Arcadia 2001.png"
+    image: "Emerson Arcadia 2001.png",
+    lifespan: {
+      start: 1982,
+      end: 1983
+    }
   },
   {
     screenscrapper_id: 263,
@@ -192,7 +237,10 @@ export const consoles = [
     folderNames: ["arduboy"],
     extensions: [".hex", ".7z", ".zip"],
     id: "arduboy",
-    image: "arduboy.png"
+    image: "arduboy.png",
+    lifespan: {
+      start: 2015
+    }
   },
   {
     screenscrapper_id: 44,
@@ -200,7 +248,11 @@ export const consoles = [
     folderNames: ["astrocde"],
     extensions: [".7z", ".zip", "bin", "prg", "wav"],
     id: "astrocde",
-    image: "Bally Astrocade.png"
+    image: "Bally Astrocade.png",
+    lifespan: {
+      start: 1978,
+      end: 1983
+    }
   },
   {
     screenscrapper_id: 26,
@@ -208,7 +260,11 @@ export const consoles = [
     folderNames: ["atari2600", "atari"],
     extensions: [".a26", ".bin", ".7z", ".zip"],
     id: "atari2600",
-    image: "Atari 2600.png"
+    image: "Atari 2600.png",
+    lifespan: {
+      start: 1977,
+      end: 1992
+    }
   },
   {
     screenscrapper_id: 40,
@@ -229,7 +285,11 @@ export const consoles = [
       ".zip"
     ],
     id: "atari5200",
-    image: "Atari 5200.png"
+    image: "Atari 5200.png",
+    lifespan: {
+      start: 1982,
+      end: 1984
+    }
   },
   {
     screenscrapper_id: 41,
@@ -237,7 +297,11 @@ export const consoles = [
     folderNames: ["atari7800", "seventyeighthundred"],
     extensions: [".a78", ".bin", ".7z", ".zip"],
     id: "atari7800",
-    image: "Atari 7800.png"
+    image: "Atari 7800.png",
+    lifespan: {
+      start: 1986,
+      end: 1992
+    }
   },
   {
     screenscrapper_id: 43,
@@ -258,7 +322,11 @@ export const consoles = [
       ".zip"
     ],
     id: "atari800",
-    image: "Atari 800.png"
+    image: "Atari 800.png",
+    lifespan: {
+      start: 1979,
+      end: 1992
+    }
   },
   {
     screenscrapper_id: 27,
@@ -278,7 +346,11 @@ export const consoles = [
       ".zip"
     ],
     id: "atarijaguar",
-    image: "Atari Jaguar.png"
+    image: "Atari Jaguar.png",
+    lifespan: {
+      start: 1993,
+      end: 1996
+    }
   },
   {
     screenscrapper_id: 171,
@@ -286,7 +358,11 @@ export const consoles = [
     folderNames: ["atarijaguarcd"],
     extensions: [".7z", ".zip"],
     id: "atarijaguarcd",
-    image: "Atari Jaguar CD.png"
+    image: "Atari Jaguar CD.png",
+    lifespan: {
+      start: 1995,
+      end: 1996
+    }
   },
   {
     screenscrapper_id: 28,
@@ -294,7 +370,11 @@ export const consoles = [
     folderNames: ["atarilynx", "lynx"],
     extensions: [".lnx", ".o", ".7z", ".zip"],
     id: "atarilynx",
-    image: "Atari Lynx.png"
+    image: "Atari Lynx.png",
+    lifespan: {
+      start: 1989,
+      end: 1995
+    }
   },
   {
     screenscrapper_id: 42,
@@ -302,7 +382,11 @@ export const consoles = [
     folderNames: ["atarist"],
     extensions: [".st", ".msa", ".stx", ".dim", ".ipf", ".m3u", ".7z", ".zip"],
     id: "atarist",
-    image: "Atari ST.png"
+    image: "Atari ST.png",
+    lifespan: {
+      start: 1985,
+      end: 1993
+    }
   },
   {
     screenscrapper_id: 43,
@@ -321,7 +405,11 @@ export const consoles = [
       ".zip"
     ],
     id: "atarixe",
-    image: "Atari XEGS.png"
+    image: "Atari XEGS.png",
+    lifespan: {
+      start: 1987,
+      end: 1992
+    }
   },
   {
     screenscrapper_id: 75,
@@ -349,7 +437,11 @@ export const consoles = [
     folderNames: ["bbcmicro"],
     extensions: [".dsd", ".img", ".ssd", ".7z", ".zip"],
     id: "bbcmicro",
-    image: "BBC Microcomputer System.png"
+    image: "BBC Microcomputer System.png",
+    lifespan: {
+      start: 1981,
+      end: 1994
+    }
   },
   {
     screenscrapper_id: 66,
@@ -390,14 +482,21 @@ export const consoles = [
       ".zip"
     ],
     id: "c64",
-    image: "Commodore 64.png"
+    image: "Commodore 64.png",
+    lifespan: {
+      start: 1982,
+      end: 1994
+    }
   },
   {
     name: "Cave Story",
     folderNames: ["cavestory"],
     extensions: [".exe", ".7z", ".zip"],
     id: "cavestory",
-    image: "Cave.png"
+    image: "Cave.png",
+    lifespan: {
+      start: 2004
+    }
   },
   {
     screenscrapper_id: 133,
@@ -405,7 +504,11 @@ export const consoles = [
     folderNames: ["cdimono1"],
     extensions: [".chd", ".cue", ".iso"],
     id: "cdimono1",
-    image: "Philips CD-i.png"
+    image: "Philips CD-i.png",
+    lifespan: {
+      start: 1991,
+      end: 1998
+    }
   },
   {
     screenscrapper_id: 128,
@@ -424,7 +527,11 @@ export const consoles = [
       ".zip"
     ],
     id: "cdtv",
-    image: "Commodore CDTV.png"
+    image: "Commodore CDTV.png",
+    lifespan: {
+      start: 1991,
+      end: 1993
+    }
   },
   {
     name: "ChaiLove Game Engine",
@@ -438,7 +545,11 @@ export const consoles = [
     folderNames: ["channelf", "fairchild"],
     extensions: [".bin", ".chf", ".7z", ".zip"],
     id: "channelf",
-    image: "Fairchild Channel F.png"
+    image: "Fairchild Channel F.png",
+    lifespan: {
+      start: 1976,
+      end: 1983
+    }
   },
   {
     screenscrapper_id: 144,
@@ -446,7 +557,11 @@ export const consoles = [
     folderNames: ["coco"],
     extensions: [".cas", ".ccc", ".dsk", ".rom"],
     id: "coco",
-    image: "Tandy TRS-80.png"
+    image: "Tandy TRS-80.png",
+    lifespan: {
+      start: 1980,
+      end: 1991
+    }
   },
   {
     screenscrapper_id: 48,
@@ -469,7 +584,11 @@ export const consoles = [
       ".zip"
     ],
     id: "colecovision",
-    image: "ColecoVision.png"
+    image: "ColecoVision.png",
+    lifespan: {
+      start: 1982,
+      end: 1985
+    }
   },
   {
     screenscrapper_id: 75,
@@ -477,7 +596,11 @@ export const consoles = [
     folderNames: ["cps"],
     extensions: [".7z", ".zip"],
     id: "cps",
-    image: "Capcom Play System.png"
+    image: "Capcom Play System.png",
+    lifespan: {
+      start: 1988,
+      end: 1995
+    }
   },
   {
     screenscrapper_id: 75,
@@ -485,7 +608,11 @@ export const consoles = [
     folderNames: ["cps1"],
     extensions: [".7z", ".zip"],
     id: "cps1",
-    image: "Capcom Play System.png"
+    image: "Capcom Play System.png",
+    lifespan: {
+      start: 1988,
+      end: 1995
+    }
   },
   {
     screenscrapper_id: 75,
@@ -493,7 +620,11 @@ export const consoles = [
     folderNames: ["cps2"],
     extensions: [".7z", ".zip"],
     id: "cps2",
-    image: "Capcom Play System II.png"
+    image: "Capcom Play System II.png",
+    lifespan: {
+      start: 1993,
+      end: 2003
+    }
   },
   {
     screenscrapper_id: 75,
@@ -501,7 +632,11 @@ export const consoles = [
     folderNames: ["cps3"],
     extensions: [".7z", ".zip"],
     id: "cps3",
-    image: "Capcom Play System III.png"
+    image: "Capcom Play System III.png",
+    lifespan: {
+      start: 1996,
+      end: 2003
+    }
   },
   {
     screenscrapper_id: 241,
@@ -509,14 +644,22 @@ export const consoles = [
     folderNames: ["crvision"],
     extensions: [".bin", ".rom", ".7z", ".zip"],
     id: "crvision",
-    image: "VTech CreatiVision.png"
+    image: "VTech CreatiVision.png",
+    lifespan: {
+      start: 1982,
+      end: 1986
+    }
   },
   {
     name: "Adobe Flash",
     folderNames: ["flash"],
     extensions: [".swf"],
     id: "flash",
-    image: "flash.png"
+    image: "flash.png",
+    lifespan: {
+      start: 1996,
+      end: 2020
+    }
   },
   {
     screenscrapper_id: 49,
@@ -1389,7 +1532,7 @@ export const consoles = [
   {
     screenscrapper_id: 222,
     name: "TIC-80 Game Engine",
-    folderNames: ["tic80", "tic"],
+    folderNames: ["tic80", "tic", "tic-80"],
     extensions: [".tic"],
     id: "tic80",
     image: "TIC-80.png"
@@ -1510,7 +1653,7 @@ export const consoles = [
   {
     screenscrapper_id: 234,
     name: "PICO-8 Fantasy Console",
-    folderNames: ["pico8", "pico"],
+    folderNames: ["pico8", "pico", "pico-8"],
     extensions: [".p8", ".png"],
     id: "pico8",
     image: "Pico-8-10.png"
@@ -1868,7 +2011,7 @@ export const consoles = [
   {
     screenscrapper_id: 114,
     name: "NEC TurboGrafx CD",
-    folderNames: ["pcenginecd", "pcecd"],
+    folderNames: ["pcenginecd", "pcecd", "tg16cd"],
     extensions: [
       ".ccd",
       ".chd",
@@ -2097,7 +2240,7 @@ export const consoles = [
   {
     screenscrapper_id: 75,
     name: "Sega Titan Video Game System",
-    folderNames: ["stv"],
+    folderNames: ["stv", "st-v"],
     extensions: [".7z", ".zip"],
     id: "stv"
   },

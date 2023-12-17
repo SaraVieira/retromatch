@@ -1,6 +1,6 @@
 import { app, dialog, ipcMain } from "electron";
 import serve from "electron-serve";
-
+import checkDiskSpace from "check-disk-space";
 import path from "path";
 
 import { Backlog, RomFolder } from "../types";
@@ -81,11 +81,13 @@ if (isProd) {
       event,
       { folders, mainFolder }: { folders: any[]; mainFolder: RomFolder }
     ) => {
+      const { size } = await checkDiskSpace(mainFolder.path);
       const allFolders = await getFolders(folders);
       const currentFolder = {
         ...mainFolder,
         folders: allFolders,
-        lastSynced: new Date()
+        lastSynced: new Date(),
+        space: size
       };
 
       foldersStore.set(mainFolder.id, currentFolder);

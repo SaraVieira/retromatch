@@ -10,13 +10,16 @@ import { Roms } from "../../../types";
 export const Rom = ({ rom }: { rom: Roms[0] }) => {
   const { query } = useRouter();
   return (
-    <Link className="text-sm" href={`/${query.folder}/${query.path}/${rom.id}`}>
+    <Link
+      className="text-sm w-full"
+      href={`/${query.folder}/${query.path}/${rom.id}`}
+    >
       <Card
         isPressable
         isHoverable
         shadow="sm"
         className={cn(
-          `h-full flex flex-col justify-between rounded-lg w-[280px]`,
+          `h-full flex flex-col justify-between rounded-lg w-full`,
           rom.isDuplicate ? "border-2 border-rose-600" : ""
         )}
       >

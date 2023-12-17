@@ -11,7 +11,6 @@ import {
 } from "@nextui-org/react";
 import { useTheme } from "next-themes";
 import { useSettings } from "../hooks/useSettings";
-import toast from "react-hot-toast";
 
 const listItemStyles =
   "w-full bg-content1 hover:bg-content2 items-center max-w-lg flex justify-between p-4 rounded-lg  border-2 border-transparent";
@@ -20,8 +19,6 @@ const Settings = () => {
   const { theme, setTheme } = useTheme();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { onClearCache, onImportData, onExportData } = useSettings();
-
-  toast.success("sup", { duration: Infinity });
 
   return (
     <div className="py-12 flex flex-col items-center gap-4">
