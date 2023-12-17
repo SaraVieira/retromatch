@@ -6,7 +6,7 @@ import { readdir } from "fs/promises";
 import path from "path";
 
 import { consoles } from "../consoles";
-import { Backlog, RomFolder, RomFolders, Roms } from "../types";
+import { Backlog, RomFolder, Roms } from "../types";
 import { createWindow, scrapeGame } from "./helpers";
 import { getFolders } from "./helpers/folders";
 import { getRoms } from "./helpers/roms";
@@ -76,43 +76,6 @@ if (isProd) {
   );
 
   ipcMain.on(
-    "resync_folder",
-    async (
-      event,
-      { folder, folderPath }: { folder: any; folderPath: string }
-    ) => {
-      try {
-        const mainFolders = Object.values(foldersStore.store).flatMap(
-          (romFolders: RomFolders) =>
-            Object.values(romFolders).filter((romFolder: RomFolder) => {
-              if (!romFolder.folders) {
-                return;
-              }
-              return Object.values(romFolder.folders).some(
-                (otherFolder) => otherFolder.path === folderPath
-              );
-            })
-        );
-        for (const mainFolder of mainFolders) {
-          const allFolders = await getFolders(folder);
-          const currentFolder = {
-            ...mainFolder,
-            lastSynced: new Date()
-          };
-
-          foldersStore.set(mainFolder.id, currentFolder);
-          await getRoms({ allFolders, id: mainFolder.id });
-        }
-        event.reply("done_resyncing", {
-          roms: romsStore.store
-        });
-      } catch (e) {
-        console.log(e.message);
-      }
-    }
-  );
-
-  ipcMain.on(
     "sync_folder",
     async (
       event,
@@ -156,12 +119,20 @@ if (isProd) {
             (otherRom) =>
               otherRom !== rom && rom.info.title === otherRom.info.title
           )
-          .map((r) => path.join(folder.path, [r.name, r.extension].join("")));
-        for (const romPath of toDelete) {
+          .map((r) => {
+            return {
+              romPath: path.join(folder.path, [r.name, r.extension].join("")),
+              rom
+            };
+          });
+        for (const { romPath, rom } of toDelete) {
           unlinkSync(romPath);
+          romsStore.delete(rom.id);
         }
 
-        event.reply("rom_kept");
+        event.reply("rom_kept", {
+          romsStore: romsStore.store
+        });
       } catch (e) {
         console.log(e.message);
       }

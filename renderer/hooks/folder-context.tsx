@@ -11,7 +11,6 @@ const FoldersContext = createContext({
   addFolder: (_: RomFolder) => {},
   scrapeFolder: (_folder: Folder, _all: boolean) => {},
   syncFolders: () => {},
-  syncFolder: (_folder: Folder) => {},
   isSyncing: false,
   isLoading: false,
   folderMatches: [],
@@ -48,20 +47,6 @@ function FolderProvider({ children }) {
 
     window.ipc.on("folders_found", setFolderMatches);
     router.push("/new/matches");
-  };
-
-  const syncFolder = (folder: Folder) => {
-    setIsSyncing(true);
-    getData();
-
-    window.ipc.send("resync_folder", {
-      folder: { id: folder.id, name: folderMatches[folder.id] },
-      folderPath: folder.path
-    });
-    window.ipc.on("done_resyncing", ({ roms }: { roms: Roms }) => {
-      setIsSyncing(false);
-      setRoms(roms);
-    });
   };
 
   const syncFolders = () => {
@@ -121,7 +106,6 @@ function FolderProvider({ children }) {
         folders,
         addFolder,
         scrapeFolder,
-        syncFolder,
         syncFolders,
         isSyncing,
         folderMatches,

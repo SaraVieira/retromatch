@@ -4,45 +4,40 @@ import { FileInfo, Roms } from "../../types";
 
 const RomsContext = createContext({
   roms: {},
-  keepRom: (
-    _rom: Roms[0],
-    _duplicates: Roms[0][],
-    _folder: any,
-    _callback: () => void
-  ) => ({} as any),
+  keepRom: (_rom: Roms[0], _duplicates: Roms[0][], _folder: any) => ({} as any),
   setRoms: (_a: any) => ({} as any)
 });
 
 function RomProvider({ children }) {
-  const [roms, setRoms] = useState({});
+  const [roms, setRomsState] = useState({});
 
   const getData = () => {
-    window.ipc.on("all_roms", (roms: Roms) => {
-      for (const rom of Object.values(roms)) {
-        if (rom?.info?.title && !rom.isDuplicate) {
-          const duplicates = Object.values(roms).filter(
-            (otherRom: { info?: FileInfo }) =>
-              rom !== otherRom && rom.info.title === otherRom?.info?.title
-          );
-          if (duplicates.length > 0) {
-            rom.isDuplicate = true;
-          }
-        }
-      }
-      setRoms(roms);
+    window.ipc.on("all_roms", (allRoms: Roms) => {
+      setRoms(allRoms);
     });
   };
 
-  const keepRom = (
-    rom: Roms[0],
-    duplicates: Roms[0][],
-    folder: any,
-    callback: () => void
-  ) => {
+  const setRoms = (romList: Roms) => {
+    for (const rom of Object.values(romList)) {
+      if (rom?.info?.title && !rom.isDuplicate) {
+        const duplicates = Object.values(romList).filter(
+          (otherRom: { info?: FileInfo }) =>
+            rom !== otherRom && rom.info.title === otherRom?.info?.title
+        );
+        if (duplicates.length > 0) {
+          rom.isDuplicate = true;
+        } else {
+          rom.isDuplicate = false;
+        }
+      }
+    }
+    return setRomsState(romList);
+  };
+
+  const keepRom = (rom: Roms[0], duplicates: Roms[0][], folder: any) => {
     window.ipc.send("keep_rom", { rom, duplicates, folder });
-    rom.isDuplicate = false;
-    window.ipc.on("rom_kept", () => {
-      callback();
+    window.ipc.on("rom_kept", ({ romsStore }: { romsStore: Roms }) => {
+      setRoms(romsStore);
     });
   };
 
