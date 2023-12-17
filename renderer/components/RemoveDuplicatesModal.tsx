@@ -16,10 +16,12 @@ export default function RemoveDuplicatesModal({ duplicateRoms, folder }) {
   const filterRom = (rom) => {
     keepRom(rom, duplicateRoms, folder);
   };
+
+  const size = otherDuplicates.length > 1 ? "5xl" : "3xl";
   return (
     <>
       <Button onClick={onOpen}>Remove {duplicateRoms.length} Duplicates</Button>
-      <Modal size="3xl" isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal size={size} isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {() => (
             <>
