@@ -127,7 +127,7 @@ if (isProd) {
           });
         for (const { romPath, rom } of toDelete) {
           unlinkSync(romPath);
-          romsStore.delete(rom.id);
+          romsStore.delete(rom.id as keyof Roms[]);
         }
 
         event.reply("rom_kept", {
