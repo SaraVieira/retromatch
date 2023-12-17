@@ -7,7 +7,7 @@ import { Key } from "react";
 const statusColorMap = {
   done: "success",
   backlog: "danger",
-  in_progress: "warning"
+  in_progress: "primary"
 };
 
 export const backlogTableColumns = (backlogItem: Backlog, columnKey: Key) => {
