@@ -1,4 +1,11 @@
-import { Button, Modal, ModalContent, useDisclosure } from "@nextui-org/react";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
+  useDisclosure
+} from "@nextui-org/react";
 
 import { Roms } from "../../types";
 import { useRoms } from "../hooks/roms-context";
@@ -25,16 +32,20 @@ export default function RemoveDuplicatesModal({ duplicateRoms, folder }) {
         <ModalContent>
           {() => (
             <>
-              <h2 className="text-center">
-                Keep which <b>{rom?.info?.title}</b>?
-              </h2>
-              <ul className="pb-8 flex justify-between flex-wrap gap-8 items-stretch">
-                {[rom, ...otherDuplicates].map((rom: Roms[0]) => (
-                  <li key={rom.id}>
-                    <RomDuplicate rom={rom} onClick={() => filterRom(rom)} />
-                  </li>
-                ))}
-              </ul>
+              <ModalHeader>
+                <h2>
+                  Keep which <b>{rom?.info?.title}</b>?
+                </h2>
+              </ModalHeader>
+              <ModalBody>
+                <ul className="pb-8 flex justify-between flex-wrap gap-8 items-stretch">
+                  {[rom, ...otherDuplicates].map((rom: Roms[0]) => (
+                    <li key={rom.id}>
+                      <RomDuplicate rom={rom} onClick={() => filterRom(rom)} />
+                    </li>
+                  ))}
+                </ul>
+              </ModalBody>
             </>
           )}
         </ModalContent>
