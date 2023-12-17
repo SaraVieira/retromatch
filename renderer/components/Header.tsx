@@ -1,20 +1,27 @@
 import React from "react";
+
+import { useRouter } from "next/router";
+
 import {
+  Button,
+  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarItem,
-  Link,
-  Button
+  NavbarItem
 } from "@nextui-org/react";
-import { useRouter } from "next/router";
 import { IconChevronLeft } from "@tabler/icons-react";
+
+import { Roms } from "../../types";
 import { useFolders } from "../hooks/folder-context";
+import { useRoms } from "../hooks/roms-context";
+import RemoveDuplicatesModal from "./RemoveDuplicatesModal";
 import { ScrapeButton } from "./ScrapeButton";
 
 export default function Header() {
   const { pathname, query } = useRouter();
   const { folders } = useFolders();
+  const { roms } = useRoms();
   const isConsolePage = query.folder && query.path && !query.file;
   const isVolumePage = query.folder && !query.path && !query.file;
 
@@ -31,6 +38,11 @@ export default function Header() {
 
   const activeFolder =
     folders[query.folder as string]?.folders?.[query.path as string];
+  const duplicates = Object.values(roms || {})
+    .filter((r: Roms[0]) =>
+      Object.values(activeFolder?.files || {}).includes(r.id)
+    )
+    .filter((rom: { isDuplicate }) => rom.isDuplicate);
 
   return (
     <Navbar isBordered maxWidth="xl" className="min-h-[66px]">
@@ -55,6 +67,12 @@ export default function Header() {
 
       <NavbarContent justify="end">
         <NavbarItem className="flex gap-4">
+          {isConsolePage && duplicates.length > 0 && (
+            <RemoveDuplicatesModal
+              folder={activeFolder}
+              duplicateRoms={duplicates}
+            />
+          )}
           {isConsolePage && <ScrapeButton />}
         </NavbarItem>
       </NavbarContent>

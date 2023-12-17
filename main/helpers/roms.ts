@@ -1,6 +1,7 @@
-import { extname } from "path";
 import { readdir, stat } from "fs/promises";
+import { extname } from "path";
 import { v5 as uuidv5 } from "uuid";
+
 import { Folder } from "../../types";
 import { foldersStore, romsStore } from "./stores";
 

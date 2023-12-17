@@ -1,9 +1,10 @@
+import { createContext, useContext, useEffect, useState } from "react";
+
 import { useRouter } from "next/router";
 
+import { consoles } from "../../consoles";
 import { Folder, RomFolder, RomFolders, Roms } from "../../types";
 import { useRoms } from "./roms-context";
-import { consoles } from "../../consoles";
-import { createContext, useContext, useEffect, useState } from "react";
 
 const FoldersContext = createContext({
   folders: {} as RomFolders,

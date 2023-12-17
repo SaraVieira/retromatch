@@ -1,15 +1,16 @@
+import { useState } from "react";
+
 import { useRouter } from "next/router";
 
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import { IconSortAscending, IconSortDescending } from "@tabler/icons-react";
 
+import { Roms } from "../../../../types";
+import { Rom } from "../../../components/Rom";
+import { NoRoms } from "../../../components/Rom/Empty";
 import { useFolders } from "../../../hooks/folder-context";
 import { useRoms } from "../../../hooks/roms-context";
-import { Roms } from "../../../../types";
-import { useState } from "react";
 import { sortFunc } from "../../../utils/arrays";
-import { NoRoms } from "../../../components/Rom/Empty";
-import { Rom } from "../../../components/Rom";
 
 const sortOptions = [
   {
