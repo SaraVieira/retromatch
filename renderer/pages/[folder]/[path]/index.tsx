@@ -114,9 +114,14 @@ export const Files = () => {
           ))}
         </Select>
       </div>
-      <ul className="pb-8 flex justify-between flex-wrap gap-8 items-stretch">
+      <ul
+        className="pb-8 grid gap-4 items-stretch"
+        style={{
+          gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
+        }}
+      >
         {romsInConsole.map((rom: Roms[0]) => (
-          <li key={rom.id}>
+          <li key={rom.id} className="w-full">
             <Rom rom={rom} />
           </li>
         ))}
