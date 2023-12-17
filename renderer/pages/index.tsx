@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useFolders } from "../hooks/folder-context";
 
-import { Card, CardBody, CardHeader, Tooltip } from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
 import { useRouter } from "next/router";
-import { IconFolder, IconPlus } from "@tabler/icons-react";
+import { IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
-import { humanFileSize } from "../utils/size";
+
 import { Folder } from "../components/Folders/Folder";
 
 export default function HomePage() {

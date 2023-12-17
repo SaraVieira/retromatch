@@ -66,7 +66,7 @@ const Matches = () => {
             {folderMatches
               .filter((f) => !f.console)
               .map((folder) => (
-                <SingleItem folder={folder} />
+                <SingleItem key={folder.id} folder={folder} />
               ))}
           </AccordionItem>
           <AccordionItem
@@ -77,7 +77,7 @@ const Matches = () => {
             {folderMatches
               .filter((f) => f.console)
               .map((folder) => (
-                <SingleItem folder={folder} />
+                <SingleItem key={folder.id} folder={folder} />
               ))}
           </AccordionItem>
         </Accordion>
