@@ -5,7 +5,8 @@ import { HLTGame } from "../../../types";
 import { useBacklog } from "../../hooks/backlog-context";
 
 export const AutocompleteGames = () => {
-  const { addToBacklog } = useBacklog();
+  const { addToBacklog, backlog } = useBacklog();
+
   const list = useAsyncList({
     async load({ signal, filterText }) {
       const res = await fetch(`/api/hltb?game=${filterText}`, { signal });
@@ -25,12 +26,13 @@ export const AutocompleteGames = () => {
       items={list.items}
       label="Add a new game"
       variant="flat"
+      disabledKeys={backlog.map((a) => a.game.game_id.toString())}
       onInputChange={list.setFilterText}
     >
       {(item: HLTGame) => (
         <AutocompleteItem
           textValue={item.game_name}
-          key={item.game_name}
+          key={item.game_id.toString()}
           className="capitalize"
           onClick={() => {
             addToBacklog(item);

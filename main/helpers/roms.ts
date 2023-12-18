@@ -3,7 +3,8 @@ import { extname } from "path";
 import { v5 as uuidv5 } from "uuid";
 
 import { Folder } from "../../types";
-import { foldersStore, romsStore } from "./stores";
+import { foldersStore } from "../stores/folders";
+import { romsStore } from "../stores/roms";
 
 export const getRoms = async ({
   allFolders,
