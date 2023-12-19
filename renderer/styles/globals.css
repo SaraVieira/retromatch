@@ -6,3 +6,17 @@
 #__next > div {
   @apply min-h-screen;
 }
+
+body {
+  --contexify-menu-bgColor: rgba(0, 0, 0, 0.8);
+  --contexify-separator-color: #4c4c4c;
+  --contexify-item-color: #fff;
+  --contexify-activeItem-color: #fff;
+  --contexify-activeItem-bgColor: hsla(var(--nextui-primary));
+  --contexify-rightSlot-color: #6f6e77;
+  --contexify-activeRightSlot-color: #fff;
+  --contexify-arrow-color: #6f6e77;
+  --contexify-activeArrow-color: #fff;
+  --contexify-menu-radius: 12px;
+  --contexify-menu-shadow: none;
+}

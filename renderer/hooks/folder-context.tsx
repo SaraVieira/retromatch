@@ -14,6 +14,7 @@ const FoldersContext = createContext({
   isSyncing: false,
   isLoading: false,
   folderMatches: [],
+  deleteFolder: (_id: string) => {},
   // eslint-disable-next-line
   setFolderMatch: ({ id, name }: { id: string; name: string }) => {}
 });
@@ -41,6 +42,10 @@ function FolderProvider({ children }) {
     getData();
   }, []);
 
+  const deleteFolder = (id: string) => {
+    window.ipc.send("delete_folder", id);
+    getData();
+  };
   const addFolder = (folder: RomFolder) => {
     window.ipc.send("add_folder", folder);
     setSelectedFolder(folder);
@@ -110,7 +115,8 @@ function FolderProvider({ children }) {
         isSyncing,
         folderMatches,
         isLoading,
-        setFolderMatch
+        setFolderMatch,
+        deleteFolder
       }}
     >
       {children}

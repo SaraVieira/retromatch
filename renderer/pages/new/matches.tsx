@@ -50,6 +50,8 @@ const Matches = () => {
     );
   }
 
+  const nonMatches = folderMatches.filter((f) => !f.console);
+
   return (
     <div className="py-6">
       <h1 className="text-center text-lg font-bold">Are these correct?</h1>
@@ -57,18 +59,18 @@ const Matches = () => {
         Please match the folders with consoles
       </h3>
       <div className="mt-12 flex flex-col gap-4 max-w-3xl w-full m-auto">
-        <Accordion defaultExpandedKeys={["1"]}>
-          <AccordionItem
-            key="1"
-            aria-label="No Matches Found"
-            title="No Matches Found"
-          >
-            {folderMatches
-              .filter((f) => !f.console)
-              .map((folder) => (
+        <Accordion defaultExpandedKeys={nonMatches.length ? ["1"] : ["2"]}>
+          {nonMatches.length ? (
+            <AccordionItem
+              key="1"
+              aria-label="No Matches Found"
+              title="No Matches Found"
+            >
+              {nonMatches.map((folder) => (
                 <SingleItem key={folder.id} folder={folder} />
               ))}
-          </AccordionItem>
+            </AccordionItem>
+          ) : null}
           <AccordionItem
             key="2"
             aria-label="Console Matches Found"
