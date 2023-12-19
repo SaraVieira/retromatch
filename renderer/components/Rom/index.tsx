@@ -1,11 +1,10 @@
 import { Card, CardBody, CardFooter, CardHeader, cn } from "@nextui-org/react";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Roms } from "../../../types";
 import { humanFileSize } from "../../utils/size";
 import { Rating } from "./Rating";
-import { Roms } from "../../../types";
 
 export const Rom = ({ rom }: { rom: Roms[0] }) => {
   const { query } = useRouter();
@@ -24,12 +23,9 @@ export const Rom = ({ rom }: { rom: Roms[0] }) => {
         )}
       >
         <CardHeader className="flex flex-col items-start gap-1">
-          <Link
-            className="text-sm text-left"
-            href={`/${query.folder}/${query.path}/${rom.id}`}
-          >
+          <span className="text-sm text-left">
             {rom.info?.title || rom.name}
-          </Link>
+          </span>
           <div className="flex justify-between items-center w-full">
             <Rating rating={rom?.info?.rating} />
             <span className="text-sm text-content4">{rom?.info?.released}</span>
