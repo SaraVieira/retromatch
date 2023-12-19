@@ -13,6 +13,10 @@ export const foldersStore = new Store<RomFolders[]>({
 });
 
 export const initFolderActions = () => {
+  ipcMain.on("delete_folder", async (_, id: keyof RomFolders[]) =>
+    foldersStore.delete(id)
+  );
+
   ipcMain.on("add_folder", async (event, folder: RomFolder) => {
     const pathRead = (await readdir(folder.path, { withFileTypes: true }))
       .filter((f) => f.isDirectory() && !f.name.startsWith("."))
