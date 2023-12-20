@@ -5,7 +5,7 @@ import { createWindow } from "./helpers";
 import { foldersStore, initFolderActions } from "./stores/folders";
 import { backlogStore, initBacklogState } from "./stores/backlog";
 import { initSettingsActions } from "./stores/settings";
-import { romsStore } from "./stores/roms";
+import { initRomActions, romsStore } from "./stores/roms";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -39,7 +39,7 @@ if (isProd) {
     event.reply("all_roms", romsStore.store);
     event.reply("all_backlog", Object.values(backlogStore.store));
   });
-
+  initRomActions();
   initFolderActions();
   initBacklogState();
   initSettingsActions(mainWindow);

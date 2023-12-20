@@ -55,6 +55,7 @@ export const initRomActions = () => {
       ? folder.files
       : folder.files.filter((file) => !romsStore.get(file).info);
     let scrapped = 0;
+    console.log(all, folder.files);
     try {
       await Promise.all(
         filesToScrape.map(async (file) => {
