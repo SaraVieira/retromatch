@@ -1,48 +1,72 @@
 import React from "react";
-import { Listbox, ListboxItem, Tooltip } from "@nextui-org/react";
+import { Button, Listbox, ListboxItem, Tooltip } from "@nextui-org/react";
 import {
+  IconChevronLeft,
   IconDeviceSdCard,
   IconListCheck,
   IconSettings
 } from "@tabler/icons-react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export const ListboxWrapper = ({ children }) => (
-  <div
-    className="px-1 py-2  backdrop-saturate-150 bg-background/70 h-full border-r border-divider  flex flex-col justify-between sticky top-[64px] z-[99]"
-    style={{
-      minHeight: "calc(100vh - 66px)"
-    }}
-  >
+  <div className="px-1 py-2  backdrop-saturate-150 bg-background/70 h-full border-r border-divider  sticky min-h-screen z-[99] flex flex-col top-0">
     {children}
   </div>
 );
 
 export default function Sidebar() {
+  const { pathname, query } = useRouter();
+  const isConsolePage = query.folder && query.path && !query.file;
   const iconClasses =
     "text-xl text-default-500 pointer-events-none flex-shrink-0";
+  const createBackLink = () => {
+    if (query.folder && query.path && query.file) {
+      return `/${query.folder}/${query.path}`;
+    }
+    if (isConsolePage) {
+      return `/${query.folder}`;
+    }
 
+    return "/";
+  };
   return (
     <ListboxWrapper>
-      <Listbox variant="flat">
-        <ListboxItem href="/" key="volumes" textValue="Volumes">
-          <Tooltip showArrow content="volumes" placement="bottom">
-            <IconDeviceSdCard className={iconClasses} />
-          </Tooltip>
-        </ListboxItem>
+      {pathname !== "/" ? (
+        <Button
+          as={Link}
+          href={createBackLink()}
+          isIconOnly
+          variant="ghost"
+          className="mx-auto"
+        >
+          <IconChevronLeft />
+        </Button>
+      ) : (
+        <div className="h-10" />
+      )}
+      <div className="flex flex-col justify-between h-full grow mt-4">
+        <Listbox variant="flat">
+          <ListboxItem href="/" key="volumes" textValue="Volumes">
+            <Tooltip showArrow content="volumes" placement="bottom">
+              <IconDeviceSdCard className={iconClasses} />
+            </Tooltip>
+          </ListboxItem>
 
-        <ListboxItem href="/backlog" key="backlog" textValue="Backlog">
-          <Tooltip showArrow content="Backlog">
-            <IconListCheck className={iconClasses} />
-          </Tooltip>
-        </ListboxItem>
-      </Listbox>
-      <Listbox variant="flat" aria-label="Listbox menu with icons">
-        <ListboxItem href="/settings" key="settings" textValue="Settings">
-          <Tooltip showArrow content="Settings">
-            <IconSettings className={iconClasses} />
-          </Tooltip>
-        </ListboxItem>
-      </Listbox>
+          <ListboxItem href="/backlog" key="backlog" textValue="Backlog">
+            <Tooltip showArrow content="Backlog">
+              <IconListCheck className={iconClasses} />
+            </Tooltip>
+          </ListboxItem>
+        </Listbox>
+        <Listbox variant="flat" aria-label="Listbox menu with icons">
+          <ListboxItem href="/settings" key="settings" textValue="Settings">
+            <Tooltip showArrow content="Settings">
+              <IconSettings className={iconClasses} />
+            </Tooltip>
+          </ListboxItem>
+        </Listbox>
+      </div>
     </ListboxWrapper>
   );
 }
