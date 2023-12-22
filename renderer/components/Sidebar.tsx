@@ -15,7 +15,7 @@ export const ListboxWrapper = ({ children }) => (
 );
 
 export default function Sidebar() {
-  const { pathname, query, back } = useRouter();
+  const { pathname, back } = useRouter();
   const iconClasses =
     "text-xl text-default-500 pointer-events-none flex-shrink-0";
 

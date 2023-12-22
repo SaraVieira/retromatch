@@ -25,11 +25,8 @@ function RomProvider({ children }) {
           (otherRom: { info?: FileInfo }) =>
             rom !== otherRom && rom.info.title === otherRom?.info?.title
         );
-        if (duplicates.length > 0) {
-          rom.isDuplicate = true;
-        } else {
-          rom.isDuplicate = false;
-        }
+
+        rom.isDuplicate = !!duplicates.length;
       }
     }
     return setRomsState(romList);
