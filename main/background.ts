@@ -6,7 +6,7 @@ import { foldersStore, initFolderActions } from "./stores/folders";
 import { backlogStore, initBacklogState } from "./stores/backlog";
 import { initSettingsActions } from "./stores/settings";
 import { initRomActions, romsStore } from "./stores/roms";
-
+require("dotenv").config();
 const isProd = process.env.NODE_ENV === "production";
 
 if (isProd) {

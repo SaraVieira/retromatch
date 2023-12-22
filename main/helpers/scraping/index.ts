@@ -6,7 +6,7 @@ import axiosRetry from "axios-retry";
 axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay, retries: 3 });
 
 export const scrapeGame = async (file: any, scraping_id: number) => {
-  const normalizedName = file.name.replaceAll(/\s*\(.*?\)/gi, "");
+  const normalizedName = file.name.replaceAll(/\s*\(.*?\)/gi, "").trim();
   if (scraping_id === 75) {
     const response = await axios(
       `http://adb.arcadeitalia.net/service_scraper.php?ajax=query_mame&lang=en&use_parent=1&game_name=${file.name}`
@@ -31,7 +31,7 @@ export const scrapeGame = async (file: any, scraping_id: number) => {
   }
 
   const screenscraperInfo = await axios(
-    `https://www.screenscraper.fr/api2/jeuRecherche.php?devid=NikkitaFTW&devpassword=5RnA96uSQAE&softname=retromatch&output=json&systemeid=${scraping_id}&recherche=${normalizedName}`,
+    `https://www.screenscraper.fr/api2/jeuRecherche.php?devid=${process.env.SS_USERNAME}&devpassword=${process.env.SS_PASSWORD}&softname=retromatch&output=json&systemeid=${scraping_id}&recherche=${normalizedName}`,
     { timeout: 20000 }
   )
     .then((rsp) => rsp.data.response)
