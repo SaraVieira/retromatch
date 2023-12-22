@@ -5,7 +5,7 @@ import "../styles/globals.css";
 import { FolderProvider } from "../hooks/folder-context";
 import Header from "../components/Header";
 import { RomProvider } from "../hooks/roms-context";
-
+import "react-contexify/ReactContexify.css";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 import dynamic from "next/dynamic";

@@ -104,7 +104,6 @@ function BacklogProvider({ children }) {
     let filteredBacklog = [...backlog];
 
     if (hasSearchFilter) {
-      console.log(filterValue);
       filteredBacklog = filteredBacklog.filter((g) =>
         g.game.game_name.toLowerCase().includes(filterValue.toLowerCase())
       );

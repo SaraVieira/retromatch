@@ -66,7 +66,49 @@ export const transformResponse = (data: any, type: string) => {
         shortplay: data.url_video_shortplay
       },
       rating: data.rate,
-      series: data.series
+      series: data?.series
+    };
+  }
+  if (type === "screenscraper") {
+    if (!Object.keys(data).length) return null;
+    const regionsAllowed = ["us", "wor", "eu"];
+
+    const title = data.noms.find((n) => regionsAllowed.includes(n.region)).text;
+    const mediasInEnglish =
+      data.medias
+        .filter((m) => regionsAllowed.includes(m.region) || !m.region)
+        .filter((a) => a.type !== "fanart") || [];
+
+    return {
+      url: `https://www.screenscraper.fr/gameinfos.php?gameid=${data.id}&zone=gameinfosinfos`,
+      title: title,
+      summary: data.synopsis.find((s) => s.langue === "en")?.text,
+      developer: {
+        name: data.developpeur?.text || data.editeur?.text
+      },
+      images: {
+        screenshots: (
+          mediasInEnglish.filter((m) => m?.type === "ss") || []
+        ).map((a) => a?.url),
+        title: mediasInEnglish.find((m) => m?.type === "sstitle").url,
+        cover: mediasInEnglish.find((m) => m?.type === "box-2D").url
+      },
+      genre: data.genres
+        .map((g) => g.noms)
+        .filter((n) => n.lang === "en")
+        .map((b) => b.text)
+        .join(" / "),
+      players: data.joueurs?.text,
+      released: data.dates[0]?.text,
+      videos: {
+        youtube: null,
+        shortplay:
+          mediasInEnglish.find(
+            (m) => m?.type === "video" || m?.type === "video-normalized"
+          )?.url || null
+      },
+      rating: data.note ? parseInt(data.note.text) * 5 : 0,
+      series: data.familles?.length ? data.familles[0]?.noms[0]?.text : null
     };
   }
 };

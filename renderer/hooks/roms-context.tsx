@@ -5,7 +5,8 @@ import { FileInfo, Roms } from "../../types";
 const RomsContext = createContext({
   roms: {},
   keepRom: (_rom: Roms[0], _duplicates: Roms[0][], _folder: any) => ({} as any),
-  setRoms: (_a: any) => ({} as any)
+  setRoms: (_a: any) => ({} as any),
+  scrapeRom: (_file: Roms[0], _screenscrapper_id: number) => {}
 });
 
 function RomProvider({ children }) {
@@ -41,6 +42,19 @@ function RomProvider({ children }) {
     });
   };
 
+  const scrapeRom = (file: Roms[0], screenscrapper_id: number) => {
+    window.ipc.send("scrape_file", {
+      file,
+      screenscrapper_id
+    });
+    window.ipc.on("new_data", (d: Roms[0]) => {
+      setRoms({
+        ...roms,
+        [d.id]: d
+      });
+    });
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -50,7 +64,8 @@ function RomProvider({ children }) {
       value={{
         roms,
         keepRom,
-        setRoms
+        setRoms,
+        scrapeRom
       }}
     >
       {children}

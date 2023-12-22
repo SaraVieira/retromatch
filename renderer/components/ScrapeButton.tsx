@@ -21,9 +21,8 @@ export const ScrapeButton = () => {
   const activeFolder =
     folders[query.folder as string]?.folders[query.path as string];
 
-  const scrape = () => {
+  const scrape = () =>
     scrapeFolder(activeFolder, selectedOptionValue === "all");
-  };
 
   const descriptionsMap = {
     all: "Scrape all roms in this folder",

@@ -55,7 +55,6 @@ export const initRomActions = () => {
       ? folder.files
       : folder.files.filter((file) => !romsStore.get(file).info);
     let scrapped = 0;
-    console.log(all, folder.files);
     try {
       await Promise.all(
         filesToScrape.map(async (file) => {
@@ -82,6 +81,27 @@ export const initRomActions = () => {
       );
     } catch (e) {
       console.log(e.message);
+    }
+  });
+
+  ipcMain.on("scrape_file", async (event, { file, screenscrapper_id }) => {
+    event.reply("scrapping", {
+      current: 0,
+      total: 1
+    });
+    try {
+      const gameInfo = await scrapeGame(file, screenscrapper_id);
+      if (gameInfo) {
+        romsStore.set(`${file.id}.info`, gameInfo);
+        event.reply("new_data", romsStore.get(file.id));
+      }
+    } catch (e) {
+      console.log(e.message);
+    } finally {
+      event.reply("scrapping", {
+        current: 1,
+        total: 1
+      });
     }
   });
 };
