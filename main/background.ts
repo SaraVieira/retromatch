@@ -9,7 +9,7 @@ import { initRomActions, romsStore } from "./stores/roms";
 import "dotenv/config";
 
 const isProd = process.env.NODE_ENV === "production";
-console.log(process.env);
+
 if (isProd) {
   serve({ directory: "app" });
 } else {
