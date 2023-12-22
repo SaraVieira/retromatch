@@ -68,7 +68,7 @@ export const transformResponse = (data: any, type: string) => {
         shortplay: data.url_video_shortplay
       },
       rating: data.rate,
-      series: data.series
+      series: data?.series
     };
   }
   if (type === "screenscraper") {

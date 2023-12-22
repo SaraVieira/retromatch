@@ -123,7 +123,10 @@ export const Files = () => {
       >
         {romsInConsole.map((rom: Roms[0]) => (
           <li key={rom.id} className="w-full">
-            <Rom rom={rom} />
+            <Rom
+              rom={rom}
+              screenscrapperId={activeFolder.console.screenscrapper_id}
+            />
           </li>
         ))}
       </ul>

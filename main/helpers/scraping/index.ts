@@ -1,6 +1,9 @@
 import axios from "axios";
 import { transformResponse } from "./response-transform";
 import { allowedInLetsPlay } from "../constants";
+import axiosRetry from "axios-retry";
+
+axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay, retries: 3 });
 
 export const scrapeGame = async (file: any, scraping_id: number) => {
   const normalizedName = file.name.replaceAll(/\s*\(.*?\)/gi, "");

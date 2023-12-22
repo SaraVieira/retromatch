@@ -6,23 +6,20 @@ import { humanFileSize } from "../../utils/size";
 import { CardIcon } from "./CardIcon";
 
 import { Menu, Item, useContextMenu } from "react-contexify";
-import "react-contexify/ReactContexify.css";
 import { useFolders } from "../../hooks/folder-context";
-
-const MENU_ID = "folder_context_menu";
 
 export const Folder = ({ folder }) => {
   const router = useRouter();
   const { deleteFolder } = useFolders();
+  const MENU_ID = `folder_context_menu_${folder.id}`;
   const { show, hideAll } = useContextMenu({
     id: MENU_ID
   });
 
-  function handleContextMenu(event) {
+  const handleContextMenu = (event) =>
     show({
       event
     });
-  }
 
   const onClick = (file: { path: string; id: string }) =>
     router.push(`/${file.id}`);

@@ -5,15 +5,46 @@ import { useRouter } from "next/router";
 import { Roms } from "../../../types";
 import { humanFileSize } from "../../utils/size";
 import { Rating } from "./Rating";
+import { Item, Menu, useContextMenu } from "react-contexify";
+import { useRoms } from "../../hooks/roms-context";
 
-export const Rom = ({ rom }: { rom: Roms[0] }) => {
+export const Rom = ({
+  rom,
+  screenscrapperId
+}: {
+  rom: Roms[0];
+  screenscrapperId: number;
+}) => {
   const { query } = useRouter();
+  const router = useRouter();
+  const { scrapeRom } = useRoms();
+  const MENU_ID = `rom_context_menu_${rom.id}`;
+  const { show, hideAll } = useContextMenu({
+    id: MENU_ID
+  });
+
+  const handleContextMenu = (event) =>
+    show({
+      event
+    });
+
   return (
-    <Link
-      className="text-sm w-full"
-      href={`/${query.folder}/${query.path}/${rom.id}`}
-    >
+    <button onContextMenu={handleContextMenu} className="w-full">
+      <Menu id={MENU_ID}>
+        <Item
+          id="scrape"
+          onClick={() => {
+            scrapeRom(rom, screenscrapperId);
+            hideAll();
+          }}
+        >
+          Scrape Rom
+        </Item>
+      </Menu>
       <Card
+        as={"div"}
+        onClick={() => router.push(`/${query.folder}/${query.path}/${rom.id}`)}
+        onContextMenu={handleContextMenu}
         isPressable
         isHoverable
         shadow="sm"
@@ -48,6 +79,6 @@ export const Rom = ({ rom }: { rom: Roms[0] }) => {
           {humanFileSize(rom.size)}
         </CardFooter>
       </Card>
-    </Link>
+    </button>
   );
 };
