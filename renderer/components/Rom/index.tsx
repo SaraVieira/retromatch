@@ -1,6 +1,5 @@
 import { Card, CardBody, CardFooter, CardHeader, cn } from "@nextui-org/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Roms } from "../../../types";
 import { humanFileSize } from "../../utils/size";
