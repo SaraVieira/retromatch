@@ -7,7 +7,6 @@ import {
   IconSettings
 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 export const ListboxWrapper = ({ children }) => (
   <div className="px-1 py-2  backdrop-saturate-150 bg-background/70 h-full border-r border-divider  sticky min-h-screen z-[99] flex flex-col top-0">
@@ -16,26 +15,15 @@ export const ListboxWrapper = ({ children }) => (
 );
 
 export default function Sidebar() {
-  const { pathname, query } = useRouter();
-  const isConsolePage = query.folder && query.path && !query.file;
+  const { pathname, query, back } = useRouter();
   const iconClasses =
     "text-xl text-default-500 pointer-events-none flex-shrink-0";
-  const createBackLink = () => {
-    if (query.folder && query.path && query.file) {
-      return `/${query.folder}/${query.path}`;
-    }
-    if (isConsolePage) {
-      return `/${query.folder}`;
-    }
 
-    return "/";
-  };
   return (
     <ListboxWrapper>
       {pathname !== "/" ? (
         <Button
-          as={Link}
-          href={createBackLink()}
+          onClick={() => back()}
           isIconOnly
           variant="ghost"
           className="mx-auto"
