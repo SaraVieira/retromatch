@@ -4,7 +4,7 @@ main = "workers/scrape.ts"
 compatibility_date = "2023-12-20"
 
 workers_dev = false
-route = { pattern = "example.org/*", zone_name = "example.org" }
+route = { pattern = "retromatch/*", zone_name = "retromatch" }
 
 kv_namespaces = [
     { binding = "retromatch", id = "aea225476eec4b6bb1f617e892cc02c2" }

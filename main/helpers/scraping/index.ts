@@ -5,7 +5,11 @@ import { transformResponse } from "./response-transform";
 
 axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay, retries: 3 });
 
-const workerUrl = "http://localhost:8787/scrape";
+const isProd = process.env.NODE_ENV === "production";
+
+const workerUrl = isProd
+  ? `${process.env.WORKER_URL}/scrape`
+  : "http://localhost:8787/scrape";
 
 export const scrapeGame = async (file: any, scraping_id: number) => {
   const normalizedName = file.name.replaceAll(/\s*\(.*?\)/gi, "").trim();
