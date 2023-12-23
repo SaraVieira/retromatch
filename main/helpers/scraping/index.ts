@@ -16,7 +16,7 @@ export const scrapeGame = async (file: any, scraping_id: number) => {
   if (gameInfo) {
     return gameInfo;
   }
-  return scrapingFallback(file, scraping_id);
+  return await scrapingFallback(file, scraping_id);
 };
 
 const retrieveGameInfo = async (id) => {
