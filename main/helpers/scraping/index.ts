@@ -1,18 +1,42 @@
 import axios from "axios";
-import { transformResponse } from "./response-transform";
-import { allowedInLetsPlay } from "../constants";
 import axiosRetry from "axios-retry";
+import { allowedInLetsPlay } from "../constants";
+import { transformResponse } from "./response-transform";
 
 axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay, retries: 3 });
 
+const isProd = process.env.NODE_ENV === "production";
+
+const workerUrl = isProd
+  ? `${process.env.WORKER_URL}/scrape`
+  : "http://localhost:8787/scrape";
+
 export const scrapeGame = async (file: any, scraping_id: number) => {
+  const gameInfo = await retrieveGameInfo(file.id);
+  if (gameInfo) {
+    return gameInfo;
+  }
+  return await scrapingFallback(file, scraping_id);
+};
+
+const retrieveGameInfo = async (id) => {
+  try {
+    return await axios(`${workerUrl}?id=${id}`).then((rsp) => rsp.data);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+const scrapingFallback = async (file: any, scraping_id: number) => {
   const normalizedName = file.name.replaceAll(/\s*\(.*?\)/gi, "").trim();
   if (scraping_id === 75) {
     const response = await axios(
       `http://adb.arcadeitalia.net/service_scraper.php?ajax=query_mame&lang=en&use_parent=1&game_name=${file.name}`
     ).then((rsp) => rsp.data);
     if (response.result[0]) {
-      return transformResponse(response.result[0], "arcadeDB");
+      const gameInfo = transformResponse(response.result[0], "arcadeDB");
+      await cacheGameInfo(file.id, gameInfo);
+      return gameInfo;
     }
   }
 
@@ -26,7 +50,9 @@ export const scrapeGame = async (file: any, scraping_id: number) => {
       // wait because prisma cries if we don't
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
-      return transformResponse(response, "letsplay");
+      const gameInfo = transformResponse(response, "letsplay");
+      await cacheGameInfo(file.id, gameInfo);
+      return gameInfo;
     }
   }
 
@@ -39,6 +65,19 @@ export const scrapeGame = async (file: any, scraping_id: number) => {
   await new Promise((resolve) => setTimeout(resolve, 5000));
 
   if (screenscraperInfo?.jeux?.length) {
-    return transformResponse(screenscraperInfo.jeux[0], "screenscraper");
+    const gameInfo = transformResponse(
+      screenscraperInfo.jeux[0],
+      "screenscraper"
+    );
+    await cacheGameInfo(file.id, gameInfo);
+    return gameInfo;
+  }
+};
+
+const cacheGameInfo = async (id, info) => {
+  try {
+    await axios.post(workerUrl, JSON.stringify({ id, info }));
+  } catch (e) {
+    console.log(e.message);
   }
 };

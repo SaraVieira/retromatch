@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import UserAgent from "user-agents";
+
 import { HLTGame } from "../../../types";
 
 const BASE_URL: string = "https://howlongtobeat.com/";
@@ -54,6 +55,7 @@ export default async function handler(
       referer: "https://howlongtobeat.com/"
     }
   }).then((rsp) => rsp.json());
+  //@ts-ignore
   const result = games.data.map((game) => ({
     ...game,
     name: game.game_name,
