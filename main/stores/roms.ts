@@ -5,7 +5,7 @@ import path from "path";
 import { unlinkSync } from "fs";
 import { scrapeGame } from "../helpers/scraping";
 
-export const romsStore = new Store<Roms[]>({
+export const romsStore = new Store<Roms>({
   name: "roms"
 });
 
@@ -38,7 +38,7 @@ export const initRomActions = () => {
           });
         for (const { romPath, rom } of toDelete) {
           unlinkSync(romPath);
-          romsStore.delete(rom.id as keyof Roms[]);
+          romsStore.delete(rom.id);
         }
 
         event.reply("rom_kept", {

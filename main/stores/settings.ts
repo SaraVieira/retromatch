@@ -3,6 +3,7 @@ import { foldersStore } from "./folders";
 import { romsStore } from "./roms";
 import { backlogStore } from "./backlog";
 import { readFileSync, writeFileSync } from "fs";
+import { omit } from "lodash";
 
 export const initSettingsActions = (
   mainWindow: Electron.CrossProcessExports.BrowserWindow
@@ -12,6 +13,17 @@ export const initSettingsActions = (
     romsStore.clear();
     backlogStore.clear();
 
+    event.reply("done-cache-clear");
+  });
+
+  ipcMain.on("clear-info-cache", (event) => {
+    const newWithNoInfo = Object.values(romsStore.store).map((r) =>
+      omit(r, "info")
+    );
+    romsStore.store = newWithNoInfo.reduce((acc, curr) => {
+      acc[curr.id] = curr;
+      return acc;
+    }, {});
     event.reply("done-cache-clear");
   });
 

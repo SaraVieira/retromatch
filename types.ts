@@ -56,7 +56,7 @@ export type RomFolders = {
 
 export type Roms = {
   [id: string]: {
-    id?: string;
+    id: string;
     isDuplicate?: boolean;
     name: string;
     extension: string;

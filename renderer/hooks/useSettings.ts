@@ -3,6 +3,16 @@ import toast from "react-hot-toast";
 
 export const useSettings = () => {
   const router = useRouter();
+  const onClearInfoCache = () => {
+    window.ipc.send("clear-info-cache", null);
+
+    window.ipc.once("done-cache-clear", () => {
+      toast.success("Cache cleared");
+      window.ipc.send("load", null);
+      router.push("/");
+    });
+  };
+
   const onClearCache = () => {
     window.ipc.send("clear-cache", null);
 
@@ -32,6 +42,7 @@ export const useSettings = () => {
   return {
     onClearCache,
     onExportData,
-    onImportData
+    onImportData,
+    onClearInfoCache
   };
 };
