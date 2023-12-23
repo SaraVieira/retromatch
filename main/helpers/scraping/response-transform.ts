@@ -73,7 +73,9 @@ export const transformResponse = (data: any, type: string) => {
     if (!Object.keys(data).length) return null;
     const regionsAllowed = ["us", "wor", "eu"];
 
-    const title = data.noms.find((n) => regionsAllowed.includes(n.region)).text;
+    const title = data.noms.find((n) =>
+      regionsAllowed.includes(n.region)
+    )?.text;
     const mediasInEnglish =
       data.medias
         .filter((m) => regionsAllowed.includes(m.region) || !m.region)
@@ -90,16 +92,16 @@ export const transformResponse = (data: any, type: string) => {
         screenshots: (
           mediasInEnglish.filter((m) => m?.type === "ss") || []
         ).map((a) => a?.url),
-        title: mediasInEnglish.find((m) => m?.type === "sstitle").url,
-        cover: mediasInEnglish.find((m) => m?.type === "box-2D").url
+        title: mediasInEnglish.find((m) => m?.type === "sstitle")?.url,
+        cover: mediasInEnglish.find((m) => m?.type === "box-2D")?.url
       },
-      genre: data.genres
-        .map((g) => g.noms)
-        .filter((n) => n.lang === "en")
-        .map((b) => b.text)
-        .join(" / "),
+      genre: data.genres?.length
+        ? (data.genres.map((g) => g.noms).filter((n) => n.lang === "en") || [])
+            .map((b) => b?.text)
+            .join(" / ")
+        : "",
       players: data.joueurs?.text,
-      released: data.dates[0]?.text,
+      released: data.dates?.length ? data.dates[0]?.text : "",
       videos: {
         youtube: null,
         shortplay:

@@ -18,7 +18,8 @@ const listItemStyles =
 const Settings = () => {
   const { theme, setTheme } = useTheme();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { onClearCache, onImportData, onExportData } = useSettings();
+  const { onClearCache, onImportData, onExportData, onClearInfoCache } =
+    useSettings();
 
   return (
     <div className="py-12 flex flex-col items-center gap-4">
@@ -75,6 +76,12 @@ const Settings = () => {
         Import data from json
         <Button onPress={onImportData}>Import</Button>
       </div>
+      {process.env.NODE_ENV === "development" && (
+        <div className={listItemStyles}>
+          Clear game info cache
+          <Button onPress={onClearInfoCache}>Clear</Button>
+        </div>
+      )}
     </div>
   );
 };
