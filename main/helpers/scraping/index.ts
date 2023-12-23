@@ -12,59 +12,52 @@ const workerUrl = isProd
   : "http://localhost:8787/scrape";
 
 export const scrapeGame = async (file: any, scraping_id: number) => {
-  const normalizedName = file.name.replaceAll(/\s*\(.*?\)/gi, "").trim();
+  const gameInfo = await retrieveGameInfo(file.id);
+  if (gameInfo) {
+    return gameInfo;
+  }
+  return scrapingFallback(file, scraping_id);
+};
+
+const retrieveGameInfo = async (id) => {
   try {
-    const gameInfo = await axios(`${workerUrl}?id=${file.id}`).then(
-      (rsp) => rsp.data
-    );
-    if (!gameInfo) {
-      if (scraping_id === 75) {
-        const response = await axios(
-          `http://adb.arcadeitalia.net/service_scraper.php?ajax=query_mame&lang=en&use_parent=1&game_name=${file.name}`
-        ).then((rsp) => rsp.data);
-        if (response.result[0]) {
-          const transformedResponse = transformResponse(
-            response.result[0],
-            "arcadeDB"
-          );
-          await axios.post(
-            workerUrl,
-            JSON.stringify({ id: file.id, info: transformedResponse })
-          );
-          return transformedResponse;
-        }
-      }
+    return await axios(`${workerUrl}?id=${id}`).then((rsp) => rsp.data);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
 
-      if (allowedInLetsPlay.map((a) => a.id).includes(scraping_id)) {
-        const response = await axios(
-          `https://letsplayretro.games/api/scrape?query=${encodeURI(
-            normalizedName
-          )}&console=${
-            allowedInLetsPlay.find((c) => c.id === scraping_id).name
-          }`
-        ).then((rsp) => rsp.data);
-        if (response) {
-          // wait because prisma cries if we don't
-          await new Promise((resolve) => setTimeout(resolve, 5000));
-          if (response) {
-            // wait because prisma cries if we don't
-            await new Promise((resolve) => setTimeout(resolve, 5000));
+const scrapingFallback = async (file: any, scraping_id: number) => {
+  const normalizedName = file.name.replaceAll(/\s*\(.*?\)/gi, "").trim();
+  if (scraping_id === 75) {
+    const response = await axios(
+      `http://adb.arcadeitalia.net/service_scraper.php?ajax=query_mame&lang=en&use_parent=1&game_name=${file.name}`
+    ).then((rsp) => rsp.data);
+    if (response.result[0]) {
+      const gameInfo = transformResponse(response.result[0], "arcadeDB");
+      await cacheGameInfo(file.id, gameInfo);
+      return gameInfo;
+    }
+  }
 
-            const transformedResponse = transformResponse(response, "letsplay");
-            await axios.post(
-              workerUrl,
-              JSON.stringify({ id: file.id, info: transformedResponse })
-            );
-            return transformedResponse;
-          }
-        }
-      } else {
-        console.log("Got info:", gameInfo);
+  if (allowedInLetsPlay.map((a) => a.id).includes(scraping_id)) {
+    const response = await axios(
+      `https://letsplayretro.games/api/scrape?query=${encodeURI(
+        normalizedName
+      )}&console=${allowedInLetsPlay.find((c) => c.id === scraping_id).name}`
+    ).then((rsp) => rsp.data);
+    if (response) {
+      // wait because prisma cries if we don't
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      if (response) {
+        // wait because prisma cries if we don't
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+
+        const gameInfo = transformResponse(response, "letsplay");
+        await cacheGameInfo(file.id, gameInfo);
         return gameInfo;
       }
     }
-  } catch (e) {
-    console.log(e.message);
   }
 
   const screenscraperInfo = await axios(
@@ -76,6 +69,19 @@ export const scrapeGame = async (file: any, scraping_id: number) => {
   await new Promise((resolve) => setTimeout(resolve, 5000));
 
   if (screenscraperInfo?.jeux?.length) {
-    return transformResponse(screenscraperInfo.jeux[0], "screenscraper");
+    const gameInfo = transformResponse(
+      screenscraperInfo.jeux[0],
+      "screenscraper"
+    );
+    await cacheGameInfo(file.id, gameInfo);
+    return gameInfo;
+  }
+};
+
+const cacheGameInfo = async (id, info) => {
+  try {
+    await axios.post(workerUrl, JSON.stringify({ id, info }));
+  } catch (e) {
+    console.log(e.message);
   }
 };
