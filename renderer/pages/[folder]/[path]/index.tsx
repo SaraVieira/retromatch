@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
 import { Input, Select, SelectItem } from "@nextui-org/react";
-import { IconSortAscending, IconSortDescending } from "@tabler/icons-react";
+import {
+  IconSearch,
+  IconSortAscending,
+  IconSortDescending
+} from "@tabler/icons-react";
 
 import { Roms } from "../../../../types";
 import { Rom } from "../../../components/Rom";
@@ -11,6 +15,8 @@ import { NoRoms } from "../../../components/Rom/Empty";
 import { useFolders } from "../../../hooks/folder-context";
 import { useRoms } from "../../../hooks/roms-context";
 import { sortFunc } from "../../../utils/arrays";
+import { ScrapeButton } from "../../../components/ScrapeButton";
+import RemoveDuplicatesModal from "../../../components/RemoveDuplicatesModal";
 
 const sortOptions = [
   {
@@ -43,11 +49,17 @@ export const Files = () => {
   const { folders } = useFolders();
   const { roms } = useRoms();
   const { query } = useRouter();
+  const [scrolled, setHasScrolled] = useState(false);
   const activeFolder =
     folders[query.folder as string]?.folders[query.path as string];
   const [search, setSearch] = useState("");
   const [sortByField, setSortByField] = useState("name");
   const [sortType, setSortType] = useState("ascending");
+  const duplicates = Object.values(roms || {})
+    .filter((r: Roms[0]) =>
+      Object.values(activeFolder?.files || {}).includes(r.id)
+    )
+    .filter((rom: { isDuplicate }) => rom.isDuplicate);
 
   const romsInConsole = sortFunc(
     Object.values(roms)
@@ -63,10 +75,6 @@ export const Files = () => {
     sortByField
   );
 
-  if (Object.keys(roms).length && !romsInConsole.length) {
-    return <NoRoms activeFolder={activeFolder} />;
-  }
-
   const onSelectionChange = (value) => {
     if (!Array.from(value)[0]) return;
     const [sortByField, sortType] = (Array.from(value)[0] as string).split("-");
@@ -75,62 +83,102 @@ export const Files = () => {
     setSortType(sortType);
   };
 
+  useLayoutEffect(() => {
+    window.addEventListener("scroll", function () {
+      requestAnimationFrame(() => {
+        setHasScrolled(!!Math.round(window.scrollY));
+      });
+    });
+  }, []);
+
+  if (Object.keys(roms).length && !romsInConsole.length) {
+    return <NoRoms activeFolder={activeFolder} />;
+  }
+
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-between items-center mb-4 mt-8 w-full bg-background/80 p-3 rounded-lg shadow-sm">
-        <Input
-          type="search"
-          size="sm"
-          variant="underlined"
-          isClearable
-          placeholder="Search for a game"
-          value={search}
-          onValueChange={setSearch}
-          className="max-w-xs"
-        />
-        <Select
-          label="Sort By"
-          size="sm"
-          variant="underlined"
-          placeholder="Sort Games"
-          selectedKeys={[`${sortByField}-${sortType}`]}
-          className="max-w-[200px]"
-          onSelectionChange={onSelectionChange}
-        >
-          {sortOptions.map((option) => (
-            <SelectItem
-              key={option.key}
-              value={option.key}
-              textValue={option.label}
-            >
-              <div className="flex gap-2 items-center justify-between">
-                {option.label}
-                {option.key.includes("ascending") ? (
-                  <IconSortAscending />
-                ) : (
-                  <IconSortDescending />
-                )}
-              </div>
-            </SelectItem>
-          ))}
-        </Select>
-      </div>
-      <ul
-        className="pb-8 grid gap-4 items-stretch"
+    <>
+      <div
+        className="backdrop-saturate-150 bg-background/90 backdrop-blur-sm -mt-6 -ml-6 p-6 border-b border-divider w-screen sticky top-0 z-[99] transition-height overflow-hidden !duration-100"
         style={{
-          gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
+          height: !scrolled ? 153 : 90,
+          width: "calc(100% + 3rem)"
         }}
       >
-        {romsInConsole.map((rom: Roms[0]) => (
-          <li key={rom.id} className="w-full">
-            <Rom
-              rom={rom}
-              screenscrapperId={activeFolder.console.screenscrapper_id}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-bold"> {activeFolder?.console?.name}</h1>
+          <div className="flex items-center gap-4">
+            {duplicates.length > 0 && (
+              <RemoveDuplicatesModal
+                folder={activeFolder}
+                duplicateRoms={duplicates}
+              />
+            )}
+            <ScrapeButton />
+          </div>
+        </div>
+
+        <div
+          className={`flex justify-between items-center mt-4 w-full ${
+            scrolled && "hidden"
+          }`}
+        >
+          <Input
+            type="search"
+            size="sm"
+            startContent={<IconSearch />}
+            isClearable
+            placeholder="Search for a game"
+            variant="bordered"
+            value={search}
+            onValueChange={setSearch}
+            className="max-w-xs"
+          />
+          <Select
+            label="Sort By"
+            size="sm"
+            variant="bordered"
+            placeholder="Sort Games"
+            selectedKeys={[`${sortByField}-${sortType}`]}
+            className="max-w-[200px]"
+            onSelectionChange={onSelectionChange}
+          >
+            {sortOptions.map((option) => (
+              <SelectItem
+                key={option.key}
+                value={option.key}
+                textValue={option.label}
+              >
+                <div className="flex gap-2 items-center justify-between">
+                  {option.label}
+                  {option.key.includes("ascending") ? (
+                    <IconSortAscending />
+                  ) : (
+                    <IconSortDescending />
+                  )}
+                </div>
+              </SelectItem>
+            ))}
+          </Select>
+        </div>
+      </div>
+      <div className="container mx-auto mt-4">
+        <ul
+          className="pb-8 grid gap-4 items-stretch"
+          style={{
+            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
+          }}
+        >
+          {romsInConsole.map((rom: Roms[0]) => (
+            <li key={rom.id} className="w-full">
+              <Rom
+                rom={rom}
+                screenscrapperId={activeFolder.console.screenscrapper_id}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 

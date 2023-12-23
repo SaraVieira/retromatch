@@ -35,9 +35,10 @@ export const Toasts = () => {
       });
 
       if (data.current === data.total) {
-        toast.success(`Done!`, {
+        const lastToast = toast.success(`Done!`, {
           id: loading.current
         });
+        toast.dismiss(lastToast);
       }
     });
   }, []);

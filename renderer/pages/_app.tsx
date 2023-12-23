@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { NextUIProvider } from "@nextui-org/react";
 import "../styles/globals.css";
 import { FolderProvider } from "../hooks/folder-context";
-import Header from "../components/Header";
 import { RomProvider } from "../hooks/roms-context";
 import "react-contexify/ReactContexify.css";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
@@ -33,7 +32,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <FolderProvider>
           <NextUIProvider>
             <NextThemesProvider attribute="class" defaultTheme="dark">
-              <Header />
               <Toaster
                 position="top-right"
                 toastOptions={{
@@ -42,12 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               />
 
               <Toasts />
-              <div
-                className="flex h-full items-stretch"
-                style={{
-                  minHeight: "calc(100vh - 66px)"
-                }}
-              >
+              <div className="flex h-full items-stretch min-h-screen">
                 <Sidebar />
                 <div className="p-6 h-full max-w-[1280px] w-full mx-auto">
                   <Component {...pageProps} />
