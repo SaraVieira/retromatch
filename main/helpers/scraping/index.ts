@@ -49,14 +49,10 @@ const scrapingFallback = async (file: any, scraping_id: number) => {
     if (response) {
       // wait because prisma cries if we don't
       await new Promise((resolve) => setTimeout(resolve, 5000));
-      if (response) {
-        // wait because prisma cries if we don't
-        await new Promise((resolve) => setTimeout(resolve, 5000));
 
-        const gameInfo = transformResponse(response, "letsplay");
-        await cacheGameInfo(file.id, gameInfo);
-        return gameInfo;
-      }
+      const gameInfo = transformResponse(response, "letsplay");
+      await cacheGameInfo(file.id, gameInfo);
+      return gameInfo;
     }
   }
 
