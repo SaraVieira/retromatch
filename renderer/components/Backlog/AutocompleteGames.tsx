@@ -1,6 +1,8 @@
 import React from "react";
+
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
+
 import { HLTGame } from "../../../types";
 import { useBacklog } from "../../hooks/backlog-context";
 
@@ -8,6 +10,7 @@ export const AutocompleteGames = () => {
   const { addToBacklog, backlog } = useBacklog();
 
   const list = useAsyncList({
+    //@ts-ignore
     async load({ signal, filterText }) {
       const res = await fetch(`/api/hltb?game=${filterText}`, { signal });
       const items = await res.json();
