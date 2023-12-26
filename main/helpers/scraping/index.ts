@@ -9,7 +9,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 const workerUrl = isProd
   ? `${process.env.WORKER_URL}/scrape`
-  : "http://localhost:8787/scrape";
+  : "http://localhost:60182/scrape";
 
 export const scrapeGame = async (file: any, scraping_id: number) => {
   const gameInfo = await retrieveGameInfo(file.id);
