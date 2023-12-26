@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { useRoms } from "../../../../hooks/roms-context";
@@ -24,6 +25,20 @@ export const Files = () => {
       </div>
       <div className="container mx-auto mt-4">
         <video src={activeFile?.info?.videos?.shortplay} controls />
+        <div className="grid">
+          {activeFile?.info?.images?.screenshots?.length > 0 &&
+            activeFile.info.images?.screenshots.map((screenshot) => (
+              <Image
+                key={screenshot}
+                src={screenshot}
+                height={250}
+                width={330}
+                alt={`${activeFile?.info?.title} screenshot`}
+                placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4OB6CgABOwEBTU8F5gAAAABJRU5ErkJggg=="
+                className=" max-w-full mx-auto"
+              />
+            ))}
+        </div>
         <pre>{JSON.stringify(activeFile, null, 2)}</pre>
       </div>
     </>
