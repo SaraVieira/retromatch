@@ -113,7 +113,6 @@ export const Files = () => {
             )}
           </div>
         </div>
-        <pre>{JSON.stringify(activeFile, null, 2)}</pre>
       </div>
     </>
   );
