@@ -4,7 +4,7 @@ import path from "path";
 import { createWindow } from "./helpers";
 import { foldersStore, initFolderActions } from "./stores/folders";
 import { backlogStore, initBacklogState } from "./stores/backlog";
-import { initSettingsActions } from "./stores/settings";
+import { initSettingsActions, settingsStore } from "./stores/settings";
 import { initRomActions, romsStore } from "./stores/roms";
 import "dotenv/config";
 
@@ -39,6 +39,7 @@ if (isProd) {
     event.reply("all_data", foldersStore.store);
     event.reply("all_roms", romsStore.store);
     event.reply("all_backlog", Object.values(backlogStore.store));
+    event.reply("all_settings", settingsStore.store);
   });
   initRomActions();
   initFolderActions();

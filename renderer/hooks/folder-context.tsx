@@ -25,7 +25,7 @@ function FolderProvider({ children }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [folderMatches, setFolderMatches] = useState([]);
-  const { setRoms, roms } = useRoms();
+  const { setRoms } = useRoms();
   const [selectedFolder, setSelectedFolder] = useState({});
 
   const getData = () => {
@@ -83,11 +83,11 @@ function FolderProvider({ children }) {
       folder,
       all
     });
-    window.ipc.on("new_data", (d: Roms["id"]) => {
-      setRoms({
+    window.ipc.on("new_data", (d: Roms[0]) => {
+      setRoms((roms: Roms) => ({
         ...roms,
         [d.id]: d
-      });
+      }));
     });
   };
 

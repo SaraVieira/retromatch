@@ -2,14 +2,11 @@ import axios from "axios";
 import axiosRetry from "axios-retry";
 import { allowedInLetsPlay } from "../constants";
 import { transformResponse } from "./response-transform";
+import { settingsStore } from "../../stores/settings";
 
 axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay, retries: 3 });
 
-const isProd = process.env.NODE_ENV === "production";
-
-const workerUrl = isProd
-  ? `${process.env.WORKER_URL}/scrape`
-  : "http://localhost:60182/scrape";
+const workerUrl = "https://retromatch-game-info.nikkitaftw.workers.dev/scrape";
 
 export const scrapeGame = async (file: any, scraping_id: number) => {
   const gameInfo = await retrieveGameInfo(file.id);
@@ -35,8 +32,7 @@ const scrapingFallback = async (file: any, scraping_id: number) => {
     ).then((rsp) => rsp.data);
     if (response.result[0]) {
       const gameInfo = transformResponse(response.result[0], "arcadeDB");
-      await cacheGameInfo(file.id, gameInfo);
-      return gameInfo;
+      return await cacheGameInfo(file.id, gameInfo);
     }
   }
 
@@ -51,32 +47,47 @@ const scrapingFallback = async (file: any, scraping_id: number) => {
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
       const gameInfo = transformResponse(response, "letsplay");
-      await cacheGameInfo(file.id, gameInfo);
-      return gameInfo;
+      return await cacheGameInfo(file.id, gameInfo);
     }
   }
 
   const screenscraperInfo = await axios(
-    `https://www.screenscraper.fr/api2/jeuRecherche.php?devid=${process.env.SS_USERNAME}&devpassword=${process.env.SS_PASSWORD}&softname=retromatch&output=json&systemeid=${scraping_id}&recherche=${normalizedName}`,
-    { timeout: 20000 }
+    `https://www.screenscraper.fr/api2/jeuRecherche.php`,
+    {
+      timeout: 40000,
+      params: {
+        devid: process.env.SS_USERNAME,
+        devpassword: process.env.SS_PASSWORD,
+        softname: "retromatch",
+        output: "json",
+        systemeid: scraping_id,
+        recherche: normalizedName,
+        ...(settingsStore.get("screenscraper_password") &&
+        settingsStore.get("screenscraper_password")
+          ? {
+              ssid: settingsStore.get("screenscraper_username"),
+              sspassword: settingsStore.get("screenscraper_password")
+            }
+          : {})
+      }
+    }
   )
     .then((rsp) => rsp.data.response)
     .catch((e) => console.log(e));
   await new Promise((resolve) => setTimeout(resolve, 5000));
-
   if (screenscraperInfo?.jeux?.length) {
     const gameInfo = transformResponse(
       screenscraperInfo.jeux[0],
       "screenscraper"
     );
-    await cacheGameInfo(file.id, gameInfo);
-    return gameInfo;
+    return await cacheGameInfo(file.id, gameInfo);
   }
 };
 
 const cacheGameInfo = async (id, info) => {
   try {
-    await axios.post(workerUrl, JSON.stringify({ id, info }));
+    const newInfo = await axios.post(workerUrl, JSON.stringify({ id, info }));
+    return newInfo.data;
   } catch (e) {
     console.log(e.message);
   }

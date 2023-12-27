@@ -1,8 +1,23 @@
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { SettingsStore } from "../../types";
 
 export const useSettings = () => {
+  const [screenscraperUsername, setScreenscraperUsername] = useState("");
+  const [screenscraperPassword, setScreenscraperPassword] = useState("");
+  const [retroAchievementsUsername, setRetroAchievementsUsername] =
+    useState("");
+
   const router = useRouter();
+  useEffect(() => {
+    window.ipc.on("all_settings", (settings: SettingsStore) => {
+      setScreenscraperUsername(settings.screenscraper_username);
+      setScreenscraperPassword(settings.screenscraper_password);
+      setRetroAchievementsUsername(settings.ra_username);
+    });
+  }, []);
+
   const onClearInfoCache = () => {
     window.ipc.send("clear-info-cache", null);
 
@@ -39,10 +54,31 @@ export const useSettings = () => {
     });
   };
 
+  const onChangeUsername = (value) => {
+    setScreenscraperUsername(value);
+    window.ipc.send("sc-username", value);
+  };
+
+  const onChangePassword = (value) => {
+    setScreenscraperPassword(value);
+    window.ipc.send("sc-password", value);
+  };
+
+  const onChangeRAUsername = (value) => {
+    setRetroAchievementsUsername(value);
+    window.ipc.send("ra-username", value);
+  };
+
   return {
     onClearCache,
     onExportData,
     onImportData,
-    onClearInfoCache
+    onClearInfoCache,
+    screenscraperUsername,
+    screenscraperPassword,
+    onChangeUsername,
+    onChangePassword,
+    onChangeRAUsername,
+    retroAchievementsUsername
   };
 };

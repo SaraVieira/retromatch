@@ -73,9 +73,9 @@ export const transformResponse = (data: any, type: string) => {
     if (!Object.keys(data).length) return null;
     const regionsAllowed = ["us", "wor", "eu"];
 
-    const title = data.noms.find((n) =>
-      regionsAllowed.includes(n.region)
-    )?.text;
+    const title =
+      data.noms.find((n) => regionsAllowed.includes(n.region))?.text ||
+      data.noms[0]?.text;
     const mediasInEnglish =
       data.medias
         .filter((m) => regionsAllowed.includes(m.region) || !m.region)
@@ -105,7 +105,7 @@ export const transformResponse = (data: any, type: string) => {
       videos: {
         youtube: null,
         shortplay:
-          mediasInEnglish.find(
+          (mediasInEnglish || []).find(
             (m) => m?.type === "video" || m?.type === "video-normalized"
           )?.url || null
       },
