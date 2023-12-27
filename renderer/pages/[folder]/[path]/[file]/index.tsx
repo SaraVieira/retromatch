@@ -58,14 +58,10 @@ export const Files = () => {
             {activeFile?.info?.images?.screenshots?.length > 0 && (
               <div className="grid grid-cols-4 mt-6 gap-4">
                 {activeFile.info.images?.screenshots.map((screenshot) => (
-                  <Image
+                  <Screenshot
+                    img={screenshot}
+                    name={activeFile?.info?.name}
                     key={screenshot}
-                    src={screenshot}
-                    height={250}
-                    width={330}
-                    alt={`${activeFile?.info?.title} screenshot`}
-                    placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4OB6CgABOwEBTU8F5gAAAABJRU5ErkJggg=="
-                    className=" max-w-full mx-auto"
                   />
                 ))}
               </div>
