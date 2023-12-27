@@ -4,17 +4,23 @@ import { useRouter } from "next/router";
 import {
   IconCalendarTime,
   IconCategory2,
+  IconDeviceGamepad,
   IconDeviceLaptop
 } from "@tabler/icons-react";
 
 import { Rating } from "../../../../components/Rom/Rating";
+import Screenshot from "../../../../components/Rom/Screenshot";
+import { useFolders } from "../../../../hooks/folder-context";
 import { useRoms } from "../../../../hooks/roms-context";
 
 export const Files = () => {
   const { query } = useRouter();
+  const { folders } = useFolders();
   const { roms } = useRoms();
 
   const activeFile = roms[query.file as string];
+  const activeFolder =
+    folders[query.folder as string]?.folders[query.path as string];
 
   return (
     <>
@@ -90,6 +96,12 @@ export const Files = () => {
                 <li className="flex gap-6 text-sm items-center mb-2">
                   <IconDeviceLaptop size={18} />
                   {activeFile.info.developer?.name}
+                </li>
+              )}
+              {activeFolder?.console?.name && (
+                <li className="flex gap-6 text-sm items-center mb-2">
+                  <IconDeviceGamepad size={18} />
+                  {activeFolder.console.name}
                 </li>
               )}
             </ul>
