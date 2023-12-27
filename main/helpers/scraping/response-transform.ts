@@ -37,7 +37,7 @@ export const transformResponse = (data: any, type: string) => {
         }
       ),
       videos: {
-        youtube: data.videos.length ? data.videos.length[0]?.video_id : null,
+        youtube: data.videos.length > 0 ? data.videos[0]?.video_id : null,
         shortplay: null
       },
       summary: data.summary,
