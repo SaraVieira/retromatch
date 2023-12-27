@@ -25,7 +25,7 @@ function FolderProvider({ children }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [folderMatches, setFolderMatches] = useState([]);
-  const { setRoms, roms } = useRoms();
+  const { setRoms } = useRoms();
   const [selectedFolder, setSelectedFolder] = useState({});
 
   const getData = () => {

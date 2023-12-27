@@ -36,7 +36,6 @@ const Settings = () => {
   return (
     <div className="py-12 flex flex-col items-center gap-4">
       <Tabs
-        selectedKey="accounts"
         aria-label="Options"
         className="w-full max-w-lg m-auto"
         variant="underlined"
