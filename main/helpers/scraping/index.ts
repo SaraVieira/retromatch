@@ -10,7 +10,7 @@ const workerUrl = "https://retromatch-game-info.nikkitaftw.workers.dev/scrape";
 
 export const scrapeGame = async (file: any, scraping_id: number) => {
   const gameInfo = await retrieveGameInfo(file.id);
-  if (gameInfo) {
+  if (gameInfo?.id) {
     return gameInfo;
   }
   return await scrapingFallback(file, scraping_id);
@@ -25,7 +25,12 @@ const retrieveGameInfo = async (id) => {
 };
 
 const scrapingFallback = async (file: any, scraping_id: number) => {
-  const normalizedName = file.name.replaceAll(/\s*\(.*?\)/gi, "").trim();
+  const normalizedName = file.name
+    .replaceAll(/\s*\(.*?\)/gi, "")
+    .replace("_", " ")
+    .split(/v[0-9]/)[0]
+    .trim();
+
   if (scraping_id === 75) {
     const response = await axios(
       `http://adb.arcadeitalia.net/service_scraper.php?ajax=query_mame&lang=en&use_parent=1&game_name=${file.name}`

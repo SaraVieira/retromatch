@@ -25,6 +25,8 @@ const fetchAllImages = async (info: any, id: string, env: Env) => {
   let title = info?.images?.title;
   let shortplay = info?.videos?.shortplay;
 
+  if (!info) return null;
+
   if (info?.images?.cover) {
     cover = !info.images.cover.includes("r2.dev/")
       ? await uploadImage(info.images.cover, "cover", id, env)

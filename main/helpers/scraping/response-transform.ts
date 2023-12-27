@@ -84,7 +84,9 @@ export const transformResponse = (data: any, type: string) => {
     return {
       url: `https://www.screenscraper.fr/gameinfos.php?gameid=${data.id}&zone=gameinfosinfos`,
       title: title,
-      summary: data.synopsis.find((s) => s.langue === "en")?.text,
+      summary: data?.synopsis?.length
+        ? data.synopsis.find((s) => s.langue === "en")?.text
+        : null,
       developer: {
         name: data.developpeur?.text || data.editeur?.text
       },
