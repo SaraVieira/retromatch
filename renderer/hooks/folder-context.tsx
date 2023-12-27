@@ -83,11 +83,11 @@ function FolderProvider({ children }) {
       folder,
       all
     });
-    window.ipc.on("new_data", (d: Roms["id"]) => {
-      setRoms({
+    window.ipc.on("new_data", (d: Roms[0]) => {
+      setRoms((roms: Roms) => ({
         ...roms,
         [d.id]: d
-      });
+      }));
     });
   };
 

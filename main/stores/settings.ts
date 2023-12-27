@@ -3,7 +3,13 @@ import { foldersStore } from "./folders";
 import { romsStore } from "./roms";
 import { backlogStore } from "./backlog";
 import { readFileSync, writeFileSync } from "fs";
+import Store from "electron-store";
 import { omit } from "lodash";
+import { SettingsStore } from "../../types";
+
+export const settingsStore = new Store<SettingsStore>({
+  name: "settings"
+});
 
 export const initSettingsActions = (
   mainWindow: Electron.CrossProcessExports.BrowserWindow
@@ -70,5 +76,14 @@ export const initSettingsActions = (
       );
       event.reply("exported");
     }
+  });
+  ipcMain.on("sc-username", (_, value) => {
+    settingsStore.set("screenscraper_username", value);
+  });
+  ipcMain.on("sc-password", (_, value) => {
+    settingsStore.set("screenscraper_password", value);
+  });
+  ipcMain.on("ra-username", (_, value) => {
+    settingsStore.set("ra_username", value);
   });
 };

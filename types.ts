@@ -115,3 +115,8 @@ export type Backlog = {
   state: "backlog" | "in_progress" | "done";
   game: HLTGame;
 };
+export type SettingsStore = {
+  screenscraper_username?: string;
+  screenscraper_password?: string;
+  ra_username?: string;
+};

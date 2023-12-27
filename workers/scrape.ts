@@ -20,26 +20,30 @@ const uploadImage = async (img: string, type: string, id: string, env: Env) => {
 };
 
 const fetchAllImages = async (info: any, id: string, env: Env) => {
-  let cover;
-  if (info.images.cover) {
+  let cover = info?.images?.cover;
+  let screenshots = info?.images?.screenshots || [];
+  let title = info?.images?.title;
+  let shortplay = info?.videos?.shortplay;
+
+  if (info?.images?.cover) {
     cover = !info.images.cover.includes("r2.dev/")
       ? await uploadImage(info.images.cover, "cover", id, env)
       : info.images.cover;
   }
-  let title;
-  if (info.images.title) {
+
+  if (info?.images?.title) {
     title = !info.images.title.includes("r2.dev/")
       ? await uploadImage(info.images.title, "title", id, env)
       : info.images.title;
   }
-  let shortplay;
-  if (info.videos.shortplay) {
+
+  if (info?.videos?.shortplay) {
     shortplay = !info.videos.shortplay.includes("r2.dev/")
       ? await uploadImage(info.videos.shortplay, "shortplay", id, env)
       : info.videos.shortplay;
   }
-  let screenshots;
-  if (info.images.screenshots.length) {
+
+  if (info?.images?.screenshots?.length) {
     screenshots = await Promise.all(
       info.images.screenshots.map(async (s: string) =>
         !s.includes("r2.dev/")
@@ -52,13 +56,13 @@ const fetchAllImages = async (info: any, id: string, env: Env) => {
   const newInfo = JSON.stringify({
     ...info,
     images: {
-      ...info.images,
+      ...info?.images,
       cover,
       title,
       screenshots
     },
     videos: {
-      ...info.videos,
+      ...info?.videos,
       shortplay
     }
   });
