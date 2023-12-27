@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { useRoms } from "../../../../hooks/roms-context";
+import { Rating } from "../../../../components/Rom/Rating";
 
 export const Files = () => {
   const { query } = useRouter();
@@ -19,25 +20,38 @@ export const Files = () => {
         }}
       >
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-bold"> {activeFile?.info?.title}</h1>
+          <div>
+            <h1 className="text-xl font-bold mb-2"> {activeFile?.info?.title}</h1>
+            <Rating rating={activeFile?.info?.rating} />
+          </div>
           <div className="flex items-center gap-4"></div>
         </div>
       </div>
       <div className="container mx-auto mt-4">
-        <video src={activeFile?.info?.videos?.shortplay} controls />
-        <div className="grid">
-          {activeFile?.info?.images?.screenshots?.length > 0 &&
-            activeFile.info.images?.screenshots.map((screenshot) => (
-              <Image
-                key={screenshot}
-                src={screenshot}
-                height={250}
-                width={330}
-                alt={`${activeFile?.info?.title} screenshot`}
-                placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4OB6CgABOwEBTU8F5gAAAABJRU5ErkJggg=="
-                className=" max-w-full mx-auto"
-              />
-            ))}
+        <div className="flex">
+          <div>
+            <video src={activeFile?.info?.videos?.shortplay} controls />
+            {activeFile?.info?.images?.screenshots?.length > 0 && (
+
+              <div className="grid grid-cols-4 mt-6 gap-4">
+                {activeFile.info.images?.screenshots.map((screenshot) => (
+                  <Image
+                    key={screenshot}
+                    src={screenshot}
+                    height={250}
+                    width={330}
+                    alt={`${activeFile?.info?.title} screenshot`}
+                    placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4OB6CgABOwEBTU8F5gAAAABJRU5ErkJggg=="
+                    className=" max-w-full mx-auto"
+                  />
+                ))}
+              </div>)}
+          </div>
+          <div>
+
+            <p className="text-sm text-content4">Description</p>
+            <p>{activeFile.info.summary}</p>
+          </div>
         </div>
         <pre>{JSON.stringify(activeFile, null, 2)}</pre>
       </div>
