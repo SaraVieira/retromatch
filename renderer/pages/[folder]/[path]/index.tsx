@@ -10,13 +10,13 @@ import {
 } from "@tabler/icons-react";
 
 import { Roms } from "../../../../types";
+import RemoveDuplicatesModal from "../../../components/RemoveDuplicatesModal";
 import { Rom } from "../../../components/Rom";
 import { NoRoms } from "../../../components/Rom/Empty";
+import { ScrapeButton } from "../../../components/ScrapeButton";
 import { useFolders } from "../../../hooks/folder-context";
 import { useRoms } from "../../../hooks/roms-context";
 import { sortFunc } from "../../../utils/arrays";
-import { ScrapeButton } from "../../../components/ScrapeButton";
-import RemoveDuplicatesModal from "../../../components/RemoveDuplicatesModal";
 
 const sortOptions = [
   {

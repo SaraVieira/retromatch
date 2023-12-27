@@ -1,11 +1,13 @@
-import { Card, CardBody, CardFooter, CardHeader, cn } from "@nextui-org/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { Item, Menu, useContextMenu } from "react-contexify";
+
+import { Card, CardBody, CardFooter, CardHeader, cn } from "@nextui-org/react";
+
 import { Roms } from "../../../types";
+import { useRoms } from "../../hooks/roms-context";
 import { humanFileSize } from "../../utils/size";
 import { Rating } from "./Rating";
-import { Item, Menu, useContextMenu } from "react-contexify";
-import { useRoms } from "../../hooks/roms-context";
 
 export const Rom = ({
   rom,
