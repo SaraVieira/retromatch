@@ -2,7 +2,7 @@ export const transformResponse = (data: any, type: string) => {
   if (!data) return null;
   if (type === "letsplay") {
     const findDev = () => {
-      if (!data.involved_companies.length) return null;
+      if (!data.involved_companies?.length) return null;
 
       const hasDev = data.involved_companies.find((i) => i.developer);
 
@@ -20,13 +20,15 @@ export const transformResponse = (data: any, type: string) => {
         name: findDev()
       },
       images: {
-        screenshots: data.screenshots.length
+        screenshots: data.screenshots?.length
           ? data.screenshots.map((s) => imageUrl(s.url))
           : undefined,
         title: undefined,
-        cover: imageUrl(data.cover.url)
+        cover: imageUrl(data.cover?.url)
       },
-      genre: data.genres.map((g) => g.name).join(" / "),
+      genre: data.genres?.length
+        ? data.genres.map((g) => g.name).join(" / ")
+        : "",
       players: "",
       released: new Date(data.first_release_date * 1000).toLocaleString(
         "PT-pt",
@@ -37,7 +39,7 @@ export const transformResponse = (data: any, type: string) => {
         }
       ),
       videos: {
-        youtube: data.videos.length > 0 ? data.videos[0]?.video_id : null,
+        youtube: data.videos?.length > 0 ? data.videos[0]?.video_id : null,
         shortplay: null
       },
       summary: data.summary,

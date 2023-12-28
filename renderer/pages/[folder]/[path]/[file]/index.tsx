@@ -5,7 +5,8 @@ import {
   IconCalendarTime,
   IconCategory2,
   IconDeviceGamepad,
-  IconDeviceLaptop
+  IconDeviceLaptop,
+  IconFile
 } from "@tabler/icons-react";
 
 import { Rating } from "../../../../components/Rom/Rating";
@@ -100,6 +101,10 @@ export const Files = () => {
                   {activeFolder.console.name}
                 </li>
               )}
+              <li className="flex gap-6 text-sm items-center mb-2">
+                <IconFile size={18} />
+                {activeFile.fullName}
+              </li>
             </ul>
             {activeFile?.info?.videos?.shortplay && (
               <video src={activeFile.info.videos.shortplay} controls />

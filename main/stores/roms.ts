@@ -64,10 +64,8 @@ export const initRomActions = () => {
               folder.console.screenscrapper_id
             );
 
-            if (gameInfo) {
-              romsStore.set(`${file}.info`, gameInfo);
-              event.reply("new_data", romsStore.get(file));
-            }
+            romsStore.set(`${file}.info`, gameInfo);
+            event.reply("new_data", romsStore.get(file));
           } catch (e) {
             console.log(e.message);
           } finally {
@@ -91,10 +89,9 @@ export const initRomActions = () => {
     });
     try {
       const gameInfo = await scrapeGame(file, screenscrapper_id);
-      if (gameInfo) {
-        romsStore.set(`${file.id}.info`, gameInfo);
-        event.reply("new_data", romsStore.get(file.id));
-      }
+
+      romsStore.set(`${file.id}.info`, gameInfo);
+      event.reply("new_data", romsStore.get(file.id));
     } catch (e) {
       console.log(e.message);
     } finally {
