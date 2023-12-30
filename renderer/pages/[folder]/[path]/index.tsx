@@ -98,12 +98,7 @@ export const Files = () => {
     });
   }, []);
 
-  if (
-    Object.keys(roms).length &&
-    !romsInConsole.length &&
-    filter === "all" &&
-    !search
-  ) {
+  if (activeFolder && !activeFolder?.files?.length) {
     return <NoRoms activeFolder={activeFolder} />;
   }
 
