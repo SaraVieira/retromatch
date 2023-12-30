@@ -19,7 +19,7 @@ export type FileInfo = {
     name: string;
   };
   images: {
-    screenshot: string;
+    screenshots: string[];
     title: string;
     cover: string;
   };

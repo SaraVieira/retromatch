@@ -22,7 +22,15 @@ export default function Screenshot({ img, name }) {
           className=" max-w-full mx-auto"
         />
       </button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="5xl">
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement="center"
+        classNames={{
+          wrapper: "z-[100]",
+          body: "p-0"
+        }}
+      >
         <ModalContent>
           {() => (
             <ModalBody>
