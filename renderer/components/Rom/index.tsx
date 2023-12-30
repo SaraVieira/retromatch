@@ -85,7 +85,7 @@ export const Rom = ({
           ) : null}
         </CardBody>
         <CardFooter className="text-xs text-content4 flex justify-between">
-          <span> {rom.fullName}</span>
+          <span className="text-left"> {rom.fullName}</span>
           {humanFileSize(rom.size)}
         </CardFooter>
       </Card>

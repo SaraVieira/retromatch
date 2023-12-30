@@ -76,6 +76,7 @@ export const Files = () => {
         if (filter === "all") return true;
         if (filter === "with-info") return rom.info?.title;
         if (filter === "no-info") return !rom.info?.title;
+        if (filter === "duplicate") return rom.isDuplicate;
       }),
     sortType,
     sortByField
@@ -97,7 +98,12 @@ export const Files = () => {
     });
   }, []);
 
-  if (Object.keys(roms).length && !romsInConsole.length) {
+  if (
+    Object.keys(roms).length &&
+    !romsInConsole.length &&
+    filter === "all" &&
+    !search
+  ) {
     return <NoRoms activeFolder={activeFolder} />;
   }
 
@@ -162,6 +168,9 @@ export const Files = () => {
               <SelectItem value="with-info" key="with-info">
                 With Info
               </SelectItem>
+              <SelectItem value="duplicate" key="duplicate">
+                Duplicates
+              </SelectItem>
             </Select>
             <Select
               label="Sort By"
@@ -193,21 +202,27 @@ export const Files = () => {
         </div>
       </div>
       <div className="container mx-auto mt-4">
-        <ul
-          className="pb-8 grid gap-4 items-stretch"
-          style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
-          }}
-        >
-          {romsInConsole.map((rom: Roms[0]) => (
-            <li key={rom.id} className="w-full">
-              <Rom
-                rom={rom}
-                screenscrapperId={activeFolder.console.screenscrapper_id}
-              />
-            </li>
-          ))}
-        </ul>
+        {romsInConsole.length ? (
+          <ul
+            className="pb-8 grid gap-4 items-stretch"
+            style={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
+            }}
+          >
+            {romsInConsole.map((rom: Roms[0]) => (
+              <li key={rom.id} className="w-full">
+                <Rom
+                  rom={rom}
+                  screenscrapperId={activeFolder.console.screenscrapper_id}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="text-content4 text-xl pt-20 w-full text-center">
+            No roms found
+          </div>
+        )}
       </div>
     </>
   );
