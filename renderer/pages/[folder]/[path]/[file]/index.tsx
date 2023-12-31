@@ -103,7 +103,7 @@ export const Files = () => {
               )}
               <li className="flex gap-6 text-sm items-center mb-2">
                 <IconFile size={18} />
-                {activeFile.fullName}
+                {activeFile?.fullName}
               </li>
             </ul>
             {activeFile?.info?.videos?.shortplay && (
