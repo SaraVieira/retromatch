@@ -55,6 +55,7 @@ export const Files = () => {
   const [search, setSearch] = useState("");
   const [sortByField, setSortByField] = useState("name");
   const [sortType, setSortType] = useState("ascending");
+  const [filter, setFilter] = useState("all");
   const duplicates = Object.values(roms || {})
     .filter((r: Roms[0]) =>
       Object.values(activeFolder?.files || {}).includes(r.id)
@@ -70,7 +71,13 @@ export const Files = () => {
         (rom?.info?.title || rom.name)
           .toLocaleLowerCase()
           .includes(search.toString().toLocaleLowerCase())
-      ),
+      )
+      .filter((rom: Roms[0]) => {
+        if (filter === "all") return true;
+        if (filter === "with-info") return rom.info?.title;
+        if (filter === "no-info") return !rom.info?.title;
+        if (filter === "duplicate") return rom.isDuplicate;
+      }),
     sortType,
     sortByField
   );
@@ -91,7 +98,7 @@ export const Files = () => {
     });
   }, []);
 
-  if (Object.keys(roms).length && !romsInConsole.length) {
+  if (activeFolder && !activeFolder?.files?.length) {
     return <NoRoms activeFolder={activeFolder} />;
   }
 
@@ -105,7 +112,9 @@ export const Files = () => {
         }}
       >
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-bold"> {activeFolder?.console?.name}</h1>
+          <h1 className="text-xl font-bold">
+            {activeFolder?.console?.name} ({romsInConsole.length})
+          </h1>
           <div className="flex items-center gap-4">
             {duplicates.length > 0 && (
               <RemoveDuplicatesModal
@@ -133,50 +142,82 @@ export const Files = () => {
             onValueChange={setSearch}
             className="max-w-xs"
           />
-          <Select
-            label="Sort By"
-            size="sm"
-            variant="bordered"
-            placeholder="Sort Games"
-            selectedKeys={[`${sortByField}-${sortType}`]}
-            className="max-w-[200px]"
-            onSelectionChange={onSelectionChange}
-          >
-            {sortOptions.map((option) => (
-              <SelectItem
-                key={option.key}
-                value={option.key}
-                textValue={option.label}
-              >
-                <div className="flex gap-2 items-center justify-between">
-                  {option.label}
-                  {option.key.includes("ascending") ? (
-                    <IconSortAscending />
-                  ) : (
-                    <IconSortDescending />
-                  )}
-                </div>
+          <div className="flex gap-2 grow justify-end">
+            <Select
+              label="Filter By"
+              size="sm"
+              variant="bordered"
+              placeholder="Filter Games"
+              selectedKeys={[filter]}
+              onSelectionChange={(value: any) =>
+                setFilter(Array.from(value)[0] as string)
+              }
+              className="max-w-[200px] grow"
+            >
+              <SelectItem value="all" key="all">
+                All
               </SelectItem>
-            ))}
-          </Select>
+              <SelectItem value="no-info" key="no-info">
+                No Info
+              </SelectItem>
+              <SelectItem value="with-info" key="with-info">
+                With Info
+              </SelectItem>
+              <SelectItem value="duplicate" key="duplicate">
+                Duplicates
+              </SelectItem>
+            </Select>
+            <Select
+              label="Sort By"
+              size="sm"
+              variant="bordered"
+              placeholder="Sort Games"
+              selectedKeys={[`${sortByField}-${sortType}`]}
+              className="max-w-[200px]"
+              onSelectionChange={onSelectionChange}
+            >
+              {sortOptions.map((option) => (
+                <SelectItem
+                  key={option.key}
+                  value={option.key}
+                  textValue={option.label}
+                >
+                  <div className="flex gap-2 items-center justify-between">
+                    {option.label}
+                    {option.key.includes("ascending") ? (
+                      <IconSortAscending />
+                    ) : (
+                      <IconSortDescending />
+                    )}
+                  </div>
+                </SelectItem>
+              ))}
+            </Select>
+          </div>
         </div>
       </div>
       <div className="container mx-auto mt-4">
-        <ul
-          className="pb-8 grid gap-4 items-stretch"
-          style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
-          }}
-        >
-          {romsInConsole.map((rom: Roms[0]) => (
-            <li key={rom.id} className="w-full">
-              <Rom
-                rom={rom}
-                screenscrapperId={activeFolder.console.screenscrapper_id}
-              />
-            </li>
-          ))}
-        </ul>
+        {romsInConsole.length ? (
+          <ul
+            className="pb-8 grid gap-4 items-stretch"
+            style={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
+            }}
+          >
+            {romsInConsole.map((rom: Roms[0]) => (
+              <li key={rom.id} className="w-full">
+                <Rom
+                  rom={rom}
+                  screenscrapperId={activeFolder.console.screenscrapper_id}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="text-content4 text-xl pt-20 w-full text-center">
+            No roms found
+          </div>
+        )}
       </div>
     </>
   );

@@ -28,6 +28,10 @@ export const Rom = ({
     show({
       event
     });
+  const image =
+    rom.info?.images?.cover ||
+    rom.info?.images?.title ||
+    rom.info?.images?.screenshots?.[0];
 
   return (
     <button onContextMenu={handleContextMenu} className="w-full">
@@ -59,15 +63,19 @@ export const Rom = ({
             {rom.info?.title || rom.name}
           </span>
           <div className="flex justify-between items-center w-full">
-            <Rating rating={rom?.info?.rating} />
+            {rom?.info?.rating ? (
+              <Rating rating={rom?.info?.rating} />
+            ) : (
+              <div />
+            )}
             <span className="text-sm text-content4">{rom?.info?.released}</span>
           </div>
         </CardHeader>
 
         <CardBody>
-          {rom.info?.images?.cover || rom.info?.images?.title ? (
+          {image ? (
             <Image
-              src={rom.info?.images?.cover || rom.info?.images?.title}
+              src={image}
               alt={rom.name}
               placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4OB6CgABOwEBTU8F5gAAAABJRU5ErkJggg=="
               width={250}
@@ -76,7 +84,8 @@ export const Rom = ({
             />
           ) : null}
         </CardBody>
-        <CardFooter className="text-xs text-content4">
+        <CardFooter className="text-xs text-content4 flex justify-between">
+          <span className="text-left"> {rom.fullName}</span>
           {humanFileSize(rom.size)}
         </CardFooter>
       </Card>
