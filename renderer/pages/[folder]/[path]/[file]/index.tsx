@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-import Image from "next/image";
-
-import { Button } from "@nextui-org/react";
+import { Button, Image, Input, Textarea } from "@nextui-org/react";
 import {
   IconCalendarTime,
   IconCategory2,
@@ -28,8 +26,30 @@ export const Files = () => {
     setEditing(false);
   };
 
+  const Title = () =>
+    editing ? (
+      <Input
+        aria-label="title"
+        placeholder="Title"
+        value={activeRom?.info?.title}
+      />
+    ) : (
+      <h1 className="text-xl font-bold mb-2">{activeRom?.info?.title}</h1>
+    );
+
+  const Description = () =>
+    editing ? (
+      <Textarea
+        aria-label="description"
+        placeholder="Description"
+        value={activeRom?.info?.summary}
+      />
+    ) : (
+      <p className="text-sm mb-4">{activeRom.info.summary}</p>
+    );
+
   return (
-    <>
+    <form>
       <div
         className="backdrop-saturate-150 bg-background/90 backdrop-blur-sm -mt-6 -ml-6 p-6 border-b border-divider w-screen sticky top-0 z-[99] overflow-hidden"
         style={{
@@ -39,9 +59,9 @@ export const Files = () => {
       >
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-xl font-bold mb-2">{activeRom?.info?.title}</h1>
+            <Title />
             <Rating rating={activeRom?.info?.rating} />
-          </div>
+          </div >
           <div className="flex items-center gap-4">
             <Button
               onClick={editing ? saveInfo : editInfo}
@@ -50,8 +70,8 @@ export const Files = () => {
               Edit
             </Button>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
       <div className="container mx-auto mt-4">
         <div className="flex gap-4">
           <div className="basis-1/3">
@@ -81,7 +101,7 @@ export const Files = () => {
             {activeRom?.info?.summary && (
               <>
                 <h2 className="text-sm text-content4 mb-2">Description</h2>
-                <p className="text-sm mb-4">{activeRom.info.summary}</p>
+                <Description />
                 <h2 className="text-sm text-content4 mb-2">Details</h2>
               </>
             )}
@@ -115,28 +135,32 @@ export const Files = () => {
                 {activeRom?.fullName}
               </li>
             </ul>
-            {activeRom?.info?.videos?.shortplay && (
-              <video src={activeRom.info.videos.shortplay} controls />
-            )}
-            {activeRom?.info?.videos?.youtube && (
-              <div
-                className="video mt-4 relative h-0"
-                style={{
-                  paddingBottom: "56.25%" /* 16:9 */,
-                  paddingTop: 25
-                }}
-              >
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/${activeRom.info.videos.youtube}`}
-                  title={`YouTube embed for ${activeRom?.info?.title}`}
-                />
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </>
+            {
+              activeRom?.info?.videos?.shortplay && (
+                <video src={activeRom.info.videos.shortplay} controls />
+              )
+            }
+            {
+              activeRom?.info?.videos?.youtube && (
+                <div
+                  className="video mt-4 relative h-0"
+                  style={{
+                    paddingBottom: "56.25%" /* 16:9 */,
+                    paddingTop: 25
+                  }}
+                >
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${activeRom.info.videos.youtube}`}
+                    title={`YouTube embed for ${activeRom?.info?.title}`}
+                  />
+                </div>
+              )
+            }
+          </div >
+        </div >
+      </div >
+    </form >
   );
 };
 
