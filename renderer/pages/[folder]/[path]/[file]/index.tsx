@@ -1,10 +1,14 @@
+import { useState } from "react";
+
 import Image from "next/image";
 
+import { Button } from "@nextui-org/react";
 import {
   IconCalendarTime,
   IconCategory2,
   IconDeviceGamepad,
   IconDeviceLaptop,
+  IconEdit,
   IconFile
 } from "@tabler/icons-react";
 
@@ -14,6 +18,15 @@ import { useActivePath } from "../../../../hooks/useActivePath";
 
 export const Files = () => {
   const { activeRom, activeConsole } = useActivePath();
+  const [editing, setEditing] = useState(false);
+
+  const editInfo = () => {
+    setEditing(true);
+  };
+
+  const saveInfo = () => {
+    setEditing(false);
+  };
 
   return (
     <>
@@ -29,7 +42,14 @@ export const Files = () => {
             <h1 className="text-xl font-bold mb-2">{activeRom?.info?.title}</h1>
             <Rating rating={activeRom?.info?.rating} />
           </div>
-          <div className="flex items-center gap-4"></div>
+          <div className="flex items-center gap-4">
+            <Button
+              onClick={editing ? saveInfo : editInfo}
+              startContent={<IconEdit />}
+            >
+              Edit
+            </Button>
+          </div>
         </div>
       </div>
       <div className="container mx-auto mt-4">
