@@ -3,11 +3,11 @@ import { IconReload } from "@tabler/icons-react";
 import { useFolders } from "../../hooks/folder-context";
 import { Folder } from "../../../types";
 
-export const NoRoms = ({ activeFolder }: { activeFolder: Folder }) => {
+export const NoRoms = ({ activeConsole }: { activeConsole: Folder }) => {
   const { scrapeFolder } = useFolders();
   return (
     <div className="container mx-auto flex justify-center">
-      <button onClick={() => scrapeFolder(activeFolder, true)}>
+      <button onClick={() => scrapeFolder(activeConsole, true)}>
         <Card>
           <CardHeader>
             <h2>No ROMs found</h2>

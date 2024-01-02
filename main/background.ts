@@ -7,6 +7,7 @@ import { backlogStore, initBacklogState } from "./stores/backlog";
 import { initSettingsActions, settingsStore } from "./stores/settings";
 import { initRomActions, romsStore } from "./stores/roms";
 import "dotenv/config";
+import { existsSync } from "fs";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -36,6 +37,13 @@ if (isProd) {
   }
 
   ipcMain.on("load", async (event) => {
+    Object.values(foldersStore.store).map((folder) => {
+      foldersStore.set(
+        `${folder.id}.connected`,
+        existsSync(folder.path as unknown as string)
+      );
+    });
+
     event.reply("all_data", foldersStore.store);
     event.reply("all_roms", romsStore.store);
     event.reply("all_backlog", Object.values(backlogStore.store));

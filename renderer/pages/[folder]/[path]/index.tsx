@@ -1,7 +1,5 @@
 import { useLayoutEffect, useState } from "react";
 
-import { useRouter } from "next/router";
-
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import {
   IconSearch,
@@ -14,9 +12,9 @@ import RemoveDuplicatesModal from "../../../components/RemoveDuplicatesModal";
 import { Rom } from "../../../components/Rom";
 import { NoRoms } from "../../../components/Rom/Empty";
 import { ScrapeButton } from "../../../components/ScrapeButton";
-import { useFolders } from "../../../hooks/folder-context";
 import { useRoms } from "../../../hooks/roms-context";
 import { sortFunc } from "../../../utils/arrays";
+import { useActivePath } from "../../../hooks/useActivePath";
 
 const sortOptions = [
   {
@@ -46,26 +44,23 @@ const sortOptions = [
 ];
 
 export const Files = () => {
-  const { folders } = useFolders();
   const { roms } = useRoms();
-  const { query } = useRouter();
   const [scrolled, setHasScrolled] = useState(false);
-  const activeFolder =
-    folders[query.folder as string]?.folders[query.path as string];
+  const { activeFolder, activeConsole } = useActivePath();
   const [search, setSearch] = useState("");
   const [sortByField, setSortByField] = useState("name");
   const [sortType, setSortType] = useState("ascending");
   const [filter, setFilter] = useState("all");
   const duplicates = Object.values(roms || {})
     .filter((r: Roms[0]) =>
-      Object.values(activeFolder?.files || {}).includes(r.id)
+      Object.values(activeConsole?.files || {}).includes(r.id)
     )
     .filter((rom: { isDuplicate }) => rom.isDuplicate);
 
   const romsInConsole = sortFunc(
     Object.values(roms)
       .filter((r: Roms[0]) =>
-        Object.values(activeFolder?.files || {}).includes(r.id)
+        Object.values(activeConsole?.files || {}).includes(r.id)
       )
       .filter((rom: Roms[0]) =>
         (rom?.info?.title || rom.name)
@@ -98,8 +93,8 @@ export const Files = () => {
     });
   }, []);
 
-  if (activeFolder && !activeFolder?.files?.length) {
-    return <NoRoms activeFolder={activeFolder} />;
+  if (activeConsole && !activeConsole?.files?.length) {
+    return <NoRoms activeConsole={activeConsole} />;
   }
 
   return (
@@ -113,12 +108,12 @@ export const Files = () => {
       >
         <div className="flex justify-between items-center">
           <h1 className="text-xl font-bold">
-            {activeFolder?.console?.name} ({romsInConsole.length})
+            {activeConsole?.console?.name} ({romsInConsole.length})
           </h1>
           <div className="flex items-center gap-4">
-            {duplicates.length > 0 && (
+            {duplicates.length > 0 && activeFolder?.connected && (
               <RemoveDuplicatesModal
-                folder={activeFolder}
+                folder={activeConsole}
                 duplicateRoms={duplicates}
               />
             )}
@@ -163,9 +158,11 @@ export const Files = () => {
               <SelectItem value="with-info" key="with-info">
                 With Info
               </SelectItem>
-              <SelectItem value="duplicate" key="duplicate">
-                Duplicates
-              </SelectItem>
+              {activeFolder?.connected && (
+                <SelectItem value="duplicate" key="duplicate">
+                  Duplicates
+                </SelectItem>
+              )}
             </Select>
             <Select
               label="Sort By"
@@ -207,8 +204,9 @@ export const Files = () => {
             {romsInConsole.map((rom: Roms[0]) => (
               <li key={rom.id} className="w-full">
                 <Rom
+                  connected={activeFolder.connected}
                   rom={rom}
-                  screenscrapperId={activeFolder.console.screenscrapper_id}
+                  screenscrapperId={activeConsole.console.screenscrapper_id}
                 />
               </li>
             ))}

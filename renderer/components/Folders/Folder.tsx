@@ -1,5 +1,5 @@
 import { Card, CardBody, CardHeader, Tooltip } from "@nextui-org/react";
-import { IconFolder } from "@tabler/icons-react";
+import { IconCheck, IconFolder } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 
 import { humanFileSize } from "../../utils/size";
@@ -49,7 +49,14 @@ export const Folder = ({ folder }) => {
             ) : (
               <IconFolder />
             )}
-            {folder.name}
+            <div className="flex grow justify-between">
+              {folder.name}
+              {folder.connected ? (
+                <Tooltip content="Connected">
+                  <IconCheck className="text-green-500 w-5 h-5" />
+                </Tooltip>
+              ) : null}
+            </div>
           </CardHeader>
           <CardBody className="text-xs text-content4 flex items-center justify-between flex-row">
             <Tooltip content={folder.path}>
