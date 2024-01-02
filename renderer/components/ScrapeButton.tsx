@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { useFolders } from "../hooks/folder-context";
 import {
@@ -10,19 +9,17 @@ import {
   DropdownTrigger
 } from "@nextui-org/react";
 import { IconChevronDown } from "@tabler/icons-react";
+import { useActivePath } from "../hooks/useActivePath";
 
 export const ScrapeButton = () => {
   const [selectedOption, setSelectedOption] = useState(new Set(["all"]));
-  const { query } = useRouter();
-  const { folders, scrapeFolder } = useFolders();
+  const { scrapeFolder } = useFolders();
+  const { activeConsole } = useActivePath();
 
   const selectedOptionValue = Array.from(selectedOption)[0];
 
-  const activeFolder =
-    folders[query.folder as string]?.folders[query.path as string];
-
   const scrape = () =>
-    scrapeFolder(activeFolder, selectedOptionValue === "all");
+    scrapeFolder(activeConsole, selectedOptionValue === "all");
 
   const descriptionsMap = {
     all: "Scrape all roms in this folder",

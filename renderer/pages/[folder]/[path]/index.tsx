@@ -1,7 +1,5 @@
 import { useLayoutEffect, useState } from "react";
 
-import { useRouter } from "next/router";
-
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import {
   IconSearch,
@@ -14,9 +12,9 @@ import RemoveDuplicatesModal from "../../../components/RemoveDuplicatesModal";
 import { Rom } from "../../../components/Rom";
 import { NoRoms } from "../../../components/Rom/Empty";
 import { ScrapeButton } from "../../../components/ScrapeButton";
-import { useFolders } from "../../../hooks/folder-context";
 import { useRoms } from "../../../hooks/roms-context";
 import { sortFunc } from "../../../utils/arrays";
+import { useActivePath } from "../../../hooks/useActivePath";
 
 const sortOptions = [
   {
@@ -46,12 +44,9 @@ const sortOptions = [
 ];
 
 export const Files = () => {
-  const { folders } = useFolders();
   const { roms } = useRoms();
-  const { query } = useRouter();
   const [scrolled, setHasScrolled] = useState(false);
-  const activeFolder = folders[query.folder as string];
-  const activeConsole = activeFolder?.folders[query.path as string];
+  const { activeFolder, activeConsole } = useActivePath();
   const [search, setSearch] = useState("");
   const [sortByField, setSortByField] = useState("name");
   const [sortType, setSortType] = useState("ascending");

@@ -1,17 +1,16 @@
 import React from "react";
-
 import Link from "next/link";
 import { useRouter } from "next/router";
-
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import { IconReload } from "@tabler/icons-react";
-
 import { useFolders } from "../../hooks/folder-context";
+import { useActivePath } from "../../hooks/useActivePath";
 
 export default function HomePage() {
-  const { folders, addFolder } = useFolders();
+  const { addFolder } = useFolders();
   const { query } = useRouter();
-  const subFolders = folders[query.folder as string]?.folders;
+  const { activeFolder } = useActivePath();
+  const subFolders = activeFolder?.folders;
   const gameFolders = subFolders
     ? Object.values(subFolders).filter((a) => Object.values(a.files).length)
     : [];
@@ -19,7 +18,7 @@ export default function HomePage() {
   if (!gameFolders || gameFolders.length === 0) {
     return (
       <div className="container mx-auto flex justify-center">
-        <button onClick={() => addFolder(folders[query.folder as string])}>
+        <button onClick={() => addFolder(activeFolder)}>
           <Card>
             <CardHeader>
               <h2>No ROM folders found</h2>
@@ -42,7 +41,7 @@ export default function HomePage() {
           gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))"
         }}
       >
-        {folders[query.folder as string]?.folders &&
+        {activeFolder?.folders &&
           gameFolders.map((f) => (
             <li className="min-w-[200px] h-full" key={f.id}>
               <Link href={`/${query.folder}/${f.id}`} className="h-full">

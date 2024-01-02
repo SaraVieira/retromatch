@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
 
 import {
   IconCalendarTime,
@@ -11,17 +10,10 @@ import {
 
 import { Rating } from "../../../../components/Rom/Rating";
 import Screenshot from "../../../../components/Rom/Screenshot";
-import { useFolders } from "../../../../hooks/folder-context";
-import { useRoms } from "../../../../hooks/roms-context";
+import { useActivePath } from "../../../../hooks/useActivePath";
 
 export const Files = () => {
-  const { query } = useRouter();
-  const { folders } = useFolders();
-  const { roms } = useRoms();
-
-  const activeFile = roms[query.file as string];
-  const activeFolder =
-    folders[query.folder as string]?.folders[query.path as string];
+  const { activeRom, activeConsole } = useActivePath();
 
   return (
     <>
@@ -34,11 +26,8 @@ export const Files = () => {
       >
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-xl font-bold mb-2">
-              {" "}
-              {activeFile?.info?.title}
-            </h1>
-            <Rating rating={activeFile?.info?.rating} />
+            <h1 className="text-xl font-bold mb-2">{activeRom?.info?.title}</h1>
+            <Rating rating={activeRom?.info?.rating} />
           </div>
           <div className="flex items-center gap-4"></div>
         </div>
@@ -46,22 +35,22 @@ export const Files = () => {
       <div className="container mx-auto mt-4">
         <div className="flex gap-4">
           <div className="basis-1/3">
-            {activeFile?.info?.images?.cover && (
+            {activeRom?.info?.images?.cover && (
               <Image
-                src={activeFile.info.images.cover}
+                src={activeRom.info.images.cover}
                 height={300}
                 width={400}
-                alt={`${activeFile?.info?.title} cover art`}
+                alt={`${activeRom?.info?.title} cover art`}
                 placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4OB6CgABOwEBTU8F5gAAAABJRU5ErkJggg=="
                 className=" max-w-full mx-auto"
               />
             )}
-            {activeFile?.info?.images?.screenshots?.length > 0 && (
+            {activeRom?.info?.images?.screenshots?.length > 0 && (
               <div className="grid grid-cols-4 mt-6 gap-4">
-                {activeFile.info.images?.screenshots.map((screenshot) => (
+                {activeRom.info.images?.screenshots.map((screenshot) => (
                   <Screenshot
                     img={screenshot}
-                    name={activeFile?.info?.name}
+                    name={activeRom?.info?.name}
                     key={screenshot}
                   />
                 ))}
@@ -69,47 +58,47 @@ export const Files = () => {
             )}
           </div>
           <div className="basis-2/3">
-            {activeFile?.info?.summary && (
+            {activeRom?.info?.summary && (
               <>
                 <h2 className="text-sm text-content4 mb-2">Description</h2>
-                <p className="text-sm mb-4">{activeFile.info.summary}</p>
+                <p className="text-sm mb-4">{activeRom.info.summary}</p>
                 <h2 className="text-sm text-content4 mb-2">Details</h2>
               </>
             )}
             <ul>
-              {activeFile?.info?.released && (
+              {activeRom?.info?.released && (
                 <li className="flex gap-6 text-sm items-center mb-2">
                   <IconCalendarTime size={18} />
-                  {activeFile.info.released}
+                  {activeRom.info.released}
                 </li>
               )}
-              {activeFile?.info?.genre && (
+              {activeRom?.info?.genre && (
                 <li className="flex gap-6 text-sm items-center mb-2">
                   <IconCategory2 size={18} />
-                  {activeFile.info.genre}
+                  {activeRom.info.genre}
                 </li>
               )}
-              {activeFile?.info?.developer?.name && (
+              {activeRom?.info?.developer?.name && (
                 <li className="flex gap-6 text-sm items-center mb-2">
                   <IconDeviceLaptop size={18} />
-                  {activeFile.info.developer?.name}
+                  {activeRom.info.developer?.name}
                 </li>
               )}
-              {activeFolder?.console?.name && (
+              {activeConsole?.console?.name && (
                 <li className="flex gap-6 text-sm items-center mb-2">
                   <IconDeviceGamepad size={18} />
-                  {activeFolder.console.name}
+                  {activeConsole.console.name}
                 </li>
               )}
               <li className="flex gap-6 text-sm items-center mb-2">
                 <IconFile size={18} />
-                {activeFile?.fullName}
+                {activeRom?.fullName}
               </li>
             </ul>
-            {activeFile?.info?.videos?.shortplay && (
-              <video src={activeFile.info.videos.shortplay} controls />
+            {activeRom?.info?.videos?.shortplay && (
+              <video src={activeRom.info.videos.shortplay} controls />
             )}
-            {activeFile?.info?.videos?.youtube && (
+            {activeRom?.info?.videos?.youtube && (
               <div
                 className="video mt-4 relative h-0"
                 style={{
@@ -119,8 +108,8 @@ export const Files = () => {
               >
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/${activeFile.info.videos.youtube}`}
-                  title={`YouTube embed for ${activeFile?.info?.title}`}
+                  src={`https://www.youtube.com/embed/${activeRom.info.videos.youtube}`}
+                  title={`YouTube embed for ${activeRom?.info?.title}`}
                 />
               </div>
             )}
