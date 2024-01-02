@@ -11,8 +11,10 @@ import { Rating } from "./Rating";
 
 export const Rom = ({
   rom,
-  screenscrapperId
+  screenscrapperId,
+  connected
 }: {
+  connected: boolean;
   rom: Roms[0];
   screenscrapperId: number;
 }) => {
@@ -28,6 +30,7 @@ export const Rom = ({
     show({
       event
     });
+
   const image =
     rom.info?.images?.cover ||
     rom.info?.images?.title ||
@@ -55,7 +58,7 @@ export const Rom = ({
         shadow="sm"
         className={cn(
           `h-full flex flex-col justify-between rounded-lg w-full`,
-          rom.isDuplicate ? "border-2 border-rose-600" : ""
+          rom.isDuplicate && connected ? "border-2 border-rose-600" : ""
         )}
       >
         <CardHeader className="flex flex-col items-start gap-1">
@@ -80,7 +83,7 @@ export const Rom = ({
               placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4OB6CgABOwEBTU8F5gAAAABJRU5ErkJggg=="
               width={250}
               height={330}
-              className=" max-w-full mx-auto"
+              className="max-w-full mx-auto w-auto h-auto"
             />
           ) : null}
         </CardBody>

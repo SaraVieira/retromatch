@@ -7,6 +7,7 @@ export type RomFolder = {
   sdCardStyle: string;
   configFilePath: string;
   lastSynced?: Date;
+  connected: boolean;
   folders?: {
     [id: string]: Folder;
   };
@@ -38,7 +39,6 @@ export type FileInfo = {
 export type Folder = {
   id?: string;
   path: string;
-
   console: {
     name: string;
     folderNames: string[];
