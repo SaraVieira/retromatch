@@ -7,7 +7,7 @@ export type RomFolder = {
   sdCardStyle: string;
   configFilePath: string;
   lastSynced?: Date;
-  connected: boolean;
+  connected?: boolean;
   folders?: {
     [id: string]: Folder;
   };
