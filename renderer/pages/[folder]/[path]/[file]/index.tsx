@@ -23,8 +23,8 @@ export const Files = () => {
   const [editing, setEditing] = useState(false);
 
   const submitGameInfo = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log(event);
     event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement)
     setRomInfo(activeRom, {});
 
     setEditing(false);
