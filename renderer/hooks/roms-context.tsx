@@ -41,7 +41,16 @@ function RomProvider({ children }) {
   };
 
   const setRomInfo = (rom: Roms[0], info: FileInfo) => {
-    console.log(rom, info);
+    window.ipc.send("update_rom_info", {
+      id: rom.id,
+      info
+    });
+    window.ipc.on("info_updated", (rom: Roms[0]) => {
+      setRoms({
+        ...roms,
+        [rom.id]: rom
+      });
+    });
   };
 
   const scrapeRom = (file: Roms[0], screenscrapper_id: number) => {
