@@ -6,6 +6,7 @@ const RomsContext = createContext({
   roms: {},
   keepRom: (_rom: Roms[0], _duplicates: Roms[0][], _folder: any) => ({} as any),
   setRoms: (_a: any) => ({} as any),
+  setRomInfo: (_rom: Roms[0], _info: FileInfo) => {},
   scrapeRom: (_file: Roms[0], _screenscrapper_id: number) => {}
 });
 
@@ -39,6 +40,10 @@ function RomProvider({ children }) {
     });
   };
 
+  const setRomInfo = (rom: Roms[0], info: FileInfo) => {
+    console.log(rom, info);
+  };
+
   const scrapeRom = (file: Roms[0], screenscrapper_id: number) => {
     window.ipc.send("scrape_file", {
       file,
@@ -62,6 +67,7 @@ function RomProvider({ children }) {
         roms,
         keepRom,
         setRoms,
+        setRomInfo,
         scrapeRom
       }}
     >

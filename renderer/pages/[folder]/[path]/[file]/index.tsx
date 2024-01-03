@@ -14,18 +14,24 @@ import {
 
 import { Rating } from "../../../../components/Rom/Rating";
 import Screenshot from "../../../../components/Rom/Screenshot";
+import { useRoms } from "../../../../hooks/roms-context";
 import { useActivePath } from "../../../../hooks/useActivePath";
 
 export const Files = () => {
   const { activeRom, activeConsole } = useActivePath();
+  const { setRomInfo } = useRoms();
   const [editing, setEditing] = useState(false);
+
+  const submitGameInfo = (event: React.FormEvent<HTMLFormElement>) => {
+    console.log(event);
+    event.preventDefault();
+    setRomInfo(activeRom, {});
+
+    setEditing(false);
+  };
 
   const editInfo = () => {
     setEditing(true);
-  };
-
-  const saveInfo = () => {
-    setEditing(false);
   };
 
   const cancelEdit = () => {
@@ -35,6 +41,7 @@ export const Files = () => {
   const Title = () =>
     editing ? (
       <Input
+        name="title"
         aria-label="title"
         placeholder="Title"
         size="lg"
@@ -47,8 +54,8 @@ export const Files = () => {
   const Description = () =>
     editing ? (
       <Textarea
-        aria-label="description"
-        placeholder="Description"
+        aria-label="summary"
+        placeholder="Summary"
         value={activeRom?.info?.summary}
       />
     ) : (
@@ -56,7 +63,7 @@ export const Files = () => {
     );
 
   return (
-    <form>
+    <form onSubmit={submitGameInfo}>
       <div
         className="backdrop-saturate-150 bg-background/90 backdrop-blur-sm -mt-6 -ml-6 p-6 border-b border-divider w-screen sticky top-0 z-[99] overflow-hidden"
         style={{
@@ -72,7 +79,7 @@ export const Files = () => {
           <div className="flex items-center gap-4">
             {editing && (
               <>
-                <Button onClick={saveInfo} startContent={<IconDeviceFloppy />}>
+                <Button type="submit" startContent={<IconDeviceFloppy />}>
                   Save
                 </Button>
                 <Button onClick={cancelEdit} startContent={<IconX />}>
@@ -116,7 +123,7 @@ export const Files = () => {
           <div className="basis-2/3">
             {activeRom?.info?.summary && (
               <>
-                <h2 className="text-sm text-content4 mb-2">Description</h2>
+                <h2 className="text-sm text-content4 mb-2">Summary</h2>
                 <Description />
                 <h2 className="text-sm text-content4 mb-2">Details</h2>
               </>
