@@ -4,10 +4,12 @@ import { Button, Image, Input, Textarea } from "@nextui-org/react";
 import {
   IconCalendarTime,
   IconCategory2,
+  IconDeviceFloppy,
   IconDeviceGamepad,
   IconDeviceLaptop,
   IconEdit,
-  IconFile
+  IconFile,
+  IconX
 } from "@tabler/icons-react";
 
 import { Rating } from "../../../../components/Rom/Rating";
@@ -26,15 +28,20 @@ export const Files = () => {
     setEditing(false);
   };
 
+  const cancelEdit = () => {
+    setEditing(false);
+  };
+
   const Title = () =>
     editing ? (
       <Input
         aria-label="title"
         placeholder="Title"
+        size="lg"
         value={activeRom?.info?.title}
       />
     ) : (
-      <h1 className="text-xl font-bold mb-2">{activeRom?.info?.title}</h1>
+      <h1 className="text-xl font-bold">{activeRom?.info?.title}</h1>
     );
 
   const Description = () =>
@@ -53,25 +60,34 @@ export const Files = () => {
       <div
         className="backdrop-saturate-150 bg-background/90 backdrop-blur-sm -mt-6 -ml-6 p-6 border-b border-divider w-screen sticky top-0 z-[99] overflow-hidden"
         style={{
-          height: 90,
+          height: editing ? 120 : 90,
           width: "calc(100% + 3rem)"
         }}
       >
-        <div className="flex justify-between items-center">
-          <div>
+        <div className="flex justify-between items-start">
+          <div className="flex items-center gap-4">
             <Title />
             <Rating rating={activeRom?.info?.rating} />
-          </div >
-          <div className="flex items-center gap-4">
-            <Button
-              onClick={editing ? saveInfo : editInfo}
-              startContent={<IconEdit />}
-            >
-              Edit
-            </Button>
           </div>
-        </div >
-      </div >
+          <div className="flex items-center gap-4">
+            {editing && (
+              <>
+                <Button onClick={saveInfo} startContent={<IconDeviceFloppy />}>
+                  Save
+                </Button>
+                <Button onClick={cancelEdit} startContent={<IconX />}>
+                  Cancel
+                </Button>
+              </>
+            )}
+            {!editing && (
+              <Button onClick={editInfo} startContent={<IconEdit />}>
+                Edit
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
       <div className="container mx-auto mt-4">
         <div className="flex gap-4">
           <div className="basis-1/3">
@@ -135,32 +151,28 @@ export const Files = () => {
                 {activeRom?.fullName}
               </li>
             </ul>
-            {
-              activeRom?.info?.videos?.shortplay && (
-                <video src={activeRom.info.videos.shortplay} controls />
-              )
-            }
-            {
-              activeRom?.info?.videos?.youtube && (
-                <div
-                  className="video mt-4 relative h-0"
-                  style={{
-                    paddingBottom: "56.25%" /* 16:9 */,
-                    paddingTop: 25
-                  }}
-                >
-                  <iframe
-                    className="absolute top-0 left-0 w-full h-full"
-                    src={`https://www.youtube.com/embed/${activeRom.info.videos.youtube}`}
-                    title={`YouTube embed for ${activeRom?.info?.title}`}
-                  />
-                </div>
-              )
-            }
-          </div >
-        </div >
-      </div >
-    </form >
+            {activeRom?.info?.videos?.shortplay && (
+              <video src={activeRom.info.videos.shortplay} controls />
+            )}
+            {activeRom?.info?.videos?.youtube && (
+              <div
+                className="video mt-4 relative h-0"
+                style={{
+                  paddingBottom: "56.25%" /* 16:9 */,
+                  paddingTop: 25
+                }}
+              >
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full"
+                  src={`https://www.youtube.com/embed/${activeRom.info.videos.youtube}`}
+                  title={`YouTube embed for ${activeRom?.info?.title}`}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </form>
   );
 };
 
