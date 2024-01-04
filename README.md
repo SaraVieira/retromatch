@@ -1,38 +1,19 @@
-<p align="center"><img src="https://i.imgur.com/a9QWW0v.png"></p>
+## Development
 
-## Usage
+To run this locally you need to first install dependencies and then run the dev mode with:
 
-### Create an App
-
-```
-# with npx
-$ npx create-nextron-app my-app --example with-tailwindcss
-
-# with yarn
-$ yarn create nextron-app my-app --example with-tailwindcss
-
-# with pnpm
-$ pnpm dlx create-nextron-app my-app --example with-tailwindcss
+```sh
+yarn && yarn dev
 ```
 
-### Install Dependencies
+There are some environment variables you would need:
 
 ```
-$ cd my-app
-
-# using yarn or npm
-$ yarn (or `npm install`)
-
-# using pnpm
-$ pnpm install --shamefully-hoist
+SS_USERNAME= # Your username in https://www.screenscraper.fr/
+SS_PASSWORD= # screenscraper api key
+RA_API_KEY= # https://retroachievements.org/ api key
 ```
 
-### Use it
+### How to get a screenscraper API key?
 
-```
-# development mode
-$ yarn dev (or `npm run dev` or `pnpm run dev`)
-
-# production build
-$ yarn build (or `npm run build` or `pnpm run build`)
-```
+You need to request it in: https://www.screenscraper.fr/forumsujets.php?frub=12&numpage=0
