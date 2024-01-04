@@ -4,6 +4,7 @@
   "description": "Helps you keep your retro collection in check",
   "version": "1.0.0",
   "main": "app/background.js",
+  "license": "GNU General Public License v3.0",
   "scripts": {
     "dev": "nextron",
     "build": "nextron build",
