@@ -1,35 +1,201 @@
+import { useState } from "react";
+
 import Image from "next/image";
 
+import { Button, Input, Textarea } from "@nextui-org/react";
 import {
   IconCalendarTime,
   IconCategory2,
+  IconDeviceFloppy,
   IconDeviceGamepad,
   IconDeviceLaptop,
-  IconFile
+  IconEdit,
+  IconFile,
+  IconX
 } from "@tabler/icons-react";
 
 import { Rating } from "../../../../components/Rom/Rating";
 import Screenshot from "../../../../components/Rom/Screenshot";
+import { useRoms } from "../../../../hooks/roms-context";
 import { useActivePath } from "../../../../hooks/useActivePath";
 
 export const Files = () => {
   const { activeRom, activeConsole } = useActivePath();
+  const { setRomInfo } = useRoms();
+  const [editing, setEditing] = useState(false);
+
+  const submitGameInfo = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const date = new Date(formData.get("released") as string);
+    const released = date.toLocaleDateString("PT-pt", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric"
+    });
+    const romInfo = {
+      ...activeRom?.info,
+      title: formData.get("title"),
+      summary: formData.get("summary"),
+      genre: formData.get("genre"),
+      developer: {
+        name: formData.get("developer")
+      },
+      released
+    };
+    setRomInfo(activeRom, romInfo);
+
+    setEditing(false);
+  };
+
+  const editInfo = () => {
+    setEditing(true);
+  };
+
+  const cancelEdit = () => {
+    setEditing(false);
+  };
+
+  const Title = () =>
+    editing ? (
+      <Input
+        name="title"
+        aria-label="title"
+        placeholder="Title"
+        size="lg"
+        defaultValue={activeRom?.info?.title}
+      />
+    ) : (
+      <h1 className="text-xl font-bold">{activeRom?.info?.title}</h1>
+    );
+
+  const Summary = () => {
+    if (!editing && !activeRom?.info?.summary) {
+      return null;
+    }
+    const summary = editing ? (
+      <Textarea
+        aria-label="summary"
+        placeholder="Summary"
+        name="summary"
+        defaultValue={activeRom?.info?.summary}
+      />
+    ) : (
+      <p className="text-sm mb-4">{activeRom.info.summary}</p>
+    );
+    return (
+      <>
+        <h2 className="text-sm text-content4 mb-2">Summary</h2>
+        {summary}
+      </>
+    );
+  };
+
+  const ReleaseDate = () => {
+    const released = activeRom?.info?.released;
+    if (!editing && !released) {
+      return null;
+    }
+
+    let date = new Date();
+    if (released) {
+      const [day, month, year] = released.split("/");
+      date = new Date(year, month - 1, day);
+    }
+    const formattedDate = date.toLocaleDateString("en-CA");
+    const releaseDate = editing ? (
+      <Input
+        name="released"
+        aria-label="released"
+        type="date"
+        defaultValue={formattedDate}
+      />
+    ) : (
+      <>{activeRom.info.released}</>
+    );
+    return (
+      <li className="flex gap-6 text-sm items-center mb-2">
+        <IconCalendarTime size={18} />
+        {releaseDate}
+      </li>
+    );
+  };
+
+  const Genre = () => {
+    if (!editing && !activeRom?.info?.genre) {
+      return null;
+    }
+    const genre = editing ? (
+      <Input
+        aria-label="genre"
+        placeholder="Genre"
+        name="genre"
+        defaultValue={activeRom?.info?.genre}
+      />
+    ) : (
+      <>{activeRom.info.genre}</>
+    );
+    return (
+      <li className="flex gap-6 text-sm items-center mb-2">
+        <IconCategory2 size={18} />
+        {genre}
+      </li>
+    );
+  };
+
+  const Developer = () => {
+    if (!editing && !activeRom?.info?.developer?.name) {
+      return null;
+    }
+    const developer = editing ? (
+      <Input
+        aria-label="developer"
+        placeholder="Developer"
+        name="developer"
+        defaultValue={activeRom?.info?.developer?.name}
+      />
+    ) : (
+      <>{activeRom.info?.developer?.name}</>
+    );
+    return (
+      <li className="flex gap-6 text-sm items-center mb-2">
+        <IconDeviceLaptop size={18} />
+        {developer}
+      </li>
+    );
+  };
 
   return (
-    <>
+    <form onSubmit={submitGameInfo}>
       <div
         className="backdrop-saturate-150 bg-background/90 backdrop-blur-sm -mt-6 -ml-6 p-6 border-b border-divider w-screen sticky top-0 z-[99] overflow-hidden"
         style={{
-          height: 90,
+          height: editing ? 120 : 90,
           width: "calc(100% + 3rem)"
         }}
       >
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-xl font-bold mb-2">{activeRom?.info?.title}</h1>
+        <div className="flex justify-between items-start">
+          <div className="flex items-center gap-4">
+            <Title />
             <Rating rating={activeRom?.info?.rating} />
           </div>
-          <div className="flex items-center gap-4"></div>
+          <div className="flex items-center gap-4">
+            {editing && (
+              <>
+                <Button type="submit" startContent={<IconDeviceFloppy />}>
+                  Save
+                </Button>
+                <Button onClick={cancelEdit} startContent={<IconX />}>
+                  Cancel
+                </Button>
+              </>
+            )}
+            {!editing && (
+              <Button onClick={editInfo} startContent={<IconEdit />}>
+                Edit
+              </Button>
+            )}
+          </div>
         </div>
       </div>
       <div className="container mx-auto mt-4">
@@ -58,32 +224,12 @@ export const Files = () => {
             )}
           </div>
           <div className="basis-2/3">
-            {activeRom?.info?.summary && (
-              <>
-                <h2 className="text-sm text-content4 mb-2">Description</h2>
-                <p className="text-sm mb-4">{activeRom.info.summary}</p>
-                <h2 className="text-sm text-content4 mb-2">Details</h2>
-              </>
-            )}
+            <Summary />
+            <h2 className="text-sm text-content4 mb-2">Details</h2>
             <ul>
-              {activeRom?.info?.released && (
-                <li className="flex gap-6 text-sm items-center mb-2">
-                  <IconCalendarTime size={18} />
-                  {activeRom.info.released}
-                </li>
-              )}
-              {activeRom?.info?.genre && (
-                <li className="flex gap-6 text-sm items-center mb-2">
-                  <IconCategory2 size={18} />
-                  {activeRom.info.genre}
-                </li>
-              )}
-              {activeRom?.info?.developer?.name && (
-                <li className="flex gap-6 text-sm items-center mb-2">
-                  <IconDeviceLaptop size={18} />
-                  {activeRom.info.developer?.name}
-                </li>
-              )}
+              <ReleaseDate />
+              <Genre />
+              <Developer />
               {activeConsole?.console?.name && (
                 <li className="flex gap-6 text-sm items-center mb-2">
                   <IconDeviceGamepad size={18} />
@@ -116,7 +262,7 @@ export const Files = () => {
           </div>
         </div>
       </div>
-    </>
+    </form>
   );
 };
 

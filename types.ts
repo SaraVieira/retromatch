@@ -34,6 +34,7 @@ export type FileInfo = {
   languages: string[];
   rating: number;
   series: string;
+  summary: string;
 };
 
 export type Folder = {

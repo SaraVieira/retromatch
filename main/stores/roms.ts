@@ -1,8 +1,9 @@
-import Store from "electron-store";
-import { Roms } from "../../types";
 import { ipcMain } from "electron";
-import path from "path";
+import Store from "electron-store";
 import { unlinkSync } from "fs";
+import path from "path";
+
+import { FileInfo, Roms } from "../../types";
 import { scrapeGame } from "../helpers/scraping";
 
 export const romsStore = new Store<Roms>({
@@ -10,6 +11,17 @@ export const romsStore = new Store<Roms>({
 });
 
 export const initRomActions = () => {
+  ipcMain.on(
+    "update_rom_info",
+    async (event, { id, info }: { id: string; info: FileInfo }) => {
+      try {
+        await romsStore.set(`${id}.info`, info);
+        event.reply("info_updated", romsStore.get(id));
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
+  );
   ipcMain.on(
     "keep_rom",
     async (
