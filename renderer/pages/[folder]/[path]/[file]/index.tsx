@@ -35,6 +35,10 @@ export const Files = () => {
       ...activeRom?.info,
       title: formData.get("title"),
       summary: formData.get("summary"),
+      genre: formData.get("genre"),
+      developer: {
+        name: formData.get("developer")
+      },
       released
     };
     setRomInfo(activeRom, romInfo);
@@ -114,6 +118,51 @@ export const Files = () => {
       </li>
     );
   };
+
+  const Genre = () => {
+    if (!editing && !activeRom?.info?.genre) {
+      return null;
+    }
+    const genre = editing ? (
+      <Input
+        aria-label="genre"
+        placeholder="Genre"
+        name="genre"
+        defaultValue={activeRom?.info?.genre}
+      />
+    ) : (
+      <>{activeRom.info.genre}</>
+    );
+    return (
+      <li className="flex gap-6 text-sm items-center mb-2">
+        <IconCategory2 size={18} />
+        {genre}
+      </li>
+    );
+  };
+
+  const Developer = () => {
+    if (!editing && !activeRom?.info?.developer?.name) {
+      return null;
+    }
+    const developer = editing ? (
+      <Input
+        aria-label="developer"
+        placeholder="Developer"
+        name="developer"
+        defaultValue={activeRom?.info?.developer?.name}
+      />
+    ) : (
+      <>{activeRom.info?.developer?.name}</>
+    );
+    return (
+      <li className="flex gap-6 text-sm items-center mb-2">
+        <IconDeviceLaptop size={18} />
+        {developer}
+      </li>
+    );
+  };
+
   return (
     <form onSubmit={submitGameInfo}>
       <div
@@ -177,18 +226,8 @@ export const Files = () => {
             <h2 className="text-sm text-content4 mb-2">Details</h2>
             <ul>
               <ReleaseDate />
-              {activeRom?.info?.genre && (
-                <li className="flex gap-6 text-sm items-center mb-2">
-                  <IconCategory2 size={18} />
-                  {activeRom.info.genre}
-                </li>
-              )}
-              {activeRom?.info?.developer?.name && (
-                <li className="flex gap-6 text-sm items-center mb-2">
-                  <IconDeviceLaptop size={18} />
-                  {activeRom.info.developer?.name}
-                </li>
-              )}
+              <Genre />
+              <Developer />
               {activeConsole?.console?.name && (
                 <li className="flex gap-6 text-sm items-center mb-2">
                   <IconDeviceGamepad size={18} />
