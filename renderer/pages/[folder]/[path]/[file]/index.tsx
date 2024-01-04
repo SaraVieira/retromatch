@@ -24,8 +24,20 @@ export const Files = () => {
 
   const submitGameInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement)
-    setRomInfo(activeRom, {});
+    const formData = new FormData(event.target as HTMLFormElement);
+    const date = new Date(formData.get("released") as string);
+    const released = date.toLocaleDateString("PT-pt", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric"
+    });
+    const romInfo = {
+      ...activeRom?.info,
+      title: formData.get("title"),
+      summary: formData.get("summary"),
+      released
+    };
+    setRomInfo(activeRom, romInfo);
 
     setEditing(false);
   };
@@ -45,23 +57,63 @@ export const Files = () => {
         aria-label="title"
         placeholder="Title"
         size="lg"
-        value={activeRom?.info?.title}
+        defaultValue={activeRom?.info?.title}
       />
     ) : (
       <h1 className="text-xl font-bold">{activeRom?.info?.title}</h1>
     );
 
-  const Description = () =>
-    editing ? (
+  const Summary = () => {
+    if (!editing && !activeRom?.info?.summary) {
+      return null;
+    }
+    const summary = editing ? (
       <Textarea
         aria-label="summary"
         placeholder="Summary"
-        value={activeRom?.info?.summary}
+        name="summary"
+        defaultValue={activeRom?.info?.summary}
       />
     ) : (
       <p className="text-sm mb-4">{activeRom.info.summary}</p>
     );
+    return (
+      <>
+        <h2 className="text-sm text-content4 mb-2">Summary</h2>
+        {summary}
+      </>
+    );
+  };
 
+  const ReleaseDate = () => {
+    const released = activeRom?.info?.released;
+    if (!editing && !released) {
+      return null;
+    }
+
+    let date = new Date();
+    if (released) {
+      const [day, month, year] = released.split("/");
+      date = new Date(year, month - 1, day);
+    }
+    const formattedDate = date.toLocaleDateString("en-CA");
+    const releaseDate = editing ? (
+      <Input
+        name="released"
+        aria-label="released"
+        type="date"
+        defaultValue={formattedDate}
+      />
+    ) : (
+      <>{activeRom.info.released}</>
+    );
+    return (
+      <li className="flex gap-6 text-sm items-center mb-2">
+        <IconCalendarTime size={18} />
+        {releaseDate}
+      </li>
+    );
+  };
   return (
     <form onSubmit={submitGameInfo}>
       <div
@@ -121,20 +173,10 @@ export const Files = () => {
             )}
           </div>
           <div className="basis-2/3">
-            {activeRom?.info?.summary && (
-              <>
-                <h2 className="text-sm text-content4 mb-2">Summary</h2>
-                <Description />
-                <h2 className="text-sm text-content4 mb-2">Details</h2>
-              </>
-            )}
+            <Summary />
+            <h2 className="text-sm text-content4 mb-2">Details</h2>
             <ul>
-              {activeRom?.info?.released && (
-                <li className="flex gap-6 text-sm items-center mb-2">
-                  <IconCalendarTime size={18} />
-                  {activeRom.info.released}
-                </li>
-              )}
+              <ReleaseDate />
               {activeRom?.info?.genre && (
                 <li className="flex gap-6 text-sm items-center mb-2">
                   <IconCategory2 size={18} />
