@@ -1,6 +1,6 @@
 import { dialog, ipcMain } from "electron";
 import { foldersStore } from "./folders";
-import { romsStore } from "./roms";
+import { romInfoOverridesStore, romsStore } from "./roms";
 import { backlogStore } from "./backlog";
 import { readFileSync, writeFileSync } from "fs";
 import Store from "electron-store";
@@ -17,6 +17,7 @@ export const initSettingsActions = (
   ipcMain.on("clear-cache", (event) => {
     foldersStore.clear();
     romsStore.clear();
+    romInfoOverridesStore.clear();
     backlogStore.clear();
 
     event.reply("done-cache-clear");
