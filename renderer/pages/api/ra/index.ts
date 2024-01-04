@@ -7,7 +7,10 @@ import {
   getAchievementsEarnedBetween,
   DatedUserAchievement,
   getUserAwards,
-  UserAwards
+  UserAwards,
+  getUserProgress,
+  getUserRecentlyPlayedGames,
+  UserRecentlyPlayedGames
 } from "@retroachievements/api";
 import { subWeeks } from "date-fns";
 
@@ -23,7 +26,7 @@ export default async function handler(
   res: NextApiResponse<{
     summary: UserSummary;
     recentAchievements: DatedUserAchievement[];
-    awards: UserAwards;
+    recentGames: UserRecentlyPlayedGames;
   }>
 ) {
   const { username } = req.query as { username: string };
@@ -36,8 +39,9 @@ export default async function handler(
     fromDate: subWeeks(new Date(), 1),
     toDate: new Date()
   });
-  const awards = await getUserAwards(authorization, {
-    userName: username
+  const recentGames = await getUserRecentlyPlayedGames(authorization, {
+    userName: username,
+    count: 50
   });
-  res.status(200).json({ summary, recentAchievements, awards });
+  res.status(200).json({ summary, recentAchievements, recentGames });
 }

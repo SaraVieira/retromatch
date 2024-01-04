@@ -8,6 +8,7 @@ export const useSettings = () => {
   const [screenscraperPassword, setScreenscraperPassword] = useState("");
   const [retroAchievementsUsername, setRetroAchievementsUsername] =
     useState("");
+  const [isGettingData, setIsGettingData] = useState(true);
 
   const router = useRouter();
   useEffect(() => {
@@ -15,6 +16,7 @@ export const useSettings = () => {
       setScreenscraperUsername(settings.screenscraper_username);
       setScreenscraperPassword(settings.screenscraper_password);
       setRetroAchievementsUsername(settings.ra_username);
+      setIsGettingData(false);
     });
   }, []);
 
@@ -79,6 +81,7 @@ export const useSettings = () => {
     onChangeUsername,
     onChangePassword,
     onChangeRAUsername,
-    retroAchievementsUsername
+    retroAchievementsUsername,
+    isGettingData
   };
 };
