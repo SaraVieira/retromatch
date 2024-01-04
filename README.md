@@ -16,8 +16,19 @@ You can add folders/SD cards and it will scrape your folders for roms and goes o
 <img src="https://github.com/SaraVieira/retromatch/assets/1051509/5fe67c51-205f-4e14-ba7e-775e55cebe47">
 </details>
 
+## Features 
+
+- [x] Detect consoles by folder names
+- [x] Detect files in consoles
+- [x] Scraping (uses http://adb.arcadeitalia.net/, https://letsplayretro.games/ & https://www.screenscraper.fr/)
+- [x] Backlog
+- [ ] Sync Cards
+- [ ] Retro Achievements
+- [ ] Rom editing  
 
 ## Development
+
+Application is built on electron so having node installed is required.
 
 To run this locally you need to first install dependencies and then run the dev mode with:
 
