@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-import { Button, Image, Input, Textarea } from "@nextui-org/react";
+import Image from "next/image";
+
+import { Button, Input, Textarea } from "@nextui-org/react";
 import {
   IconCalendarTime,
   IconCategory2,
