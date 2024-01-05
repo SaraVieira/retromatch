@@ -10,12 +10,17 @@ export const romsStore = new Store<Roms>({
   name: "roms"
 });
 
+export const romInfoOverridesStore = new Store<Roms>({
+  name: "romInfoOverrides"
+})
+
 export const initRomActions = () => {
   ipcMain.on(
     "update_rom_info",
     async (event, { id, info }: { id: string; info: FileInfo }) => {
       try {
         await romsStore.set(`${id}.info`, info);
+        await romInfoOverridesStore.set(`${id}.info`, info);
         event.reply("info_updated", romsStore.get(id));
       } catch (e) {
         console.log(e.message);
@@ -71,12 +76,17 @@ export const initRomActions = () => {
       await Promise.all(
         filesToScrape.map(async (file) => {
           try {
-            const gameInfo = await scrapeGame(
-              romsStore.get(file),
-              folder.console.screenscrapper_id
-            );
+            const override = romInfoOverridesStore.get(`${file}.info`);
+            if (override) {
+              romsStore.set(`${file}.info`, override);
+            } else {
+              const gameInfo = await scrapeGame(
+                romsStore.get(file),
+                folder.console.screenscrapper_id
+              );
 
-            romsStore.set(`${file}.info`, gameInfo);
+              romsStore.set(`${file}.info`, gameInfo);
+            }
             event.reply("new_data", romsStore.get(file));
           } catch (e) {
             console.log(e.message);
