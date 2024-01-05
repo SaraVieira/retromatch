@@ -1,16 +1,55 @@
-import { useEffect, useState } from "react";
-import { useSettings } from "../../hooks/useSettings";
-import { Spinner, User } from "@nextui-org/react";
+import {
+  Accordion,
+  AccordionItem,
+  Button,
+  Input,
+  Spinner,
+  User
+} from "@nextui-org/react";
 
 import { format } from "date-fns";
 import { GamePlayed } from "../../components/RetroAchivements/GamePlayed";
 import { RecentAchievement } from "../../components/RetroAchivements/RecentAchievement";
 import { useRa } from "../../hooks/useRa";
+import { useState } from "react";
+import { useSettings } from "../../hooks/useSettings";
 
 export const RAMediaUrl = "https://media.retroachievements.org/";
 
 const RA = () => {
-  const { data, isLoading } = useRa();
+  const { data, isLoading, noUserName, getData } = useRa();
+  const [userName, setUserName] = useState("");
+  const { onChangeRAUsername } = useSettings();
+
+  if (noUserName && !data && !isLoading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <div className="w-full h-screen flex items-center justify-center">
+          <div className="mb-8">
+            <h2>You need to set your RetroAchievements account</h2>
+            <div className="flex gap-2 items-end mt-8">
+              <Input
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                variant="underlined"
+                label="Username"
+              />
+              <Button
+                disabled={!userName}
+                onClick={() => {
+                  onChangeRAUsername(userName);
+                  getData(userName);
+                }}
+              >
+                Save
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -40,30 +79,40 @@ const RA = () => {
         />
       </div>
       <div className="container mx-auto mt-12">
-        <h2 className="text-xl font-bold mb-6">Last achievements</h2>
-        <div
-          className="pb-8 grid gap-4 items-stretch"
-          style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
-          }}
-        >
-          {data.recentAchievements.map((game) => (
-            <RecentAchievement game={game} key={game.achievementId} />
-          ))}
-        </div>
-      </div>
-      <div className="container mx-auto mt-12">
-        <h2 className="text-xl font-bold mb-6">Last games played</h2>
-        <div
-          className="pb-8 grid gap-4 items-stretch"
-          style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
-          }}
-        >
-          {data.recentGames.map((game) => (
-            <GamePlayed game={game} key={game.gameId} />
-          ))}
-        </div>
+        <Accordion selectionMode="multiple" defaultExpandedKeys={["1", "2"]}>
+          <AccordionItem
+            key="1"
+            aria-label="Latest achievements"
+            title="Latest achievements"
+          >
+            <div
+              className="pb-8 grid gap-4 items-stretch"
+              style={{
+                gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))"
+              }}
+            >
+              {data.recentAchievements.map((game) => (
+                <RecentAchievement game={game} key={game.achievementId} />
+              ))}
+            </div>
+          </AccordionItem>
+          <AccordionItem
+            key="2"
+            aria-label="Latest games played"
+            title="Latest games played"
+          >
+            <div
+              className="pb-8 grid gap-4 items-stretch"
+              style={{
+                gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
+              }}
+            >
+              {data.recentGames.map((game) => (
+                <GamePlayed game={game} key={game.gameId} />
+              ))}
+            </div>
+          </AccordionItem>
+        </Accordion>
       </div>
     </>
   );

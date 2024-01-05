@@ -9,7 +9,7 @@ import {
   getUserRecentlyPlayedGames,
   UserRecentlyPlayedGames
 } from "@retroachievements/api";
-import { subWeeks } from "date-fns";
+import { subMonths } from "date-fns";
 
 // docs: https://api-docs.retroachievements.org/
 
@@ -31,11 +31,13 @@ export default async function handler(
   const summary = await getUserSummary(authorization, {
     userName: username
   });
-  const recentAchievements = await getAchievementsEarnedBetween(authorization, {
-    userName: username,
-    fromDate: subWeeks(new Date(), 4),
-    toDate: new Date()
-  });
+  const recentAchievements = (
+    await getAchievementsEarnedBetween(authorization, {
+      userName: username,
+      fromDate: subMonths(new Date(), 4),
+      toDate: new Date()
+    })
+  ).reverse();
   const recentGames = await getUserRecentlyPlayedGames(authorization, {
     userName: username,
     count: 50

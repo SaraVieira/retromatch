@@ -17,19 +17,26 @@ export const useRa = () => {
   const [data, setData] = useState<APIReturn | null>(null);
   const { retroAchievementsUsername, isGettingData } = useSettings();
 
-  const getData = async () => {
-    const data = (await fetch(
-      `/api/ra?username=${retroAchievementsUsername}`
-    ).then((rsp) => rsp.json())) as APIReturn;
-    setData(data);
-    setIsLoading(false);
+  const getData = async (userName: string) => {
+    try {
+      setIsLoading(true);
+      const data = (await fetch(`/api/ra?username=${userName}`).then((rsp) =>
+        rsp.json()
+      )) as APIReturn;
+      setData(data);
+      setIsLoading(false);
+    } catch {
+      setIsLoading(false);
+    }
   };
   useEffect(() => {
-    !isGettingData && getData();
+    !isGettingData && getData(retroAchievementsUsername);
   }, [isGettingData]);
 
   return {
     data,
-    isLoading
+    isLoading,
+    noUserName: !isGettingData && !retroAchievementsUsername,
+    getData
   };
 };
