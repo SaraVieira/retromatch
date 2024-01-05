@@ -6,9 +6,6 @@ import {
   getUserSummary,
   getAchievementsEarnedBetween,
   DatedUserAchievement,
-  getUserAwards,
-  UserAwards,
-  getUserProgress,
   getUserRecentlyPlayedGames,
   UserRecentlyPlayedGames
 } from "@retroachievements/api";
@@ -36,7 +33,7 @@ export default async function handler(
   });
   const recentAchievements = await getAchievementsEarnedBetween(authorization, {
     userName: username,
-    fromDate: subWeeks(new Date(), 1),
+    fromDate: subWeeks(new Date(), 4),
     toDate: new Date()
   });
   const recentGames = await getUserRecentlyPlayedGames(authorization, {

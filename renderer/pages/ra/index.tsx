@@ -1,45 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSettings } from "../../hooks/useSettings";
-import {
-  Avatar,
-  Button,
-  Card,
-  CardFooter,
-  CardHeader,
-  Image,
-  Spinner,
-  User
-} from "@nextui-org/react";
-import {
-  DatedUserAchievement,
-  UserRecentlyPlayedGames,
-  UserSummary
-} from "@retroachievements/api";
+import { Spinner, User } from "@nextui-org/react";
+
 import { format } from "date-fns";
+import { GamePlayed } from "../../components/RetroAchivements/GamePlayed";
+import { RecentAchievement } from "../../components/RetroAchivements/RecentAchievement";
+import { useRa } from "../../hooks/useRa";
 
-const mediaUrl = "https://media.retroachievements.org/";
-
-type APIReturn = {
-  summary: UserSummary;
-  recentAchievements: DatedUserAchievement[];
-  recentGames: UserRecentlyPlayedGames;
-};
+export const RAMediaUrl = "https://media.retroachievements.org/";
 
 const RA = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<APIReturn | null>(null);
-  const { retroAchievementsUsername, isGettingData } = useSettings();
-
-  const getData = async () => {
-    const data = (await fetch(
-      `/api/ra?username=${retroAchievementsUsername}`
-    ).then((rsp) => rsp.json())) as APIReturn;
-    setData(data);
-    setIsLoading(false);
-  };
-  useEffect(() => {
-    !isGettingData && getData();
-  }, [isGettingData]);
+  const { data, isLoading } = useRa();
 
   if (isLoading) {
     return (
@@ -63,10 +34,23 @@ const RA = () => {
             </div>
           }
           avatarProps={{
-            src: `${mediaUrl}${data.summary.userPic}`,
+            src: `${RAMediaUrl}${data.summary.userPic}`,
             className: "w-20 h-20"
           }}
         />
+      </div>
+      <div className="container mx-auto mt-12">
+        <h2 className="text-xl font-bold mb-6">Last achievements</h2>
+        <div
+          className="pb-8 grid gap-4 items-stretch"
+          style={{
+            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
+          }}
+        >
+          {data.recentAchievements.map((game) => (
+            <RecentAchievement game={game} key={game.achievementId} />
+          ))}
+        </div>
       </div>
       <div className="container mx-auto mt-12">
         <h2 className="text-xl font-bold mb-6">Last games played</h2>
@@ -77,41 +61,10 @@ const RA = () => {
           }}
         >
           {data.recentGames.map((game) => (
-            <Card
-              key={game.gameId}
-              isFooterBlurred
-              className="w-full h-[300px]"
-            >
-              <CardHeader className="absolute z-10 top-0 flex-col items-start bg-background rounded-t-large ">
-                <p className="text-tiny text-white/60 uppercase font-bold">
-                  {game.consoleName}
-                </p>
-                <h4 className="text-white/90 font-medium text-xl">
-                  {game.title}
-                </h4>
-              </CardHeader>
-              <Image
-                removeWrapper
-                alt="Relaxing app background"
-                className="z-0 w-full h-full object-cover"
-                src={`${mediaUrl}${(game as any).imageBoxArt}`}
-              />
-              <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">
-                <div className="flex flex-grow gap-2 items-center justify-between">
-                  <p className="text-tiny text-white/60">
-                    {game.numAchieved} of {(game as any).achievementsTotal}{" "}
-                    achievements
-                  </p>
-                  <p className="text-tiny text-white/60 text-left">
-                    {format(new Date(game.lastPlayed), "dd/MM/yyyy")}
-                  </p>
-                </div>
-              </CardFooter>
-            </Card>
+            <GamePlayed game={game} key={game.gameId} />
           ))}
         </div>
       </div>
-      <pre>{JSON.stringify(data.recentGames, null, 2)}</pre>
     </>
   );
 };
