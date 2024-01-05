@@ -9,7 +9,12 @@ export const RecentAchievement = ({
   game: UserRecentAchievement;
 }) => {
   return (
-    <Card key={game.achievementId} isFooterBlurred className="w-full h-[150px]">
+    <Card
+      isPressable
+      key={game.achievementId}
+      isFooterBlurred
+      className="w-full h-[150px]"
+    >
       <Image
         removeWrapper
         alt="Relaxing app background"

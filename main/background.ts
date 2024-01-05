@@ -1,4 +1,4 @@
-import { app, dialog, ipcMain } from "electron";
+import { app, dialog, ipcMain, shell } from "electron";
 import serve from "electron-serve";
 import path from "path";
 import { createWindow } from "./helpers";
@@ -26,6 +26,11 @@ if (isProd) {
     webPreferences: {
       preload: path.join(__dirname, "preload.js")
     }
+  });
+
+  mainWindow.webContents.setWindowOpenHandler((details) => {
+    shell.openExternal(details.url);
+    return { action: "deny" };
   });
 
   if (isProd) {

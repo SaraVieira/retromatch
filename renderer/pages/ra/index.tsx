@@ -92,7 +92,12 @@ const RA = () => {
               }}
             >
               {data.recentAchievements.map((game) => (
-                <RecentAchievement game={game} key={game.achievementId} />
+                <a
+                  href={`https://retroachievements.org/achievement/${game.achievementId}`}
+                  target="_blank"
+                >
+                  <RecentAchievement game={game} key={game.achievementId} />
+                </a>
               ))}
             </div>
           </AccordionItem>
@@ -108,7 +113,12 @@ const RA = () => {
               }}
             >
               {data.recentGames.map((game) => (
-                <GamePlayed game={game} key={game.gameId} />
+                <a
+                  href={`https://retroachievements.org/achievement/${game.gameId}`}
+                  target="_blank"
+                >
+                  <GamePlayed game={game} key={game.gameId} />
+                </a>
               ))}
             </div>
           </AccordionItem>

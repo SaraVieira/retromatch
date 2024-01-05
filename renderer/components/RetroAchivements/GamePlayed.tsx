@@ -5,7 +5,12 @@ import { RAMediaUrl } from "../../pages/ra";
 
 export const GamePlayed = ({ game }: { game: UserRecentlyPlayedGames[0] }) => {
   return (
-    <Card key={game.gameId} isFooterBlurred className="w-full h-[300px]">
+    <Card
+      isPressable
+      key={game.gameId}
+      isFooterBlurred
+      className="w-full h-[300px]"
+    >
       <CardHeader className="absolute z-10 top-0 flex-col items-start bg-background rounded-t-large ">
         <p className="text-tiny text-white/60 uppercase font-bold">
           {game.consoleName}
