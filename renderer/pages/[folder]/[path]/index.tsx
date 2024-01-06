@@ -117,18 +117,6 @@ export const Files = () => {
           <h1 className="text-xl font-bold">
             {activeConsole?.console?.name} ({romsInConsole.length})
           </h1>
-          <Slider
-            className="max-w-40"
-            aria-label="label"
-            size="lg"
-            startContent={<IconZoomOut />}
-            endContent={<IconZoomIn />}
-            step={30}
-            minValue={100}
-            maxValue={250}
-            value={zoom}
-            onChange={onZoomChange}
-          />
           <div className="flex items-center gap-4">
             {duplicates.length > 0 && activeFolder?.connected && (
               <RemoveDuplicatesModal
@@ -234,6 +222,25 @@ export const Files = () => {
             No roms found
           </div>
         )}
+      </div>
+      <div
+        className="flex backdrop-saturate-150 bg-background/90 backdrop-blur-sm -mt-6 -ml-6 p-6 border-b border-divider w-screen sticky bottom-0 z-[99] transition-height overflow-hidden !duration-100"
+        style={{
+          width: "calc(100% + 3rem)"
+        }}
+      >
+        <Slider
+          className="max-w-40 ml-auto"
+          aria-label="label"
+          size="sm"
+          startContent={<IconZoomOut />}
+          endContent={<IconZoomIn />}
+          step={30}
+          minValue={100}
+          maxValue={250}
+          value={zoom}
+          onChange={onZoomChange}
+        />
       </div>
     </>
   );
