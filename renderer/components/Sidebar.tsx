@@ -4,7 +4,8 @@ import {
   IconChevronLeft,
   IconDeviceSdCard,
   IconListCheck,
-  IconSettings
+  IconSettings,
+  IconTrophy
 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 
@@ -44,6 +45,15 @@ export default function Sidebar() {
           <ListboxItem href="/backlog" key="backlog" textValue="Backlog">
             <Tooltip showArrow content="Backlog">
               <IconListCheck className={iconClasses} />
+            </Tooltip>
+          </ListboxItem>
+          <ListboxItem
+            href="/ra"
+            key="retro-achievemnts"
+            textValue="Retro Achievements"
+          >
+            <Tooltip showArrow content="Retro Achievements">
+              <IconTrophy className={iconClasses} />
             </Tooltip>
           </ListboxItem>
         </Listbox>

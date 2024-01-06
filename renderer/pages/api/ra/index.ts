@@ -6,10 +6,10 @@ import {
   getUserSummary,
   getAchievementsEarnedBetween,
   DatedUserAchievement,
-  getUserAwards,
-  UserAwards
+  getUserRecentlyPlayedGames,
+  UserRecentlyPlayedGames
 } from "@retroachievements/api";
-import { subWeeks } from "date-fns";
+import { subMonths } from "date-fns";
 
 // docs: https://api-docs.retroachievements.org/
 
@@ -23,7 +23,7 @@ export default async function handler(
   res: NextApiResponse<{
     summary: UserSummary;
     recentAchievements: DatedUserAchievement[];
-    awards: UserAwards;
+    recentGames: UserRecentlyPlayedGames;
   }>
 ) {
   const { username } = req.query as { username: string };
@@ -31,13 +31,16 @@ export default async function handler(
   const summary = await getUserSummary(authorization, {
     userName: username
   });
-  const recentAchievements = await getAchievementsEarnedBetween(authorization, {
+  const recentAchievements = (
+    await getAchievementsEarnedBetween(authorization, {
+      userName: username,
+      fromDate: subMonths(new Date(), 4),
+      toDate: new Date()
+    })
+  ).reverse();
+  const recentGames = await getUserRecentlyPlayedGames(authorization, {
     userName: username,
-    fromDate: subWeeks(new Date(), 1),
-    toDate: new Date()
+    count: 50
   });
-  const awards = await getUserAwards(authorization, {
-    userName: username
-  });
-  res.status(200).json({ summary, recentAchievements, awards });
+  res.status(200).json({ summary, recentAchievements, recentGames });
 }
