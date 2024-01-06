@@ -95,6 +95,8 @@ const RA = () => {
                 <a
                   href={`https://retroachievements.org/achievement/${game.achievementId}`}
                   target="_blank"
+                  rel="noreferrer"
+                  key={game.gameId}
                 >
                   <RecentAchievement game={game} key={game.achievementId} />
                 </a>
@@ -116,6 +118,8 @@ const RA = () => {
                 <a
                   href={`https://retroachievements.org/achievement/${game.gameId}`}
                   target="_blank"
+                  rel="noreferrer"
+                  key={game.gameId}
                 >
                   <GamePlayed game={game} key={game.gameId} />
                 </a>
