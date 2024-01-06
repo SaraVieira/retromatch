@@ -57,7 +57,7 @@ export const Rom = ({
         isHoverable
         shadow="sm"
         className={cn(
-          `h-full flex flex-col justify-between rounded-lg w-full`,
+          `@container h-full flex flex-col justify-between rounded-lg w-full`,
           rom.isDuplicate && connected ? "border-2 border-rose-600" : ""
         )}
       >
@@ -65,7 +65,7 @@ export const Rom = ({
           <span className="text-sm text-left">
             {rom.info?.title || rom.name}
           </span>
-          <div className="flex justify-between items-center w-full">
+          <div className="@[10rem]:flex justify-between items-center @[10rem]:w-full">
             {rom?.info?.rating ? (
               <Rating rating={rom?.info?.rating} />
             ) : (
@@ -87,9 +87,9 @@ export const Rom = ({
             />
           ) : null}
         </CardBody>
-        <CardFooter className="text-xs text-content4 flex justify-between">
-          <span className="text-left"> {rom.fullName}</span>
-          {humanFileSize(rom.size)}
+        <CardFooter className="text-xs text-content4 block @[10rem]:flex justify-between">
+          <span className="@[10rem]:text-left block mb-4 @[10rem]:mb-0"> {rom.fullName}</span>
+          <p>{humanFileSize(rom.size)}</p>
         </CardFooter>
       </Card>
     </button>
