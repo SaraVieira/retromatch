@@ -1,10 +1,12 @@
 import { useLayoutEffect, useState } from "react";
 
-import { Input, Select, SelectItem } from "@nextui-org/react";
+import { Input, Select, SelectItem, Slider } from "@nextui-org/react";
 import {
   IconSearch,
   IconSortAscending,
-  IconSortDescending
+  IconSortDescending,
+  IconZoomIn,
+  IconZoomOut
 } from "@tabler/icons-react";
 
 import { Roms } from "../../../../types";
@@ -51,6 +53,7 @@ export const Files = () => {
   const [sortByField, setSortByField] = useState("name");
   const [sortType, setSortType] = useState("ascending");
   const [filter, setFilter] = useState("all");
+  const [zoom, setZoom] = useState(250);
   const duplicates = Object.values(roms || {})
     .filter((r: Roms[0]) =>
       Object.values(activeConsole?.files || {}).includes(r.id)
@@ -97,6 +100,10 @@ export const Files = () => {
     return <NoRoms activeConsole={activeConsole} />;
   }
 
+  const onZoomChange = (value) => {
+    setZoom(value)
+  }
+
   return (
     <>
       <div
@@ -110,6 +117,18 @@ export const Files = () => {
           <h1 className="text-xl font-bold">
             {activeConsole?.console?.name} ({romsInConsole.length})
           </h1>
+          <Slider
+            className="max-w-40"
+            aria-label="label"
+            size="lg"
+            startContent={<IconZoomOut />}
+            endContent={<IconZoomIn />}
+            step={30}
+            minValue={100}
+            maxValue={250}
+            value={zoom}
+            onChange={onZoomChange}
+          />
           <div className="flex items-center gap-4">
             {duplicates.length > 0 && activeFolder?.connected && (
               <RemoveDuplicatesModal
@@ -122,9 +141,8 @@ export const Files = () => {
         </div>
 
         <div
-          className={`flex justify-between items-center mt-4 w-full ${
-            scrolled && "hidden"
-          }`}
+          className={`flex justify-between items-center mt-4 w-full ${scrolled && "hidden"
+            }`}
         >
           <Input
             type="search"
@@ -198,7 +216,7 @@ export const Files = () => {
           <ul
             className="pb-8 grid gap-4 items-stretch"
             style={{
-              gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))"
+              gridTemplateColumns: `repeat(auto-fill, minmax(${zoom}px, 1fr))`
             }}
           >
             {romsInConsole.map((rom: Roms[0]) => (
