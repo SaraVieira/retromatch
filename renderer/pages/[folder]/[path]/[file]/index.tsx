@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { Button, Input, Textarea } from "@nextui-org/react";
 import {
@@ -11,17 +12,22 @@ import {
   IconDeviceLaptop,
   IconEdit,
   IconFile,
+  IconListCheck,
   IconX
 } from "@tabler/icons-react";
 
+import { HLTGame } from "../../../../../types";
 import { Rating } from "../../../../components/Rom/Rating";
 import Screenshot from "../../../../components/Rom/Screenshot";
+import { useBacklog } from "../../../../hooks/backlog-context";
 import { useRoms } from "../../../../hooks/roms-context";
 import { useActivePath } from "../../../../hooks/useActivePath";
 
 export const Files = () => {
   const { activeRom, activeConsole } = useActivePath();
+  const router = useRouter();
   const { setRomInfo } = useRoms();
+  const { addToBacklog } = useBacklog();
   const [editing, setEditing] = useState(false);
 
   const submitGameInfo = (event: React.FormEvent<HTMLFormElement>) => {
@@ -54,6 +60,16 @@ export const Files = () => {
 
   const cancelEdit = () => {
     setEditing(false);
+  };
+
+  const add = async () => {
+    const res = await fetch(`/api/hltb?game=${activeRom.info?.title}`);
+    const items: HLTGame[] = await res.json();
+
+    if (items.length > 0) {
+      await addToBacklog(items[0]);
+      router.push("/backlog");
+    }
   };
 
   const Title = () =>
@@ -191,9 +207,16 @@ export const Files = () => {
               </>
             )}
             {!editing && (
-              <Button onClick={editInfo} startContent={<IconEdit />}>
-                Edit
-              </Button>
+              <>
+                <Button onClick={editInfo} startContent={<IconEdit />}>
+                  Edit
+                </Button>
+                {activeRom?.info && (
+                  <Button onClick={add} startContent={<IconListCheck />}>
+                    Add to Backlog
+                  </Button>
+                )}
+              </>
             )}
           </div>
         </div>

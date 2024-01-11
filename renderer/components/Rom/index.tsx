@@ -41,20 +41,22 @@ export const Rom = ({
   return (
     <button onContextMenu={handleContextMenu} className="w-full">
       <Menu id={MENU_ID}>
-        <Item
-          id="add-to-backlog"
-          onClick={async () => {
-            const res = await fetch(`/api/hltb?game=${rom.info?.title}`);
-            const items: HLTGame[] = await res.json();
+        {rom?.info && (
+          <Item
+            id="add-to-backlog"
+            onClick={async () => {
+              const res = await fetch(`/api/hltb?game=${rom.info?.title}`);
+              const items: HLTGame[] = await res.json();
 
-            if (items.length > 0) {
-              await addToBacklog(items[0]);
-              router.push("/backlog");
-            }
-          }}
-        >
-          Add To Backlog
-        </Item>
+              if (items.length > 0) {
+                await addToBacklog(items[0]);
+                router.push("/backlog");
+              }
+            }}
+          >
+            Add To Backlog
+          </Item>
+        )}
         <Item
           id="scrape"
           onClick={() => {
