@@ -4,7 +4,7 @@ import { Item, Menu, useContextMenu } from "react-contexify";
 
 import { Card, CardBody, CardFooter, CardHeader, cn } from "@nextui-org/react";
 
-import { Roms } from "../../../types";
+import { HLTGame, Roms } from "../../../types";
 import { useBacklog } from "../../hooks/backlog-context";
 import { useRoms } from "../../hooks/roms-context";
 import { humanFileSize } from "../../utils/size";
@@ -45,10 +45,12 @@ export const Rom = ({
           id="add-to-backlog"
           onClick={async () => {
             const res = await fetch(`/api/hltb?game=${rom.info?.title}`);
-            const items = await res.json();
+            const items: HLTGame[] = await res.json();
 
-            addToBacklog(items[0]);
-            router.push("/backlog");
+            if (items.length > 0) {
+              await addToBacklog(items[0]);
+              router.push("/backlog");
+            }
           }}
         >
           Add To Backlog
@@ -102,7 +104,10 @@ export const Rom = ({
           ) : null}
         </CardBody>
         <CardFooter className="text-xs text-content4 block @[10rem]:flex justify-between">
-          <span className="@[10rem]:text-left block mb-4 @[10rem]:mb-0"> {rom.fullName}</span>
+          <span className="@[10rem]:text-left block mb-4 @[10rem]:mb-0">
+            {" "}
+            {rom.fullName}
+          </span>
           <p>{humanFileSize(rom.size)}</p>
         </CardFooter>
       </Card>
