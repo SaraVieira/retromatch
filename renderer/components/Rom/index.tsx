@@ -5,6 +5,7 @@ import { Item, Menu, useContextMenu } from "react-contexify";
 import { Card, CardBody, CardFooter, CardHeader, cn } from "@nextui-org/react";
 
 import { Roms } from "../../../types";
+import { useBacklog } from "../../hooks/backlog-context";
 import { useRoms } from "../../hooks/roms-context";
 import { humanFileSize } from "../../utils/size";
 import { Rating } from "./Rating";
@@ -21,6 +22,7 @@ export const Rom = ({
   const { query } = useRouter();
   const router = useRouter();
   const { scrapeRom } = useRoms();
+  const { addToBacklog } = useBacklog();
   const MENU_ID = `rom_context_menu_${rom.id}`;
   const { show, hideAll } = useContextMenu({
     id: MENU_ID
@@ -39,6 +41,18 @@ export const Rom = ({
   return (
     <button onContextMenu={handleContextMenu} className="w-full">
       <Menu id={MENU_ID}>
+        <Item
+          id="add-to-backlog"
+          onClick={async () => {
+            const res = await fetch(`/api/hltb?game=${rom.info?.title}`);
+            const items = await res.json();
+
+            addToBacklog(items[0]);
+            router.push("/backlog");
+          }}
+        >
+          Add To Backlog
+        </Item>
         <Item
           id="scrape"
           onClick={() => {
