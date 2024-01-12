@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Item, Menu, useContextMenu } from "react-contexify";
+import toast from "react-hot-toast";
 
 import { Card, CardBody, CardFooter, CardHeader, cn } from "@nextui-org/react";
 
-import { Roms } from "../../../types";
+import { HLTGame, Roms } from "../../../types";
+import { useBacklog } from "../../hooks/backlog-context";
 import { useRoms } from "../../hooks/roms-context";
 import { humanFileSize } from "../../utils/size";
 import { Rating } from "./Rating";
@@ -21,6 +23,7 @@ export const Rom = ({
   const { query } = useRouter();
   const router = useRouter();
   const { scrapeRom } = useRoms();
+  const { addToBacklog } = useBacklog();
   const MENU_ID = `rom_context_menu_${rom.id}`;
   const { show, hideAll } = useContextMenu({
     id: MENU_ID
@@ -39,6 +42,32 @@ export const Rom = ({
   return (
     <button onContextMenu={handleContextMenu} className="w-full">
       <Menu id={MENU_ID}>
+        {rom?.info && (
+          <Item
+            id="add-to-backlog"
+            onClick={async () => {
+              const res = await fetch(`/api/hltb?game=${rom.info?.title}`);
+              const items: HLTGame[] = await res.json();
+
+              if (items.length > 0) {
+                await addToBacklog(items[0]);
+              } else {
+                //@ts-ignore
+                await addToBacklog({
+                  name: rom.info.title,
+                  game_name: rom.info.title,
+                  image: rom.info.images.cover,
+                  comp_main: 0,
+                  comp_plus: 0,
+                  comp_100: 0
+                });
+              }
+              toast.success("Added to Backlog");
+            }}
+          >
+            Add To Backlog
+          </Item>
+        )}
         <Item
           id="scrape"
           onClick={() => {
@@ -88,7 +117,10 @@ export const Rom = ({
           ) : null}
         </CardBody>
         <CardFooter className="text-xs text-content4 block @[10rem]:flex justify-between">
-          <span className="@[10rem]:text-left block mb-4 @[10rem]:mb-0"> {rom.fullName}</span>
+          <span className="@[10rem]:text-left block mb-4 @[10rem]:mb-0">
+            {" "}
+            {rom.fullName}
+          </span>
           <p>{humanFileSize(rom.size)}</p>
         </CardFooter>
       </Card>

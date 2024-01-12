@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 import { Button, Input, Textarea } from "@nextui-org/react";
 import {
@@ -11,17 +12,21 @@ import {
   IconDeviceLaptop,
   IconEdit,
   IconFile,
+  IconListCheck,
   IconX
 } from "@tabler/icons-react";
 
+import { HLTGame } from "../../../../../types";
 import { Rating } from "../../../../components/Rom/Rating";
 import Screenshot from "../../../../components/Rom/Screenshot";
+import { useBacklog } from "../../../../hooks/backlog-context";
 import { useRoms } from "../../../../hooks/roms-context";
 import { useActivePath } from "../../../../hooks/useActivePath";
 
 export const Files = () => {
   const { activeRom, activeConsole } = useActivePath();
   const { setRomInfo } = useRoms();
+  const { addToBacklog } = useBacklog();
   const [editing, setEditing] = useState(false);
 
   const submitGameInfo = (event: React.FormEvent<HTMLFormElement>) => {
@@ -54,6 +59,27 @@ export const Files = () => {
 
   const cancelEdit = () => {
     setEditing(false);
+  };
+
+  const add = async () => {
+    const res = await fetch(`/api/hltb?game=${activeRom.info?.title}`);
+    const items: HLTGame[] = await res.json();
+
+    if (items.length > 0) {
+      await addToBacklog(items[0]);
+    } else {
+      //@ts-ignore
+      await addToBacklog({
+        name: activeRom.info.title,
+        game_name: activeRom.info.title,
+        game_id: activeRom.id,
+        image: activeRom.info.images.cover,
+        comp_main: 0,
+        comp_plus: 0,
+        comp_100: 0
+      });
+    }
+    toast.success("Added to Backlog");
   };
 
   const Title = () =>
@@ -191,9 +217,16 @@ export const Files = () => {
               </>
             )}
             {!editing && (
-              <Button onClick={editInfo} startContent={<IconEdit />}>
-                Edit
-              </Button>
+              <>
+                <Button onClick={editInfo} startContent={<IconEdit />}>
+                  Edit
+                </Button>
+                {activeRom?.info && (
+                  <Button onClick={add} startContent={<IconListCheck />}>
+                    Add to Backlog
+                  </Button>
+                )}
+              </>
             )}
           </div>
         </div>

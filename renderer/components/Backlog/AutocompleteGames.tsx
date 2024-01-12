@@ -29,7 +29,7 @@ export const AutocompleteGames = () => {
       items={list.items}
       label="Add a new game"
       variant="flat"
-      disabledKeys={backlog.map((a) => a.game.game_id.toString())}
+      disabledKeys={backlog.map((a) => a.game.game_id?.toString())}
       onInputChange={list.setFilterText}
     >
       {(item: HLTGame) => (
