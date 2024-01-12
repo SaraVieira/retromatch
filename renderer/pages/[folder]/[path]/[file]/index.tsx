@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import Image from "next/image";
-import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 
 import { Button, Input, Textarea } from "@nextui-org/react";
@@ -26,7 +25,6 @@ import { useActivePath } from "../../../../hooks/useActivePath";
 
 export const Files = () => {
   const { activeRom, activeConsole } = useActivePath();
-  const router = useRouter();
   const { setRomInfo } = useRoms();
   const { addToBacklog } = useBacklog();
   const [editing, setEditing] = useState(false);
