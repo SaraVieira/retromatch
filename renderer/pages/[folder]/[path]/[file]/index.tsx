@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 
 import { Button, Input, Textarea } from "@nextui-org/react";
 import {
@@ -68,8 +69,19 @@ export const Files = () => {
 
     if (items.length > 0) {
       await addToBacklog(items[0]);
-      router.push("/backlog");
+    } else {
+      //@ts-ignore
+      await addToBacklog({
+        name: activeRom.info.title,
+        game_name: activeRom.info.title,
+        game_id: activeRom.id,
+        image: activeRom.info.images.cover,
+        comp_main: 0,
+        comp_plus: 0,
+        comp_100: 0
+      });
     }
+    toast.success("Added to Backlog");
   };
 
   const Title = () =>

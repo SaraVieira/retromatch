@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Item, Menu, useContextMenu } from "react-contexify";
+import toast from "react-hot-toast";
 
 import { Card, CardBody, CardFooter, CardHeader, cn } from "@nextui-org/react";
 
@@ -50,8 +51,18 @@ export const Rom = ({
 
               if (items.length > 0) {
                 await addToBacklog(items[0]);
-                router.push("/backlog");
+              } else {
+                //@ts-ignore
+                await addToBacklog({
+                  name: rom.info.title,
+                  game_name: rom.info.title,
+                  image: rom.info.images.cover,
+                  comp_main: 0,
+                  comp_plus: 0,
+                  comp_100: 0
+                });
               }
+              toast.success("Added to Backlog");
             }}
           >
             Add To Backlog
