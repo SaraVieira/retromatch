@@ -12,7 +12,7 @@ import { useBacklog } from "../../hooks/backlog-context";
 
 const columns = [
   { name: "Game", id: "game_name" },
-  { name: "Released", id: "released" },
+  { name: "Released", id: "release_world" },
   { name: "Status", id: "state" },
   { name: "Complete Main", id: "comp_main" },
   { name: "Complete Main + Sides", id: "comp_plus" },

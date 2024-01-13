@@ -25,7 +25,7 @@ export const backlogTableColumns = (backlogItem: Backlog, columnKey: Key) => {
         </div>
       );
 
-    case "released":
+    case "release_world":
       return <div> {backlogItem.game.release_world}</div>;
     case "comp_main":
       return <div> {(backlogItem.game.comp_main / 3600).toFixed()} hours</div>;
