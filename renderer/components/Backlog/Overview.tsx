@@ -32,7 +32,7 @@ export const Overview = () => {
     [inBackLog]
   );
   return (
-    <div className="hidden xl:block fixed right-0  backdrop-saturate-150 bg-background/70 w-[300px] -mt-[26px] z-50 border-l border-divider p-6 h-full min-h-screen">
+    <div className="hidden xl:block fixed right-0  backdrop-saturate-150 bg-background/70 w-[250px] -mt-[26px] z-50 border-l border-divider p-6 h-full min-h-screen">
       <h2 className="font-bold text-xl">Overview</h2>
       <div className="flex flex-col gap-1 mt-4">
         <span className="flex gap-2 items-center">
