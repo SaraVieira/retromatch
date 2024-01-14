@@ -39,6 +39,7 @@ export const AutocompleteGames = () => {
           className="capitalize"
           onClick={() => {
             addToBacklog(item);
+            list.setFilterText("");
           }}
         >
           <div className=" flex items-center gap-2">
