@@ -14,9 +14,9 @@ const columns = [
   { name: "Game", id: "game_name" },
   { name: "Released", id: "release_world" },
   { name: "Status", id: "state" },
-  { name: "Complete Main", id: "comp_main" },
-  { name: "Complete Main + Sides", id: "comp_plus" },
-  { name: "Complete Everything", id: "comp_100" },
+  { name: "Main", id: "comp_main" },
+  { name: "Main + Sides", id: "comp_plus" },
+  { name: "100%", id: "comp_100" },
   { name: "Actions", id: "actions" }
 ];
 
